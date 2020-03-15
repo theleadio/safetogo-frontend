@@ -1,6 +1,6 @@
 
 module.exports = {
-  serverMiddleware: ['~/api/index.js'],
+  // serverMiddleware: ['~/api/index.js'],
   mode: 'universal',
   /*
   ** Headers of the page
@@ -29,6 +29,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/api-factory.js',
   ],
   /*
   ** Nuxt.js dev-modules

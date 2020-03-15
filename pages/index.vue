@@ -7,21 +7,7 @@
     <div class="flex mb-4">
     
       <div class="w-full">
-        <div id="map-wrap" style="height: 100vh">
-          <client-only>
-            <l-map :zoom=13 :center="[5.4164, 100.3327]">
-              <l-tile-layer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"></l-tile-layer>
-              <l-marker v-for="marker in markers" :key="marker.id" :lat-lng="marker.latlng" :l-tooltip="marker.tooltip" >
-                <l-popup>
-                  <div style='width:500px;height:200px;'>
-                    
-                  </div>
-                </l-popup>
-              </l-marker>
-            </l-map>
-          </client-only>
-        </div>
-
+        <Map />
         <h1 class="title">
           safetogo
         </h1>
@@ -52,32 +38,34 @@
 <script>
 import Logo from '~/components/Logo.vue'
 import SearchBar from '~/components/SearchBar.vue'
+import Map from '~/components/Map.vue'
 
 
 export default {
   components: {
     Logo,
-    SearchBar
+    SearchBar,
+    Map
   },
 
   data: function () {
     return {
-      markers: [
-        {
-          id:"penang",
-          "latlng":[5.4164, 100.3327],
-          "tooltip": {
-            content:"welcome"          
-          }
-        },
-        {
-          id:"permatang-pauh",
-          "latlng": [5.4111, 100.4133],
-          "tooltip": {
-            content:"welcome"          
-          }
-        }
-      ]
+      // markers: [
+      //   {
+      //     id:"penang",
+      //     "latlng":[5.4164, 100.3327],
+      //     "tooltip": {
+      //       content:"welcome"          
+      //     }
+      //   },
+      //   {
+      //     id:"permatang-pauh",
+      //     "latlng": [5.4111, 100.4133],
+      //     "tooltip": {
+      //       content:"welcome"          
+      //     }
+      //   }
+      // ]
       }
     }
 
