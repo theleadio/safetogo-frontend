@@ -1,9 +1,9 @@
 <template>
-  <div class="row">
+  <div class='flex'>
     <input
         v-model="term"
         type="text"
-        class="form-control"
+        class="form-control bg-gray-200 w-1/2 pl-2 mr-4 w-1/2 flex-grow"
         :placeholder="'Search' + '...'"
       />
     <button v-on:click="search" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search</button>

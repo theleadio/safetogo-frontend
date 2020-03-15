@@ -1,25 +1,24 @@
 <template>
-  <div>
+  <div  style='color:white'>
     <div class="flex mb-4">
-      <div class="w-1/2 p-2 bg-gray-400 text-center">
-        <img src='helmet.png' style='width:40px;' class='ml-4'/><h1 class='text-2xl ml-3 mr-3'>SafeToGo</h1>
+      <div class="w-1/2 p-2">
+        <div class="max-w-sm flex pl-6 mt-3">
+        <div class="flex-shrink-0">
+          <img class="h-12 w-12" src="helmet.png">
+        </div>
+        <div class="ml-6 pt-1 mr-5">
+          <h1 class="text-2xl leading-tight mt-2">SafeToGo</h1>
+        </div>
+        <SearchBar class='mt-2' />
       </div>
-      <div class="w-1/2 p-2 bg-gray-500 text-center">.w-1/2</div>
+      </div>
+      <div class="w-1/2 p-2 text-right pr-5 pt-3 mt-4">
+        <a href='Submit'>Submit | </a>
+        <a href='Submit'>About</a>
+      </div>
     </div>
     
-    <div class="flex mb-4 mt-4">
-      <div class="w-1/2">
-        <img src='helmet.png' style='width:40px;' class='ml-4'/><h1 class='text-2xl ml-3 mr-3'>SafeToGo</h1>
-        <SearchBar />
-      </div>
-
-      <div class="w-1/2">
-        half
-      </div>
-    </div>
-
-    <div class="flex mb-4">
-    
+    <div class="flex mb-4">    
       <div class="w-full">
         <Map />
         <h1 class="title">
