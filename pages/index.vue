@@ -1,7 +1,21 @@
 <template>
   <div>
     <div class="flex mb-4">
-      <SearchBar />
+      <div class="w-1/2 p-2 bg-gray-400 text-center">
+        <img src='helmet.png' style='width:40px;' class='ml-4'/><h1 class='text-2xl ml-3 mr-3'>SafeToGo</h1>
+      </div>
+      <div class="w-1/2 p-2 bg-gray-500 text-center">.w-1/2</div>
+    </div>
+    
+    <div class="flex mb-4 mt-4">
+      <div class="w-1/2">
+        <img src='helmet.png' style='width:40px;' class='ml-4'/><h1 class='text-2xl ml-3 mr-3'>SafeToGo</h1>
+        <SearchBar />
+      </div>
+
+      <div class="w-1/2">
+        half
+      </div>
     </div>
 
     <div class="flex mb-4">
