@@ -13,7 +13,12 @@ module.exports = {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css'}
+    ],
+    script: [
+      { src: 'https://code.jquery.com/jquery-3.4.1.slim.min.js', type: 'text/javascript' },
+      { src: 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js', type: 'text/javascript' }
     ]
   },
   /*
@@ -24,6 +29,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    '~/assets/css/safetogo.css'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -47,7 +53,7 @@ module.exports = {
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
-    'nuxt-leaflet'
+    'nuxt-leaflet',
   ],
   /*
   ** Axios module configuration

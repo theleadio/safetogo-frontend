@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div class="flex mb-4">
-      <SearchBar />
-    </div>
+    <SearchBar />
 
     <div class="flex mb-4">
     
