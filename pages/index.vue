@@ -1,6 +1,12 @@
 <template>
   <div>
-    <SearchBar />
+    <div class="row">
+      <div class="col-3">
+        <img src="images/helmet.png" alt="" class='ml-3' style='width:50px;display:inline'/>
+        <h1 class='pt-3 mt-4' style='display:inline'>SafeToGo</h1>
+      </div>      
+    <div class="col-6"><SearchBar /></div>
+    </div>
 
     <div class="flex mb-4">
     
