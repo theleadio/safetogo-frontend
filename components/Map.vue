@@ -4,7 +4,8 @@
             <l-map :zoom="zoom" :center="center">
               <l-tile-layer :url="url"></l-tile-layer>
               <l-marker v-for="marker in markers" :key="marker.id" :lat-lng="marker.latlng" :l-tooltip="marker.tooltip" v-on:click="innerClick(marker.latlng)" >
-                <l-tooltip text="aloha">
+                <l-tooltip>
+                  Tooltip for marker display here.
                 </l-tooltip>
               </l-marker>
             </l-map>
@@ -12,6 +13,7 @@
         </div>
 </template>
 <script>
+
 import { mapGetters } from 'vuex'
 
 export default {

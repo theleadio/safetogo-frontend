@@ -43,6 +43,7 @@
 import Logo from '~/components/Logo.vue'
 import SearchBar from '~/components/SearchBar.vue'
 import Map from '~/components/Map.vue'
+import 'leaflet/dist/leaflet.css'
 
 
 export default {
