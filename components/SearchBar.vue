@@ -1,15 +1,20 @@
 <template>
   <div class="row search-bar">
     <div class="col-8">
-      <input
+      <div class="input-group">
+        <input
+          v-on:keyup.enter="search"
           v-model="term"
           type="text"
           class="form-control"
           :placeholder="'Search' + '...'"
-        />
-    </div>
-    <div class="col-2">
-      <button v-on:click="search" class="btn btn-primary">Search</button>
+          />
+        <div class="input-group-append">
+            <button v-on:click="search" class="btn btn-primary">
+              <i class="fas fa-search-location "></i> Search
+            </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -22,11 +27,18 @@ export default {
   name: 'Search',
   data: function () {
     return {
-      term:''
+      term: '',
+      timeoutID: null,
+      results: [],
+      state: 'idle',
+      focusCounter: 0,
+      focusTimeoutId: null
     }
   },
   methods:{
     performSearch: function(keywords) {
+      this.state = 'loading';
+      console.log(keywords)
       this.$api
         .location
         .searchAddress(keywords)
@@ -39,7 +51,7 @@ export default {
     },
     search: function() {
       this.performSearch(this.term.split(' ').join('+'));
-    }
+    },
   }
 }
 </script>
