@@ -50,10 +50,18 @@ export default {
     }
   },
   methods: {
+    hideAllPost: function(){
+      this.$store.commit('story/hidePost');
+      this.$store.commit('news/hideNews');
+    },
     innerClick: function(location, create) {
       this.$store.commit('story/setLatLng', location);
+      this.hideAllPost();
       if(create){
         this.$store.commit('story/showPost');
+      }
+      else{
+        this.$store.commit('news/showNews');
       }
     },
     openPopUp: function(event){
@@ -62,7 +70,7 @@ export default {
 				})
     },
     hide: function(event){
-      this.$store.commit('story/hidePost');
+      this.hideAllPost();
     }
   }
 }

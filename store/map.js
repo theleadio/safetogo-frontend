@@ -11,7 +11,7 @@ export const state = () => ({
         id:"penang",
         latlng:[5.4164, 100.3327],
         tooltip: {
-            content:"welcome"          
+            content:"Penang"          
         },
         popup:{
             show: false,
@@ -27,7 +27,7 @@ export const state = () => ({
         id:"permatang-pauh",
         latlng: [5.4111, 100.4133],
         tooltip: {
-            content:"welcome"          
+            content:"Permatang Pauh"          
         },
         popup:{
             show: false,
@@ -40,7 +40,7 @@ export const state = () => ({
         create: false
         }],
     focus : {
-        zoom: 5,
+        zoom: 8,
     },
     currentLocation: {
 

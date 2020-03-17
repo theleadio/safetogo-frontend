@@ -3,7 +3,8 @@
     <div class="col">
       <SearchBar />
       <Map />
-      <Content />
+      <NewForm />
+      <ContentWrapper />
     </div>
   </div>
 </template>
@@ -12,7 +13,8 @@
 import Logo from '~/components/Logo.vue'
 import SearchBar from '~/components/SearchBar.vue'
 import Map from '~/components/Map.vue'
-import Content from '~/components/ContentWrapper.vue'
+import NewForm from '~/components/InputForm.vue'
+import ContentWrapper from '~/components/ContentWrapper.vue'
 
 
 export default {
@@ -20,7 +22,8 @@ export default {
     Logo,
     SearchBar,
     Map,
-    Content
+    NewForm,
+    ContentWrapper
   },
 
   data: function () {
