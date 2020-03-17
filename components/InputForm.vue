@@ -82,7 +82,7 @@ export default {
             right: none;
         }
     }
-    @media screen and (max-width: 375px) {
+    @media screen and (max-width: 411px) {
         #story-create{
             width: 80%;
             padding:5%;
