@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col">
+    <div class="wrapper">
       <SearchBar />
       <Map />
       <NewForm />
@@ -35,6 +35,9 @@ export default {
 </script>
 
 <style>
+.wrapper{
+  width:100%;
+}
 /* Sample `apply` at-rules with Tailwind CSS
 .container {
   @apply min-h-screen flex justify-center items-center text-center mx-auto;

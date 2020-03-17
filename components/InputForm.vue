@@ -1,6 +1,7 @@
 <template>
     <div class="row">
         <form id="story-create" v-if="show" class="box-drop-shadow">
+            <i class="fas fa-times" v-on:click="hide"></i>
             <label>Create a Post</label>
             <div class="form-group">
                 <input id="title" class="form-control form-control-sm" type="text" placeholder="Title" :value="title">
@@ -27,7 +28,13 @@ export default {
         show(){
             return this.$store.state.story.createStory
         }
+    },
+    methods:{
+        hide: function(event){
+            this.$store.commit('story/hidePost');
+        }
     }
+
 }
 </script>
 <style>
@@ -41,7 +48,6 @@ export default {
         margin-right:2%;
         width:30%;
         z-index: 1000;
-        /* background-color:rgb(255,255,255,.2) */
         background-color:rgba(92, 63, 63, 0.4);
     }
     #story-create label{
@@ -51,6 +57,39 @@ export default {
     }
     input[type=text], textarea{
         margin-bottom: 10px;
+    }
+    #story-create .fa-times{
+        color: #fefefe;
+        float:right;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    #story-create .fa-times:hover{
+        color: #9b9b9b;
+    }
+
+    @media screen and (min-width:1440px) {
+        #story-create{
+            margin-right:10%;
+        }
+    }
+    @media screen and (max-width:1024px) {
+        #story-create{
+            width: 50%;
+            margin-top:25%;
+            margin-right:10%;
+            right: none;
+        }
+    }
+    @media screen and (max-width: 375px) {
+        #story-create{
+            width: 80%;
+            padding:5%;
+            margin-top:35%;
+            margin-right:10%;
+            right: none;
+        }
     }
     
 </style>

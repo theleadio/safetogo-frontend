@@ -79,4 +79,15 @@ export default {
   #map-wrap{
     position: relative;
   }
+  @media screen and (min-width:1024px) {
+    .leaflet-top .leaflet-control{
+        margin-top: 70px !important;
+    }   
+  }
+    
+  @media screen and (max-width: 375px){
+    .leaflet-top .leaflet-control{
+        margin-top: 100px !important;
+    }
+  }
 </style>
