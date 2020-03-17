@@ -84,8 +84,8 @@ export default {
         margin-top: 70px !important;
     }   
   }
-    
-  @media screen and (max-width: 411px){
+
+  @media screen and (max-width: 812px){
     .leaflet-top .leaflet-control{
         margin-top: 100px !important;
     }
