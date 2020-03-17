@@ -1,10 +1,14 @@
 <template>
     <div id="map-wrap" style="height: 100vh">
           <client-only>
-            <l-map :zoom="zoom" :center="center">
+            <l-map :zoom="zoom" :center="center" v-on:click="hide">
               <l-tile-layer :url="url"></l-tile-layer>
               <l-marker v-for="marker in markers" :key="marker.id" :lat-lng="marker.latlng" 
-                :l-tooltip="marker.tooltip" :l-popup="marker.popup" v-on:click="innerClick(marker.latlng)" @add="openPopUp">
+                :l-tooltip="marker.tooltip" :l-popup="marker.popup"  v-on:click="innerClick(marker.latlng, marker.create)" @add="openPopUp">
+                <l-icon 
+                  :icon-url="marker.icon.iconUrl"
+                  :shadow-url="marker.icon.shadowUrl"
+                  ></l-icon>
                 <l-tooltip text="aloha">
                   {{marker.tooltip.content}}
                 </l-tooltip>
@@ -36,9 +40,6 @@ export default {
     },
     zoom() {
       return this.$store.state.map.focus.zoom
-    },
-    currentLocation(){
-      return this.$store.state.map.focus.center
     }
   },
   data: () => {
@@ -49,14 +50,25 @@ export default {
     }
   },
   methods: {
-    innerClick: function(location) {
+    innerClick: function(location, create) {
       this.$store.commit('story/setLatLng', location);
+      if(create){
+        this.$store.commit('story/showPost');
+      }
     },
     openPopUp: function(event){
       this.$nextTick(() => {
 					event.target.openPopup();
 				})
+    },
+    hide: function(event){
+      this.$store.commit('story/hidePost');
     }
   }
 }
 </script>
+<style>
+  #map-wrap{
+    position: relative;
+  }
+</style>

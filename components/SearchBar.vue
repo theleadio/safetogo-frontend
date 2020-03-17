@@ -1,5 +1,8 @@
 <template>
-  <div class="row search-bar">
+  <div class="row search-bar-wrapper">
+    <div class="col-2">
+      <h1>SafeToGo</h1>
+    </div>
     <div class="col-8">
       <div class="input-group">
         <input
@@ -45,7 +48,7 @@ export default {
         .then((value)=> {
           console.log(value);
           this.$store.commit('map/set_location', value); 
-          this.$store.commit('map/setUserFocus', value);
+          // this.$store.commit('map/setUserFocus', value);
           })
         .catch((err) => {console.log(err)});
     },
@@ -55,3 +58,15 @@ export default {
   }
 }
 </script>
+<style>
+  .search-bar-wrapper{
+    width:80%;
+    position: absolute;
+    z-index: 1000;
+    margin-left:2%;
+    padding:1%;
+  }
+  .search-bar-wrapper .input-group{
+    padding-top:.5%;
+  }
+</style>

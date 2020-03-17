@@ -1,5 +1,6 @@
 export const state = () => ({
-    stories: []
+    stories: [],
+    show_stories: false
 });
 
 export const mutations = {
