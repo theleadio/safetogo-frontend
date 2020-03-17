@@ -190,7 +190,7 @@ export default {
         margin-left: 5px;
     }
 }
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 411px) {
     .content-wrapper{
         width:100%;
     }

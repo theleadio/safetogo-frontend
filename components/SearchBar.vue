@@ -104,7 +104,7 @@ export default {
   }
 }
 
-@media screen and (max-width: 375px){
+@media screen and (max-width: 411px){
   h1{
     padding-top:1%;
     font-size: 20px;
