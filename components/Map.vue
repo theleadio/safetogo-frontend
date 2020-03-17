@@ -26,17 +26,30 @@ import { mapGetters, mapMutations} from 'vuex'
 
 export default {
   beforeMount(){
+    
     navigator.geolocation.getCurrentPosition(
             (value) => {
               let lat = value["coords"]["latitude"];
               let lon = value["coords"]["longitude"];
               this.center = {lon: lon, lat: lat}
+              console.log(this.center)
             }
         );
   },
   computed: {
     markers(){
-      return this.$store.state.map.location
+      let location = this.$store.state.map.location
+      if (location.length == 0 && this.center["lat"] != 0.0){
+        this.$store.commit('map/setUserLatLng', [{
+          address:{
+            road:"You are here"
+            },
+          lat:this.center["lat"],
+          lon:this.center["lon"],
+          display_name: "You are here"
+          }]);
+      }
+      return location
     },
     zoom() {
       return this.$store.state.map.focus.zoom
