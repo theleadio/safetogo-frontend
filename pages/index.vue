@@ -1,34 +1,11 @@
 <template>
-  <div>
-    <SearchBar />
-
-    <div class="flex mb-4">
-    
-      <div class="w-full">
-        <Map />
-        <h1 class="title">
-          safetogo
-        </h1>
-        <h2 class="subtitle">
-          Hmmm Display the locations where Coronavirus cases have been reported
-        </h2>
-        <div class="links">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            class="button--green"
-          >
-            Documentation
-          </a>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            class="button--grey"
-          >
-            GitHub
-          </a>
-        </div>
-      </div>
+  <div class="row">
+    <div class="col-lg-10">
+      <SearchBar />
+      <Map />
+    </div>
+    <div class="col-lg-2">
+      <Content />
     </div>
   </div>
 </template>
@@ -37,33 +14,19 @@
 import Logo from '~/components/Logo.vue'
 import SearchBar from '~/components/SearchBar.vue'
 import Map from '~/components/Map.vue'
+import Content from '~/components/ContentWrapper.vue'
 
 
 export default {
   components: {
     Logo,
     SearchBar,
-    Map
+    Map,
+    Content
   },
 
   data: function () {
     return {
-      // markers: [
-      //   {
-      //     id:"penang",
-      //     "latlng":[5.4164, 100.3327],
-      //     "tooltip": {
-      //       content:"welcome"          
-      //     }
-      //   },
-      //   {
-      //     id:"permatang-pauh",
-      //     "latlng": [5.4111, 100.4133],
-      //     "tooltip": {
-      //       content:"welcome"          
-      //     }
-      //   }
-      // ]
       }
     }
 

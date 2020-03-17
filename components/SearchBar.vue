@@ -9,7 +9,7 @@
         />
     </div>
     <div class="col-2">
-      <button v-on:click="search" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search</button>
+      <button v-on:click="search" class="btn btn-primary">Search</button>
     </div>
   </div>
 </template>
@@ -33,6 +33,7 @@ export default {
         .then((value)=> {
           console.log(value);
           this.$store.commit('map/set_location', value); 
+          this.$store.commit('map/setUserFocus', value);
           })
         .catch((err) => {console.log(err)});
     },
