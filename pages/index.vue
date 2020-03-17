@@ -6,6 +6,7 @@
     </div>
     <div class="col-lg-2">
       <Content />
+
     </div>
   </div>
 </template>
