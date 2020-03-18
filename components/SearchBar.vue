@@ -104,21 +104,23 @@ export default {
   beforeMount(){
     gapi.load('auth2,signin2', function() {
         let auth2 = gapi.auth2.init({
-          client_id: 'CLIENT_ID.apps.googleusercontent.com',
+          client_id: '468040312422-9jeej0dqrcjis4vt0k6rt7g2lg3tsaja.apps.googleusercontent.com',
           fetch_basic_profile: false,
           scope: 'profile'
         });
 
         // Sign the user in, and then retrieve their ID.
-        auth2.signIn().then(function() {
-          let profile = googleUser.getBasicProfile();
-          this.$store.commit('user/loginUser',{
-              id: profile.getId(),
-              name: profile.getName(),
-              img_url: profile.getImageUrl(),
-              email: profile.getEmail(),
-          });
-        });
+        if(auth2.isSignedIn.get()){
+            auth2.signIn().then(function() {
+              let profile = googleUser.getBasicProfile();
+              this.$store.commit('user/loginUser',{
+                  id: profile.getId(),
+                  name: profile.getName(),
+                  img_url: profile.getImageUrl(),
+                  email: profile.getEmail(),
+              });
+            });
+        }
       });
   }
 }
