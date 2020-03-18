@@ -3,6 +3,10 @@
         <div class="login-form-label">
             <label>Login to drop pin</label>
         </div>
+        <fb:login-button 
+            scope="public_profile,email"
+            onlogin="checkLoginState();">
+        </fb:login-button>
         <!-- <div 
             class="fb-login-button login-button" 
             data-width="" 
@@ -50,6 +54,13 @@ export default {
     data: function () {
         return {}
     },
+    methods:{
+        checkLoginState: function(){
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });   
+        }
+    }
 }
 </script>
 <style>
