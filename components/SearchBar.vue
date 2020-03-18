@@ -65,7 +65,6 @@ export default {
       state: 'idle',
       focusCounter: 0,
       focusTimeoutId: null,
-      isLogin: this.isLogin(),
     }
   },
   methods:{
@@ -147,6 +146,7 @@ export default {
           }
         });
     });
+  }
 }
 </script>
 <style>
