@@ -32,7 +32,7 @@
           <img :src="userImg"/><a href="" v-on:click="signOut"> Sign out </a>
         </div>
         <div v-else>
-          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+          <div class="g-signin2" data-onsuccess="onSignIn" v-on:click="onSignIn"></div>
         </div>
       </div>
     </div>
@@ -89,14 +89,23 @@ export default {
     },
 
     onSignIn: function(googleUser){
-        let profile = googleUser.getBasicProfile();
-        this.$store.commit('user/loginUser',{
-            id: profile.getId(),
-            name: profile.getName(),
-            img_url: profile.getImageUrl(),
-            email: profile.getEmail(),
+      gapi.load('auth2,signin2', function() {
+        let auth2 = gapi.auth2.init({
+          client_id: '468040312422-9jeej0dqrcjis4vt0k6rt7g2lg3tsaja.apps.googleusercontent.com',
+          fetch_basic_profile: false,
+          scope: 'profile'
         });
-        this.$store.commit('user/signedIn');
+        auth2.signIn().then(function() {
+          let profile = googleUser.getBasicProfile();
+          this.$store.commit('user/loginUser',{
+              id: profile.getId(),
+              name: profile.getName(),
+              img_url: profile.getImageUrl(),
+              email: profile.getEmail(),
+          });
+          this.$store.commit('user/signedIn');
+        });
+      });
     },
 
     signOut: function(){
