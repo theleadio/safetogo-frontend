@@ -6,7 +6,9 @@
         <h1>SafeToGo</h1>
       </div>
     </div>
-    <div class="col-12 col-md-10">
+
+
+    <div class="col-12 col-md-9">
       <div class="input-group box-drop-shadow">
         <input
           v-on:keyup.enter="search"
@@ -21,16 +23,36 @@
             </button>
         </div>
       </div>
+    </div> 
+
+    <div class="col-md-1">
+      <div class="account">
+        <div v-if="isLogin">
+          <img :src="userImg"/><a href="" v-on:click="signOut"> Sign out </a>
+        </div>
+        <div v-else>
+          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        </div>
+      </div>
     </div>
+
   </div>
 </template>
 
 <script>
 
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'Search',
+  computed:{
+    isLogin(){
+      return this.$store.state.user.login
+    },
+    userImg(){
+      return this.$store.state.user.profile.img_url
+    }
+  },
   data: function () {
     return {
       term: '',
@@ -63,17 +85,43 @@ export default {
     search: function() {
       this.performSearch(this.term.split(' ').join('+'));
     },
+
+    onSignIn: function(googleUser){
+            let profile = googleUser.getBasicProfile();
+            this.$store.commit('user/loginUser',{
+                id: profile.getId(),
+                name: profile.getName(),
+                img_url: profile.getImageUrl(),
+                email: profile.getEmail(),
+            });
+        },
+    signOut: function(){
+      let auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+    });
+    }
   }
 }
 </script>
 <style>
 .search-bar-wrapper{
-    width: 80%;
+    width: 100%;
     position: absolute;
     z-index: 1000;
     margin-left:2%;
     padding:1%;
   }
+.account img{
+  width: 50px;
+  border-radius: 50%;
+  display:block;
+  right: 0;
+}
+.account a {
+  text-decoration: none;
+  font-size: 14px;
+}
 @media screen and (min-width:1440px) {
   h1{
     padding-top:1%;

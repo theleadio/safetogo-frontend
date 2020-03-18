@@ -17,7 +17,6 @@ import SearchBar from '~/components/SearchBar.vue'
 import Map from '~/components/Map.vue'
 import NewForm from '~/components/InputForm.vue'
 import ContentWrapper from '~/components/ContentWrapper.vue'
-import LoginForm from '~/components/Login.vue'
 
 
 export default {
@@ -34,7 +33,6 @@ export default {
     Map,
     NewForm,
     ContentWrapper,
-    LoginForm
   },
   data: function () {
     return {
