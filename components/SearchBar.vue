@@ -26,7 +26,7 @@
     </div> 
 
     <div class="col-md-1">
-      <div class="account">
+      <div class="account" @add="onSignIn">
         <div v-if="isLogin">
           <img :src="userImg"/><a href="" v-on:click="signOut"> Sign out </a>
         </div>
@@ -45,22 +45,13 @@ import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'Search',
-  mounted(){
-    let profile = googleUser.getBasicProfile();
-        this.$store.commit('user/loginUser',{
-            id: profile.getId(),
-            name: profile.getName(),
-            img_url: profile.getImageUrl(),
-            email: profile.getEmail(),
-        });
-  },
   computed:{
     isLogin(){
       return this.$store.state.user.login
     },
     userImg(){
       return this.$store.state.user.profile.img_url
-    }
+    },
   },
   data: function () {
     return {
@@ -84,10 +75,8 @@ export default {
         .location
         .searchAddress(keywords)
         .then((value)=> {
-          // console.log(value);
           this.hideAllPost();
           this.$store.commit('map/set_location', value); 
-          // this.$store.commit('map/setUserFocus', value);
           })
         .catch((err) => {console.log(err)});
     },
@@ -104,12 +93,33 @@ export default {
             email: profile.getEmail(),
         });
     },
+
     signOut: function(){
       let auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(function () {
         console.log('User signed out.');
     });
     }
+  },
+  beforeMount(){
+    gapi.load('auth2,signin2', function() {
+        let auth2 = gapi.auth2.init({
+          client_id: 'CLIENT_ID.apps.googleusercontent.com',
+          fetch_basic_profile: false,
+          scope: 'profile'
+        });
+
+        // Sign the user in, and then retrieve their ID.
+        auth2.signIn().then(function() {
+          let profile = googleUser.getBasicProfile();
+          this.$store.commit('user/loginUser',{
+              id: profile.getId(),
+              name: profile.getName(),
+              img_url: profile.getImageUrl(),
+              email: profile.getEmail(),
+          });
+        });
+      });
   }
 }
 </script>
