@@ -65,6 +65,7 @@ export default {
       state: 'idle',
       focusCounter: 0,
       focusTimeoutId: null,
+      userProfile: {}
     }
   },
   methods:{
@@ -119,7 +120,6 @@ export default {
   mounted: function (){
     this.$nextTick(()=>{
       console.log("nextTick")
-      let userProfile = {};
       gapi.load('auth2,signin2', function() {
         let auth2 = gapi.auth2.init({
           client_id: '468040312422-9jeej0dqrcjis4vt0k6rt7g2lg3tsaja.apps.googleusercontent.com',
