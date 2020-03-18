@@ -45,6 +45,15 @@ import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'Search',
+  mounted(){
+    let profile = googleUser.getBasicProfile();
+        this.$store.commit('user/loginUser',{
+            id: profile.getId(),
+            name: profile.getName(),
+            img_url: profile.getImageUrl(),
+            email: profile.getEmail(),
+        });
+  },
   computed:{
     isLogin(){
       return this.$store.state.user.login
@@ -87,14 +96,14 @@ export default {
     },
 
     onSignIn: function(googleUser){
-            let profile = googleUser.getBasicProfile();
-            this.$store.commit('user/loginUser',{
-                id: profile.getId(),
-                name: profile.getName(),
-                img_url: profile.getImageUrl(),
-                email: profile.getEmail(),
-            });
-        },
+        let profile = googleUser.getBasicProfile();
+        this.$store.commit('user/loginUser',{
+            id: profile.getId(),
+            name: profile.getName(),
+            img_url: profile.getImageUrl(),
+            email: profile.getEmail(),
+        });
+    },
     signOut: function(){
       let auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(function () {
