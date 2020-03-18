@@ -133,7 +133,7 @@ export default {
           auth2.signIn().then(function(googleUser) {
             let profile = googleUser.getBasicProfile();
             console.log("signin profile")
-            userProfile = {
+            this.userProfile = {
               id: profile.getId(),
               name: profile.getName(),
               img_url: profile.getImageUrl(),
