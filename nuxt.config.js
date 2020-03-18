@@ -19,7 +19,8 @@ module.exports = {
     script: [
       { src: 'https://code.jquery.com/jquery-3.4.1.slim.min.js', type: 'text/javascript' },
       { src: 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js', type: 'text/javascript' },
-      { src: 'https://kit.fontawesome.com/48d20e9c42.js', crossorigin: 'anonymous', type:'text/javascript'}
+      { src: 'https://kit.fontawesome.com/48d20e9c42.js', crossorigin: 'anonymous', type:'text/javascript'},
+      { src: "https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v6.0&appId=1555723304582235&autoLogAppEvents=1", crossorigin:"anonymous"},
     ]
   },
   /*
@@ -55,6 +56,7 @@ module.exports = {
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
     'nuxt-leaflet',
+    '@nuxtjs/auth'
   ],
   /*
   ** Axios module configuration
@@ -62,6 +64,19 @@ module.exports = {
   */
   axios: {
     baseURL:'http://localhost:3000/api'
+  },
+  // 1555723304582235
+  auth :{
+    strategies: {
+      facebook: {
+        client_id: '37ffff79cac912f54a09a2cccf6d0461',
+        userinfo_endpoint: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday',
+        scope: ['public_profile', 'email']
+      },
+      google: { //WqaH-4rPN-FRaEhR6FJF9uSB
+        client_id: '468040312422-9jeej0dqrcjis4vt0k6rt7g2lg3tsaja.apps.googleusercontent.com'
+      }
+    }
   },
   /*
   ** Build configuration

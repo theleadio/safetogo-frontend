@@ -31,8 +31,7 @@ export default {
             (value) => {
               let lat = value["coords"]["latitude"];
               let lon = value["coords"]["longitude"];
-              this.center = {lon: lon, lat: lat}
-              console.log(this.center)
+              this.center = {lon: lon, lat: lat};
             }
         );
   },

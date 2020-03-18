@@ -1,10 +1,12 @@
 <template>
   <div class="row">
+    <div id="fb-root"></div>
     <div class="wrapper">
       <SearchBar />
       <Map />
       <NewForm />
       <ContentWrapper />
+      <LoginForm />
     </div>
   </div>
 </template>
@@ -15,23 +17,32 @@ import SearchBar from '~/components/SearchBar.vue'
 import Map from '~/components/Map.vue'
 import NewForm from '~/components/InputForm.vue'
 import ContentWrapper from '~/components/ContentWrapper.vue'
+import LoginForm from '~/components/Login.vue'
 
 
 export default {
+  computed:{
+    login(){
+      // FB.getLoginStatus(function(response) {
+      //     console.log(response);
+      // });
+    }
+  },
   components: {
     Logo,
     SearchBar,
     Map,
     NewForm,
-    ContentWrapper
+    ContentWrapper,
+    LoginForm
   },
-
   data: function () {
     return {
       }
     }
 
 }
+
 </script>
 
 <style>
