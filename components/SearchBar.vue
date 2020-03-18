@@ -92,11 +92,13 @@ export default {
             img_url: profile.getImageUrl(),
             email: profile.getEmail(),
         });
+        this.$store.commit('user/signedIn');
     },
 
     signOut: function(){
       let auth2 = gapi.auth2.getAuthInstance();
       auth2.signOut().then(function () {
+        this.$store.commit('user/signOut');
         console.log('User signed out.');
     });
     }
@@ -119,6 +121,7 @@ export default {
                   img_url: profile.getImageUrl(),
                   email: profile.getEmail(),
               });
+              this.$store.commit('user/signedIn');
             });
         }
       });
