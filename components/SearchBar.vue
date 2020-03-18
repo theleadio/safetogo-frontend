@@ -129,6 +129,7 @@ export default {
           console.log(auth2.isSignedIn.get());
           // Sign the user in, and then retrieve their ID.
           if(!auth2.isSignedIn.get()){
+            console.log("Login")
             auth2.signIn().then(function(googleUser) {
               let profile = googleUser.getBasicProfile();
               console.log("signin profile")
