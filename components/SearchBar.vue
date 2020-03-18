@@ -32,7 +32,7 @@
           <img :src="userImg"/><a href="" v-on:click="signOut"> Sign out </a>
         </div>
         <div v-else>
-          <div class="g-signin2" data-onsuccess="onSignIn" v-on:click="onSignIn"></div>
+          <div class="g-signin2" v-on:click="onSignIn"></div>
         </div>
       </div>
     </div>
