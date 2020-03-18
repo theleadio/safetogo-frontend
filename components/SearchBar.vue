@@ -26,7 +26,8 @@
     </div> 
 
     <div class="col-md-1">
-      <div class="account" @add="onSignIn">
+      <div class="account">
+        {{user}}
         <div v-if="isLogin">
           <img :src="userImg"/><a href="" v-on:click="signOut"> Sign out </a>
         </div>
@@ -52,6 +53,9 @@ export default {
     userImg(){
       return this.$store.state.user.profile.img_url
     },
+    user(){
+      return this.$store.state.user.profile
+    }
   },
   data: function () {
     return {
@@ -110,7 +114,7 @@ export default {
           fetch_basic_profile: false,
           scope: 'profile'
         });
-
+        console.log(auth2.isSignedIn.get());
         // Sign the user in, and then retrieve their ID.
         if(auth2.isSignedIn.get()){
             auth2.signIn().then(function() {
