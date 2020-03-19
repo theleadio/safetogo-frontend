@@ -6,7 +6,6 @@
       <Map />
       <NewForm />
       <ContentWrapper />
-      <LoginForm />
     </div>
   </div>
 </template>
@@ -21,11 +20,6 @@ import ContentWrapper from '~/components/ContentWrapper.vue'
 
 export default {
   computed:{
-    login(){
-      // FB.getLoginStatus(function(response) {
-      //     console.log(response);
-      // });
-    }
   },
   components: {
     Logo,

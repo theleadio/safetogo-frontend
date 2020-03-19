@@ -27,13 +27,14 @@
 
     <div class="col-md-1">
       <div class="account">
-        {{user}}
-        <div v-if="isLogin">
-          <img :src="userImg"/><a href="" v-on:click="signOut"> Sign out </a>
-        </div>
-        <div v-else>
-          <div class="g-signin2" v-on:click="onSignIn"></div>
-        </div>
+        <p>{{user}}</p>
+        <p>User: {{ $auth.hasScope('user') }}</p>
+        <p>Test: {{ $auth.hasScope('test') }}</p>
+        <p>Admin: {{ $auth.hasScope('admin') }}</p>
+        <p> {{state}}</p>
+        <!-- <p>{{ $auth.token.get() || '-' }}</p>
+        <p>{{ $auth.refreshToken.get() || '-' }}></p> -->
+        <img src="~/assets/img/helmet.png"/><button v-on:click="googleLogin"> Sign in </button>
       </div>
     </div>
 
@@ -46,15 +47,16 @@ import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   name: 'Search',
+  middleware: ['auth'],
   computed:{
-    isLogin(){
-      return this.$store.state.user.login
-    },
     userImg(){
       return this.$store.state.user.profile.img_url
     },
     user(){
       return this.$store.state.user.profile
+    },
+    state() {
+      return JSON.stringify(this.$auth.$state, undefined, 2)
     }
   },
   data: function () {
@@ -62,7 +64,6 @@ export default {
       term: '',
       timeoutID: null,
       results: [],
-      state: 'idle',
       focusCounter: 0,
       focusTimeoutId: null,
       userProfile: {}
@@ -88,67 +89,43 @@ export default {
     search: function() {
       this.performSearch(this.term.split(' ').join('+'));
     },
-
-    onSignIn: function(googleUser){
-      gapi.load('auth2,signin2', function() {
-        let auth2 = gapi.auth2.init({
-          client_id: '468040312422-9jeej0dqrcjis4vt0k6rt7g2lg3tsaja.apps.googleusercontent.com',
-          fetch_basic_profile: false,
-          scope: 'profile'
-        });
-        auth2.signIn().then(function() {
-          let profile = googleUser.getBasicProfile();
-          this.$store.commit('user/loginUser',{
-              id: profile.getId(),
-              name: profile.getName(),
-              img_url: profile.getImageUrl(),
-              email: profile.getEmail(),
-          });
-          this.$store.commit('user/signedIn');
-        });
-      });
-    },
-
-    signOut: function(){
-      let auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function () {
-        this.$store.commit('user/signOut');
-        console.log('User signed out.');
-    });
+    googleLogin:function(){
+      this.$auth.loginWith('google')
     }
   },
-  mounted: function (){
-    this.$nextTick(()=>{
-      console.log("nextTick")
-      gapi.load('auth2,signin2', function() {
-        let auth2 = gapi.auth2.init({
-          client_id: '468040312422-9jeej0dqrcjis4vt0k6rt7g2lg3tsaja.apps.googleusercontent.com',
-          fetch_basic_profile: false,
-          scope: 'profile'
-        });
-        console.log(auth2.isSignedIn.get());
-        // Sign the user in, and then retrieve their ID.
-        if(!auth2.isSignedIn.get()){
-          console.log(!auth2.isSignedIn.get())
-          auth2.signIn().then(function(googleUser) {
-            let profile = googleUser.getBasicProfile();
-            console.log("signin profile")
-            this.userProfile = {
-              id: profile.getId(),
-              name: profile.getName(),
-              img_url: profile.getImageUrl(),
-              email: profile.getEmail(),
-            }
-            console.log(userProfile)  
-          });
-          console.log(userProfile)  
-          this.$store.commit('user/loginUser', userProfile);
-          console.log("set user signed IN")
-          this.$store.commit('user/signedIn');
-        }
-      });
-    });
-  }
+  // mounted: function (){
+  //   this.$nextTick(()=>{
+  //     console.log("nextTick")
+  //     let userProfile = {};
+  //     gapi.load('auth2,signin2', function() {
+  //       let auth2 = gapi.auth2.init({
+  //         client_id: '468040312422-9jeej0dqrcjis4vt0k6rt7g2lg3tsaja.apps.googleusercontent.com',
+  //         fetch_basic_profile: false,
+  //         scope: 'profile'
+  //       });
+  //       console.log(auth2.isSignedIn.get());
+  //       // Sign the user in, and then retrieve their ID.
+  //       if(!auth2.isSignedIn.get()){
+  //         console.log(!auth2.isSignedIn.get())
+  //         auth2.signIn().then(function(googleUser) {
+  //           let profile = googleUser.getBasicProfile();
+  //           console.log("signin profile")
+  //           this.userProfile = {
+  //             id: profile.getId(),
+  //             name: profile.getName(),
+  //             img_url: profile.getImageUrl(),
+  //             email: profile.getEmail(),
+  //           }
+  //           console.log(userProfile)  
+  //         });
+  //         console.log(userProfile)  
+  //         this.$store.commit('user/loginUser', userProfile);
+  //         console.log("set user signed IN")
+  //         this.$store.commit('user/signedIn');
+  //       }
+  //     });
+  //   });
+  // }
 }
 </script>
 <style>
@@ -159,6 +136,9 @@ export default {
     margin-left:2%;
     padding:1%;
   }
+.account{
+  font-size: 12px;
+}
 .account img{
   width: 50px;
   border-radius: 50%;
