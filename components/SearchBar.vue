@@ -35,9 +35,9 @@
         <p>{{ $auth.$state.loggedIn }}</p>
         <!-- <p>{{ $auth.refreshToken.get() || '-' }}></p> -->
         <form>
-          <input v-model="username" ref="username"/>
+          <input v-model="email" type="email" ref="username"/>
           <input v-model="password" type="password"/>
-          <button @click="$auth.loginWith('google')"> Sign in </button>
+          <button @click="googleLogin"> Sign in </button>
         </form>
       </div>
     </div>
@@ -70,7 +70,9 @@ export default {
       results: [],
       focusCounter: 0,
       focusTimeoutId: null,
-      userProfile: {}
+      userProfile: {},
+      email: '',
+      password: ''
     }
   },
   methods:{
