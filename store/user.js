@@ -29,6 +29,6 @@ export const mutations = {
         state.profile.name = payload["name"];
         state.profile.img_url = payload["img_url"];
         state.profile.email = payload["email"];
-        this.signedIn()
+        state.login = true
     },
 }
