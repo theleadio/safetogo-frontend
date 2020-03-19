@@ -18,16 +18,17 @@ export const getter = {
 }
 
 export const mutations = {
-    loginUser(state, payload){
-        state.profile.id = payload["id"];
-        state.profile.name = payload["name"];
-        state.profile.img_url = payload["img_url"];
-        state.profile.email = payload["email"];
-    },
     signedIn(state){
         state.login = true
     },
     signOut(state){
         state.login = false
-    }
+    },
+    loginUser(state, payload){
+        state.profile.id = payload["id"];
+        state.profile.name = payload["name"];
+        state.profile.img_url = payload["img_url"];
+        state.profile.email = payload["email"];
+        this.signedIn()
+    },
 }

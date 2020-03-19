@@ -96,55 +96,24 @@ export default {
     search: function() {
       this.performSearch(this.term.split(' ').join('+'));
     },
-    async googleLogin(){
-      await this.$auth.loginWith('google').catch(e => {
-        this.$toast.show('Error', {icon: "fingerprint"});
-      })
-    },
     googleSignIn () {
         this.provider = new firebase.auth.GoogleAuthProvider()
         firebase.auth().signInWithPopup(this.provider).then(result => {
           // store the user ore wathever
-          console.log(result)
+          console.log(result["additionalUserInfo"]["profile"])
+          let profile = result["additionalUserInfo"]["profile"];
+          this.$store.commit('user/loginUser', {
+            id: profile["id"],
+            name: profile["name"],
+            img_url: profile["picture"],
+            email: profile["email"]
+          })
           // this.$router.push('/')
         }).catch(e => {
           console.log(e)
         })
       }
   },
-  // mounted: function (){
-  //   this.$nextTick(()=>{
-  //     console.log("nextTick")
-  //     let userProfile = {};
-  //     gapi.load('auth2,signin2', function() {
-  //       let auth2 = gapi.auth2.init({
-  //         client_id: '468040312422-9jeej0dqrcjis4vt0k6rt7g2lg3tsaja.apps.googleusercontent.com',
-  //         fetch_basic_profile: false,
-  //         scope: 'profile'
-  //       });
-  //       console.log(auth2.isSignedIn.get());
-  //       // Sign the user in, and then retrieve their ID.
-  //       if(!auth2.isSignedIn.get()){
-  //         console.log(!auth2.isSignedIn.get())
-  //         auth2.signIn().then(function(googleUser) {
-  //           let profile = googleUser.getBasicProfile();
-  //           console.log("signin profile")
-  //           this.userProfile = {
-  //             id: profile.getId(),
-  //             name: profile.getName(),
-  //             img_url: profile.getImageUrl(),
-  //             email: profile.getEmail(),
-  //           }
-  //           console.log(userProfile)  
-  //         });
-  //         console.log(userProfile)  
-  //         this.$store.commit('user/loginUser', userProfile);
-  //         console.log("set user signed IN")
-  //         this.$store.commit('user/signedIn');
-  //       }
-  //     });
-  //   });
-  // }
 }
 </script>
 <style>
