@@ -77,11 +77,10 @@ module.exports = {
       //   scope: ['public_profile', 'email']
       // },
       google: { //WqaH-4rPN-FRaEhR6FJF9uSB
-        clientId: '468040312422-9jeej0dqrcjis4vt0k6rt7g2lg3tsaja.apps.googleusercontent.com'
+        client_id: '468040312422-9jeej0dqrcjis4vt0k6rt7g2lg3tsaja.apps.googleusercontent.com'
       }
     }
   },
-  middleware: ['auth'],
   /*
   ** Build configuration
   */

@@ -32,9 +32,9 @@
         <p>Test: {{ $auth.hasScope('test') }}</p>
         <p>Admin: {{ $auth.hasScope('admin') }}</p>
         <p> {{state}}</p>
-        <!-- <p>{{ $auth.token.get() || '-' }}</p>
-        <p>{{ $auth.refreshToken.get() || '-' }}></p> -->
-        <img src="~/assets/img/helmet.png"/><button v-on:click="googleLogin"> Sign in </button>
+        <p>{{ $auth.$state.loggedIn }}</p>
+        <!-- <p>{{ $auth.refreshToken.get() || '-' }}></p> -->
+        <button @click="$auth.loginWith('google')"> Sign in </button>
       </div>
     </div>
 
@@ -75,8 +75,6 @@ export default {
       this.$store.commit('news/hideNews');
     },
     performSearch: function(keywords) {
-      this.state = 'loading';
-      console.log(keywords)
       this.$api
         .location
         .searchAddress(keywords)
@@ -90,7 +88,8 @@ export default {
       this.performSearch(this.term.split(' ').join('+'));
     },
     googleLogin:function(){
-      this.$auth.loginWith('google')
+      console.log("googleLogin");
+      this.$auth.loginWith('google');
     }
   },
   // mounted: function (){
