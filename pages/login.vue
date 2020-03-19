@@ -8,16 +8,33 @@
         <p>Admin: {{ $auth.hasScope('admin') }}</p>
         <p> {{state}}</p>
         <p>{{ $auth.$state.loggedIn }}</p>
-        <button @click="$auth.loginWith('google')"> Sign in </button>
+        <form>
+          <input v-model="email" type="email" ref="username"/>
+          <input v-model="password" type="password"/>
+          <button @click="googleLogin"> Sign in </button>
+        </form>
     </div>
 </template>
 <script>
 export default {
     middleware:['auth'],
+    data: function(){
+        return {
+            email: '',
+            password: ''
+        }
+    },
     computed:{
         fetchUser(){
             return JSON.stringify(this.$auth.fetchUser(), undefined, 2)
         }
-    }
+    },
+    methods:{
+    async googleLogin(){
+      await this.$auth.loginWith('google').then(e => {console.log(e)}).catch(e => {
+        this.$toast.show('Error', {icon: "fingerprint"});
+      })
+    },
+  }
 }
 </script>
