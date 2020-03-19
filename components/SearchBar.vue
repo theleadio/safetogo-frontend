@@ -28,18 +28,8 @@
     <div class="col-md-1">
       <div class="account">
         <p>{{user}}</p>
-        <p>User: {{ $auth.hasScope('user') }}</p>
-        <p>Test: {{ $auth.hasScope('test') }}</p>
-        <p>Admin: {{ $auth.hasScope('admin') }}</p>
-        <p> {{state}}</p>
-        <p>{{ $auth.$state.loggedIn }}</p>
         <!-- <p>{{ $auth.refreshToken.get() || '-' }}></p> -->
-        <form>
-          <input v-model="email" type="email" ref="username"/>
-          <input v-model="password" type="password"/>
-          <button @click="googleLogin"> Sign in </button>
-        </form>
-        <button outline fab @click="googleSignIn" color="#4285F4"><i>fab fa-google</i></button>
+        <button class="btn btn-outline-primary" @click="googleSignIn"><i class="fab fa-google">  Sign In</i></button>
       </div>
     </div>
 
@@ -54,7 +44,6 @@ import 'firebase/auth'
 
 export default {
   name: 'Search',
-  middleware: ['auth'],
   computed:{
     userImg(){
       return this.$store.state.user.profile.img_url
