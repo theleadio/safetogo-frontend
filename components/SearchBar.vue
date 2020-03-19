@@ -87,10 +87,11 @@ export default {
     search: function() {
       this.performSearch(this.term.split(' ').join('+'));
     },
-    googleLogin:function(){
-      console.log("googleLogin");
-      this.$auth.loginWith('google');
-    }
+    async googleLogin(){
+      await this.$auth.loginWith('google').catch(e => {
+        this.$toast.show('Error', {icon: "fingerprint"});
+      })
+    },
   },
   // mounted: function (){
   //   this.$nextTick(()=>{
