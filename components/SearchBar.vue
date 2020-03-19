@@ -34,7 +34,11 @@
         <p> {{state}}</p>
         <p>{{ $auth.$state.loggedIn }}</p>
         <!-- <p>{{ $auth.refreshToken.get() || '-' }}></p> -->
-        <button @click="$auth.loginWith('google')"> Sign in </button>
+        <form>
+          <input v-model="username" ref="username"/>
+          <input v-model="password" type="password"/>
+          <button @click="$auth.loginWith('google')"> Sign in </button>
+        </form>
       </div>
     </div>
 
