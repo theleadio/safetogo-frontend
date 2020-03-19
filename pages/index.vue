@@ -17,7 +17,6 @@ import Map from '~/components/Map.vue'
 import NewForm from '~/components/InputForm.vue'
 import ContentWrapper from '~/components/ContentWrapper.vue'
 
-
 export default {
   computed:{
   },

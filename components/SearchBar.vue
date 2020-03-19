@@ -39,6 +39,7 @@
           <input v-model="password" type="password"/>
           <button @click="googleLogin"> Sign in </button>
         </form>
+        <button outline fab @click="googleSignIn" color="#4285F4"><i>fab fa-google</i></button>
       </div>
     </div>
 
@@ -48,6 +49,7 @@
 <script>
 
 import { mapMutations, mapGetters } from 'vuex'
+import firebase from 'firebase'
 
 export default {
   name: 'Search',
@@ -98,6 +100,16 @@ export default {
         this.$toast.show('Error', {icon: "fingerprint"});
       })
     },
+    googleSignIn () {
+        this.provider = new firebase.auth.GoogleAuthProvider()
+        firebase.auth().signInWithPopup(this.provider).then(result => {
+          // store the user ore wathever
+          console.log(result)
+          // this.$router.push('/')
+        }).catch(e => {
+          console.log(e)
+        })
+      }
   },
   // mounted: function (){
   //   this.$nextTick(()=>{

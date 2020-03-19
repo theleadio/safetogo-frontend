@@ -11,8 +11,9 @@ module.exports = {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
-      { name: 'google-signin-client_id', content:'468040312422-9jeej0dqrcjis4vt0k6rt7g2lg3tsaja.apps.googleusercontent.com'} //WqaH-4rPN-FRaEhR6FJF9uSB
+      // { name: 'google-signin-client_id', content:'468040312422-9jeej0dqrcjis4vt0k6rt7g2lg3tsaja.apps.googleusercontent.com'} //WqaH-4rPN-FRaEhR6FJF9uSB
       // { name: 'google-signin-client_id', content:'468040312422-scubvil1bm9n2n72trikhnadc99a1kue.apps.googleusercontent.com'}
+      { name: 'google-signin-client_id', content:'468040312422-is9m0o2qp2vjthuv9blg2hq8n4f6aspv.apps.googleusercontent.com'}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -40,6 +41,7 @@ module.exports = {
   */
   plugins: [
     '~/plugins/api-factory.js',
+    '~/plugins/firebase.js'
   ],
   /*
   ** Nuxt.js dev-modules
