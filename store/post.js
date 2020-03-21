@@ -1,6 +1,7 @@
 const defaultState = () => {
     return {
-        latlng: {}
+        latlng: {},
+        locationName: ""
     }
 }
 export const state = defaultState();
@@ -15,8 +16,9 @@ export const getter = {
 }
 
 export const mutations = {
-    setLatLng (state, latlng){
-        state.latlng = latlng
+    setForm (state, payload){
+        state.latlng = payload["latlng"]
+        state.locationName = payload["locationName"]
     },
     setContent(state, payload){
         state.title = payload["title"]

@@ -6,6 +6,7 @@
                 <label>Create a Post</label>
                 <div class="form-group">
                     <input id="title" v-model="title" class="form-control form-control-sm" type="text" placeholder="Title">
+                    <input id="title" v-model="locationName" class="form-control form-control-sm" type="text" placeholder="Location Name">
                     <input id="latlng" v-model="latlng" class="form-control form-control-sm" type="text" placeholder="Latitude & Longitude" :disabled="1">
                     <input id="source" v-model="source" class="form-control form-control-sm" type="text" placeholder="Source (https://...)">
                     <textarea id="content" v-model="content" class="form-control form-control-sm" type="text" placeholder="Content" rows="10"></textarea>
@@ -20,35 +21,52 @@ import { mapGetters } from 'vuex'
 
 export default {
     computed:{
-        storeylatLng(){
-            this.latlng = this.$store.state.story.latlng
-            return this.latlng
+        latlng(){
+            return this.$store.state.post.latlng
         },
         show(){
             return this.$store.state.showCreateForm
-        }
+        },
     },
     data: () => {
         return {
             title: "",
-            latlng: "",
             source: "",
             content: "",
+            locationName: ""
         }
     },
     methods:{
         hide: function(event){
             this.$store.commit('disableCreateForm');
         },
+        getDate: function () {
+            let d = new Date()
+            let month = '' + (d.getUTCMonth() + 1);
+            let day = '' + d.getUTCDate();
+            let year = d.getUTCFullYear();
+            let hour = ' '+ d.getUTCHours();
+            let min = '' + d.getUTCMinutes();
+            let seconds = '' + d.getUTCSeconds();
+
+
+            if (month.length < 2){month = '0' + month};
+            if (day.length < 2){day = '0' + day};
+
+            return [year, month, day].join('-') + [hour, min, seconds].join(':');
+        },
         submit: function(){
             let params = {
                 title: this.title,
-                latlng: this.latlng,
+                lng: this.latlng[0],
+                lat: this.latlng[1],
                 source: this.source,
                 content: this.content,
                 createdBy: this.$store.state.user.profile.name,
+                locationName: this.locationName,
                 email: this.$store.state.user.profile.email,
-                profile_img: this.$store.state.user.profile.img_url
+                img_url: this.$store.state.user.profile.img_url,
+                reportDate: this.getDate()
             }
             // this.$api
             //     .news

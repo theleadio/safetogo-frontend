@@ -13,7 +13,7 @@
                     :lat-lng="marker.latlng"
                     :l-tooltop="marker.tooltop"
                     :l-popup="marker.popup"
-                    v-on:click="innerClick(marker.latlng, marker.create)"
+                    v-on:click="innerClick(marker)"
                     >
                     <l-popup v-if="marker.popup.show">
                         {{marker.popup.content}}
@@ -57,11 +57,14 @@ export default {
             this.$store.commit('disableCreateForm');
             // this.$store.commit('changeContentList');
         },
-        innerClick: function(location, create){
+        innerClick: function(marker){
             if(this.$store.state.user.login){
-                this.$store.commit('post/setLatLng', location);
+                this.$store.commit('post/setForm', {
+                    latlng: marker.latlng,
+                    locationName: marker.id
+                });
                 this.hideAllPost();
-                if(create){
+                if(marker.create){
                     this.$store.commit('enableCreateForm');
                 }
                 else{
