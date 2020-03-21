@@ -47,9 +47,7 @@ export const state = () => ({
     ],
     focus : {
         zoom: 8,
-    },
-    currentLocation: {
-
+        location:{lon: 0.0,lat:0.0}
     },
     searchMarker :{
         iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png",
@@ -64,7 +62,7 @@ export const getter = {
 }
 
 export const mutations = {
-    set_location (state, resp){
+    updateLocation (state, resp){
         state.location.push(
             {   
                 id: resp[0]["address"]["road"],
@@ -77,15 +75,16 @@ export const mutations = {
                     show:true
                 },
                 icon: state.searchMarker,
+                tmp: false,
                 create: true
             }
         );
         state.focus = {
-            zoom: 12,
-            center: {lon: resp[0]["lat"],let:resp[0]["lon"]}
+            zoom: 14,
+            location: {lon: resp[0]["lon"],lat:resp[0]["lat"]}
         }
     },
-    setUserLatLng(state, resp){
+    setUserLocation(state, resp){
         state.location.push(
             {
                 id: resp[0]["address"]["road"],
@@ -98,8 +97,34 @@ export const mutations = {
                     show:true
                 },
                 icon: state.userMarker,
+                tmp:false,
                 create: false
             }
-        )
+        );
+        state.focus = {
+            zoom: 14,
+            location: {lon: resp[0]["lon"],lat:resp[0]["lat"]}
+        }
+    },
+    addTmpLocation(state, resp){
+        let tmpLocation = resp;
+        tmpLocation["tmp"] = true
+        tmpLocation["icon"] = state.searchMarker
+        tmpLocation["create"] = true
+        console.log(tmpLocation)
+        state.location.push(tmpLocation)
+        console.log(state.location)
+        state.focus = {
+            zoom: 14,
+            location: {lat:resp["latlng"][0],lon: resp["latlng"][1]}
+        }
+    },
+    removeTmpLocation(state){
+        for (let index in state.location){
+            if (state.location[index]["tmp"]){
+                state.location.splice(index, 1)
+                break
+            }
+        }
     }
 }
