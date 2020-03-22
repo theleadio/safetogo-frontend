@@ -1,6 +1,5 @@
 export const state = () => ({
     list:[
-
         {
             title: "Testing Title",
             source: "https://thelead.io",

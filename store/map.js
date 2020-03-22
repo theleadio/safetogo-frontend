@@ -12,38 +12,6 @@ export const state = () => ({
         shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png"
     },
     location : [
-        // {
-        // id:"penang",
-        // latlng:[5.4164, 100.3327],
-        // tooltip: {
-        //     content:"Penang"          
-        // },
-        // popup:{
-        //     show: false,
-        //     content: "welcome"
-        // },
-        // icon: {
-        //     iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png",
-        //     shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png"
-        // },
-        // create: false
-        // },
-        // {
-        // id:"permatang-pauh",
-        // latlng: [5.4111, 100.4133],
-        // tooltip: {
-        //     content:"Permatang Pauh"          
-        // },
-        // popup:{
-        //     show: false,
-        //     content: "welcome"
-        // },
-        // icon: {
-        //     iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png",
-        // shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png"
-        // },
-        // create: false
-        // }
     ],
     focus : {
         zoom: 8,
@@ -76,7 +44,8 @@ export const mutations = {
                 },
                 icon: state.searchMarker,
                 tmp: false,
-                create: true
+                create: true,
+                showPopUp: false,
             }
         );
         state.focus = {
@@ -94,11 +63,12 @@ export const mutations = {
                 },
                 popup:{
                     content: resp[0]["display_name"],
-                    show:true
+                    show: false
                 },
                 icon: state.userMarker,
                 tmp:false,
-                create: false
+                create: false,
+                showPopUp: false,
             }
         );
         state.focus = {
@@ -111,9 +81,7 @@ export const mutations = {
         tmpLocation["tmp"] = true
         tmpLocation["icon"] = state.searchMarker
         tmpLocation["create"] = true
-        console.log(tmpLocation)
         state.location.push(tmpLocation)
-        console.log(state.location)
         state.focus = {
             zoom: 14,
             location: {lat:resp["latlng"][0],lon: resp["latlng"][1]}
@@ -124,6 +92,38 @@ export const mutations = {
             if (state.location[index]["tmp"]){
                 state.location.splice(index, 1)
                 break
+            }
+        }
+    },
+    loadLocationData(state, resp){
+        if(resp){
+            for (let i in resp){
+                resp[i]["lat"] = parseFloat(resp[i]["lat"])
+                resp[i]["lng"] = parseFloat(resp[i]["lng"])
+                let dataPoint = {
+                    id: resp[i]["locationName"],
+                    latlng: [ 
+                        parseFloat(resp[i]["lat"]), 
+                        parseFloat(resp[i]["lng"])
+                    ],
+                    tooltip:{
+                        content: resp[i]["locationName"]
+                    },
+                    popup:{
+                        title: resp[i]["title"],
+                        source: resp[i]["source"],
+                        show:true,
+                        upVote: 0,
+                        downVote: 0,
+                        createdBy: (resp[i]["createdBy"])?resp[i]["createdBy"]:"SafeToGo",
+                        img_url: (resp[i]["img_url"])?resp[i]["img_url"]:"~/assets/img/helmet.png"
+                    },
+                    icon: state.existMarker,
+                    tmp:false,
+                    create: false,
+                    showPopUp: true,
+                }
+                state.location.push(dataPoint)
             }
         }
     }

@@ -4,7 +4,7 @@ const defaultState = () => {
         locationName: ""
     }
 }
-export const state = defaultState();
+export const state = () => defaultState();
 
 export const getter = {
     getLatLng(state){

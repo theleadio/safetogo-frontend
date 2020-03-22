@@ -101,6 +101,8 @@ export default {
 <style>
     .container-fluid{
         display: flex !important;
+        background-color: rgb(255,255,255,.2);
+        backdrop-filter: blur(5px);
     }
     .navbar{
         height:80px;

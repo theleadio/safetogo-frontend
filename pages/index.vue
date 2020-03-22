@@ -3,11 +3,7 @@
     <LeaflfetMap />
     <NavigationBar  />
     <SubmitForm />
-    <!-- <div class="wrapper"> -->
-      <!-- <SearchBar />
-      <Map />
-      <NewForm />
-      <ContentWrapper /> -->
+    <!-- <PostList /> -->
   </div>
 </template>
 
@@ -15,6 +11,7 @@
 import LeaflfetMap from '~/components/LeaftletMap.vue'
 import NavigationBar from '~/components/NavigationBar.vue'
 import SubmitForm from '~/components/SubmitForm.vue'
+import PostList from '~/components/PostList.vue'
 
 export default {
   computed:{
@@ -22,7 +19,8 @@ export default {
   components: {
     LeaflfetMap,
     NavigationBar,
-    SubmitForm
+    SubmitForm,
+    PostList
   },
   data: function () {
     return {

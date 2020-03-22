@@ -16,7 +16,13 @@
                     v-on:click="innerClick(marker)"
                     >
                     <l-popup v-if="marker.popup.show">
-                        {{marker.popup.content}}
+                        <div class="popup-title">
+                            {{marker.popup.title}}
+                        </div>
+                        <br/>
+                        <div class="popup-source">
+                            <a :href="marker.popup.source" target="_blank">source</a>
+                        </div>
                     </l-popup>
                     <l-icon
                         :icon-url="marker.icon.iconUrl"
@@ -71,7 +77,11 @@ export default {
                     // this.$store.commit('changeContentList');
                 }
                 console.log(this.$store.state.showCreateForm);
-            }else{
+            }
+            else if(marker.showPopUp){
+                console.log("show pop up");
+            }
+            else{
                 console.log("Please login");
             }
         },
@@ -104,7 +114,6 @@ export default {
         }
     },
     mounted(){
-
         navigator.geolocation.getCurrentPosition(
                 (value) => {
                     this.$store.commit("map/setUserLocation", [{
@@ -119,6 +128,14 @@ export default {
                     ); 
                 }
             );
+        this.$api
+            .location
+            .getNews()
+            .then(
+                (value) => {
+                    this.$store.commit('map/loadLocationData', value)
+                }
+            ).catch( e => {console.log(e)});
     }
 
 }
