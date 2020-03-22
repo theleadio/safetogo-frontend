@@ -146,4 +146,7 @@ export default {
         height:100vh;
         position:relative;
     }
+    .leaflet-top .leaflet-control{
+        margin-top: 140px !important;
+    } 
 </style>

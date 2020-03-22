@@ -5,11 +5,11 @@
                 <i class="fas fa-times" v-on:click="hide"></i>
                 <label>Create a Post</label>
                 <div class="form-group">
-                    <input id="title" v-model="title" class="form-control form-control-sm" type="text" placeholder="Title">
-                    <input id="title" v-model="locationName" class="form-control form-control-sm" type="text" placeholder="Location Name">
+                    <input id="title" v-model="title" class="form-control form-control-sm" type="text" placeholder="Title" required>
+                    <input id="title" v-model="locationName" class="form-control form-control-sm" type="text" placeholder="Location Name" required>
                     <input id="latlng" v-model="latlng" class="form-control form-control-sm" type="text" placeholder="Latitude & Longitude" :disabled="1">
-                    <input id="source" v-model="source" class="form-control form-control-sm" type="text" placeholder="Source (https://...)">
-                    <textarea id="content" v-model="content" class="form-control form-control-sm" type="text" placeholder="Content" rows="10"></textarea>
+                    <input id="source" v-model="source" class="form-control form-control-sm" type="text" placeholder="Source (https://...)" required>
+                    <textarea id="content" v-model="content" class="form-control form-control-sm" type="text" placeholder="Content" rows="10" required></textarea>
                     <button class="btn btn-primary" v-on:click="submit">Submit</button>
                 </div>
             </form>
@@ -52,6 +52,7 @@ export default {
 
             if (month.length < 2){month = '0' + month};
             if (day.length < 2){day = '0' + day};
+            if (seconds.length < 2){seconds = '0' + seconds};
 
             return [year, month, day].join('-') + [hour, min, seconds].join(':');
         },
@@ -66,16 +67,17 @@ export default {
                 locationName: this.locationName,
                 email: this.$store.state.user.profile.email,
                 img_url: this.$store.state.user.profile.img_url,
-                reportDate: this.getDate()
+                reportedDate: this.getDate()
             }
-            // this.$api
-            //     .news
-            //     .createPost(params)
-            //     .then((value)=> {
-            //         this.hide();
-            //         this.$store.commit('post/resetValues');
-            //     })
-            //     .catch((err) => {console.log(err)});
+            console.log(params)
+            this.$api
+                .news
+                .createPost(params)
+                .then((value)=> {
+                    this.hide();
+                    this.$store.commit('post/resetState');
+                })
+                .catch((err) => {console.log(err)});
         }
     }
 
