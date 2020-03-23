@@ -4,6 +4,7 @@
     <NavigationBar  />
     <SubmitForm />
     <!-- <PostList /> -->
+    <Footer/>
   </div>
 </template>
 
@@ -12,6 +13,7 @@ import LeaflfetMap from '~/components/LeaftletMap.vue'
 import NavigationBar from '~/components/NavigationBar.vue'
 import SubmitForm from '~/components/SubmitForm.vue'
 import PostList from '~/components/PostList.vue'
+import Footer from '~/components/Footer.vue'
 
 export default {
   computed:{
@@ -20,7 +22,8 @@ export default {
     LeaflfetMap,
     NavigationBar,
     SubmitForm,
-    PostList
+    PostList,
+    Footer
   },
   data: function () {
     return {

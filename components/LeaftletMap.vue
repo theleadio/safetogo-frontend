@@ -156,10 +156,6 @@ export default {
             .then(
                 (value) => {
                     this.$store.commit('map/loadLocationData', value)
-                    setTimeout(()=>{
-                        this.$store.commit("map/addLeadLocation")
-                        },3000
-                    )
                 }
             ).catch( e => {console.log(e)});
     },
