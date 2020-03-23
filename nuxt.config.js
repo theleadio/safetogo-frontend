@@ -32,7 +32,6 @@ module.exports = {
   */
   css: [
     { src:'~/assets/css/safetogo.css'},
-    { src:'~/assets/css/abbreviation-autocomplete.css'}
   ],
   /*
   ** Plugins to load before mounting the App

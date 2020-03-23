@@ -62,6 +62,7 @@ export default {
         hideAllPost: function(){
             this.$store.commit('disableCreateForm');
             // this.$store.commit('changeContentList');
+            this.$store.commit("disableSearchSuggestion");
         },
         innerClick: function(marker){
             this.$store.commit('post/setForm', {

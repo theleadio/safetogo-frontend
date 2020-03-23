@@ -18,13 +18,20 @@
                         />
                         <i class="fas fa-map-marker-alt "></i>
                     </div>
-                    <div class="search-suggest-wrapper" v-if="suggestKeywords.length > 0">
+                    <div class="search-suggest-wrapper" v-if="showSearchSuggestion">
                         <ul>
                             <li 
                                 v-for="keyword in suggestKeywords"
                                 :key="keyword.id"
                                 v-on:click="selectInput(keyword.name)"
-                            >{{keyword.name}}</li>
+                            >
+                                <span class="search-label">
+                                    {{keyword.name}}
+                                </span>
+                                <span class="label-id">
+                                    (id: {{keyword.id}})
+                                </span>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -54,6 +61,9 @@ export default {
         },
         userProfile(){
             return this.$store.state.user.profile
+        },
+        showSearchSuggestion(){
+            return this.$store.state.showSearchSuggestion
         }
     },
     data: function(){
@@ -145,7 +155,7 @@ export default {
                     for(let index in value){
                         results.push(
                             {
-                                name:value[index]["display_name"] + " ( id: " + value[index]["place_id"] + ")",
+                                name:value[index]["display_name"],
                                 id: value[index]["place_id"]
                             }
                         )
@@ -156,12 +166,14 @@ export default {
         },
         suggest: function(event){
             if(this.term.length > 2 || event["inputType"] === 'deleteContentBackward'){
+                this.$store.commit("enableSearchSuggestion");
                 this.searchText();
             }else{
                 this.suggestKeywords = [];
             }
         },
         selectInput: function(location){
+            this.$store.commit("disableSearchSuggestion");
             this.term = location;
             this.suggestKeywords = []
             this.search(this.term);
@@ -232,12 +244,25 @@ export default {
         padding-top: 1%;
         overflow:scroll;
         height: 250px;
+        padding-left: 0;
     }
     .search-suggest-wrapper li{
-        font-size: 16px;
-        padding: 1px;
+        padding: 10px;
         cursor:pointer;
     }
+    .search-suggest-wrapper li:hover{
+        background-color: #f2f2f2;
+    }
+    .search-suggest-wrapper .search-label{
+        font-size: 16px;
+        display: inline-block;
+    }
+    
+    .search-suggest-wrapper .label-id{
+        font-size: 12px;
+        display: inline-block;
+    }
+
     .fa-map-marker-alt{
         position: absolute;
         right:0;

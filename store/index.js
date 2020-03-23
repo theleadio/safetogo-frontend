@@ -3,7 +3,8 @@ export const state = () => ({
     showCreateForm: false,
     showLoading: false,
     showLogin: false,
-    showContentList: false
+    showContentList: false,
+    showSearchSuggestion: false,
 })
 
 export const getter = {
@@ -21,6 +22,9 @@ export const getter = {
     },
     isContentList(state){
         return state.showContentList
+    },
+    isSearchSuggestion(state){
+        return state.showSearchSuggestion
     }
 }
 
@@ -39,6 +43,12 @@ export const mutations = {
     },
     disableContentList(state){
         state.showContentList = false
+    },
+    disableSearchSuggestion(state){
+        state.showSearchSuggestion = false
+    },
+    enableSearchSuggestion(state){
+        state.showSearchSuggestion = true
     },
     enableSearch(state){
         state.enableSearch = true
