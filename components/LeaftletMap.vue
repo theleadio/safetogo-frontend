@@ -23,6 +23,15 @@
                         <div class="popup-source" v-if="marker.popup.source">
                             <a :href="marker.popup.source" target="_blank">source</a>
                         </div>
+                        <div class="vote-wrapper">
+                            <button class="btn up-vote">
+                                {{(marker.popup.upvote)?(marker.popup.upvote):0}} 
+                                <i class="far fa-thumbs-up"></i>
+                            </button>
+                            <button class="btn down-vote">
+                                {{(marker.popup.downvote)?(marker.popup.downvote):0}} <i class="far fa-thumbs-down"></i>
+                            </button>
+                        </div>
                     </l-popup>
                     <l-icon
                         :icon-url="marker.icon.iconUrl"
@@ -140,5 +149,11 @@ export default {
     }
     .leaflet-top .leaflet-control{
         margin-top: 140px !important;
-    } 
+    }
+    #map-wrap .vote-wrapper button{
+        color:#9b9b9b;
+        padding-top:1%;
+        margin-left: 5px;
+        font-size:16px;
+    }
 </style>
