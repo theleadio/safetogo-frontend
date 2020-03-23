@@ -16,7 +16,7 @@
                 </div>
                 <div v-else>
                     <div class="row login-message">
-                        <p> Google login is required to create new post... </p>
+                        <p> Please sign in using Google to submit a new case </p>
                     </div>
                 </div>
             </form>

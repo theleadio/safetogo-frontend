@@ -14,14 +14,27 @@
                     :l-tooltop="marker.tooltop"
                     :l-popup="marker.popup"
                     v-on:click="innerClick(marker)"
+                    @add="openPopUp($event, marker)"
                     >
-                    <l-popup v-if="marker.popup.show">
-                        <div class="popup-title">
-                            {{marker.popup.title}}
-                        </div>
-                        <br/>
-                        <div class="popup-source" v-if="marker.popup.source">
-                            <a :href="marker.popup.source" target="_blank">source</a>
+                    <l-popup v-if="marker.popup.show" @l-add="$event.target.openPopup()">
+                        <div class="row">
+                            <div class="col-xl-8">
+                                <div class="popup-title">
+                                    {{marker.popup.title}}
+                                </div>
+                                <div class="pop-details">
+                                    <p>{{marker.popup.details}}</p>
+                                </div>
+                                <br/>
+                                <div class="popup-source" v-if="marker.popup.source">
+                                    <a :href="marker.popup.source" target="_blank">source</a>
+                                </div>
+                            </div>
+                            <div class="col-xl-4">
+                                <div class="popup-img">
+                                    <img :src="marker.popup.img_url" >
+                                </div>
+                            </div>
                         </div>
                         <!-- <div class="vote-wrapper">
                             <button class="btn up-vote">
@@ -43,6 +56,7 @@
                 </l-marker>
             </l-map>
         </client-only>
+        {{this.$store.state.map.focus.location}}
     </div>
 </template>
 <script>
@@ -112,6 +126,14 @@ export default {
                 }
             })
             this.tmpLocation = true;
+        },
+        openPopUp: function(event, marker){
+            
+            this.$nextTick(()=>{
+                if(marker.id === "TheLead"){
+                    event.target.openPopup()
+                }
+            });
         }
     },
     mounted(){
@@ -135,9 +157,13 @@ export default {
             .then(
                 (value) => {
                     this.$store.commit('map/loadLocationData', value)
+                    setTimeout(()=>{
+                        this.$store.commit("map/addLeadLocation")
+                        },3000
+                    )
                 }
             ).catch( e => {console.log(e)});
-    }
+    },
 
 }
 </script>
@@ -155,5 +181,21 @@ export default {
         padding-top:1%;
         margin-left: 5px;
         font-size:16px;
+    }
+    .popup-title{
+        font-size: 16px;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .popup-details{
+        font-size: 14px;
+        font-family: sans-serif;
+    }
+    .popup-img{
+        padding:7px;
+        margin-top:40px;
+    }
+    .popup-img img{
+        width:80px;
     }
 </style>
