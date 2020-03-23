@@ -2,14 +2,20 @@
     <div class="row">
         <form id="story-create" v-if="show" class="box-drop-shadow">
             <i class="fas fa-times" v-on:click="hide"></i>
-            <label>Create a Post</label>
-            <div class="form-group">
-                <input id="title" class="form-control form-control-sm" type="text" placeholder="Title" :value="title">
-                <input id="latlng" class="form-control form-control-sm" type="text" placeholder="Latitude \& Longitude" :value="latLng" :disabled="1">
-                <input id="tags" class="form-control form-control-sm" type="text" placeholder="Tags">
-                <input id="source" class="form-control form-control-sm" type="text" placeholder="Source (https://...)">
-                <textarea id="content" class="form-control form-control-sm" type="text" placeholder="content" rows="10"></textarea>
-                <button class="btn btn-primary">Submit</button>
+            {{isLogin}}
+            <div v-if="isLogin">
+                <label>Create a Post</label>
+                <div class="form-group">
+                    <input id="title" class="form-control form-control-sm" type="text" placeholder="Title" :value="title">
+                    <input id="latlng" class="form-control form-control-sm" type="text" placeholder="Latitude \& Longitude" :value="latLng" :disabled="1">
+                    <input id="tags" class="form-control form-control-sm" type="text" placeholder="Tags">
+                    <input id="source" class="form-control form-control-sm" type="text" placeholder="Source (https://...)">
+                    <textarea id="content" class="form-control form-control-sm" type="text" placeholder="content" rows="10"></textarea>
+                    <button class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+            <div v-else>
+
             </div>
         </form>
     </div>  
@@ -27,6 +33,9 @@ export default {
         },
         show(){
             return this.$store.state.story.createStory
+        },
+        isLogin(){
+            return this.$store.state.user.login
         }
     },
     methods:{

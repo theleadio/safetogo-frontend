@@ -39,7 +39,7 @@ export const mutations = {
                     content: resp[0]["display_name"]
                 },
                 popup:{
-                    content: resp[0]["display_name"],
+                    title: resp[0]["display_name"],
                     show:true
                 },
                 icon: state.searchMarker,
@@ -62,7 +62,7 @@ export const mutations = {
                     content: resp[0]["display_name"]
                 },
                 popup:{
-                    content: resp[0]["display_name"],
+                    title: resp[0]["display_name"],
                     show: false
                 },
                 icon: state.userMarker,
@@ -81,6 +81,7 @@ export const mutations = {
         tmpLocation["tmp"] = true
         tmpLocation["icon"] = state.searchMarker
         tmpLocation["create"] = true
+        console.log(tmpLocation)
         state.location.push(tmpLocation)
         state.focus = {
             zoom: 14,

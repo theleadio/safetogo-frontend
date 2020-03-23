@@ -3,14 +3,21 @@
         <div class="container">
             <form id="story-create" class="box-drop-shadow">
                 <i class="fas fa-times" v-on:click="hide"></i>
-                <label>Create a Post</label>
-                <div class="form-group">
-                    <input id="title" v-model="title" class="form-control form-control-sm" type="text" placeholder="Title" required>
-                    <input id="title" v-model="locationName" class="form-control form-control-sm" type="text" placeholder="Location Name" required>
-                    <input id="latlng" v-model="latlng" class="form-control form-control-sm" type="text" placeholder="Latitude & Longitude" :disabled="1">
-                    <input id="source" v-model="source" class="form-control form-control-sm" type="text" placeholder="Source (https://...)" required>
-                    <textarea id="content" v-model="content" class="form-control form-control-sm" type="text" placeholder="Content" rows="10" required></textarea>
-                    <button class="btn btn-primary" v-on:click="submit">Submit</button>
+                <div v-if="isLogin">
+                    <label>Create a Post</label>
+                    <div class="form-group">
+                        <input id="title" v-model="title" class="form-control form-control-sm" type="text" placeholder="Title" required>
+                        <input id="title" v-model="locationName" class="form-control form-control-sm" type="text" placeholder="Location Name" required>
+                        <input id="latlng" v-model="latlng" class="form-control form-control-sm" type="text" placeholder="Latitude & Longitude" :disabled="1">
+                        <input id="source" v-model="source" class="form-control form-control-sm" type="text" placeholder="Source (https://...)" required>
+                        <textarea id="content" v-model="content" class="form-control form-control-sm" type="text" placeholder="Content" rows="10" required></textarea>
+                        <button class="btn btn-primary" v-on:click="submit">Submit</button>
+                    </div>
+                </div>
+                <div v-else>
+                    <div class="row login-message">
+                        <p> Google login is required to create new post... </p>
+                    </div>
                 </div>
             </form>
         </div>
@@ -27,6 +34,9 @@ export default {
         show(){
             return this.$store.state.showCreateForm
         },
+        isLogin(){
+            return this.$store.state.user.login
+        }
     },
     data: () => {
         return {
@@ -107,5 +117,15 @@ export default {
         float:right;
         margin-right: 10px;
         cursor: pointer;
+    }
+    .login-message{
+        width:100%;
+        padding:1%;
+    }
+    .login-message p{
+        text-align: center;
+        font-size:22px;
+        color: aliceblue;
+        font-weight: bold;
     }
 </style>

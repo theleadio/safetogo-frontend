@@ -20,7 +20,7 @@
                             {{marker.popup.title}}
                         </div>
                         <br/>
-                        <div class="popup-source">
+                        <div class="popup-source" v-if="marker.popup.source">
                             <a :href="marker.popup.source" target="_blank">source</a>
                         </div>
                     </l-popup>
@@ -64,25 +64,16 @@ export default {
             // this.$store.commit('changeContentList');
         },
         innerClick: function(marker){
-            if(this.$store.state.user.login){
-                this.$store.commit('post/setForm', {
-                    latlng: marker.latlng,
-                    locationName: marker.id
-                });
-                this.hideAllPost();
-                if(marker.create){
-                    this.$store.commit('enableCreateForm');
-                }
-                else{
-                    // this.$store.commit('changeContentList');
-                }
-                console.log(this.$store.state.showCreateForm);
-            }
-            else if(marker.showPopUp){
-                console.log("show pop up");
+            this.$store.commit('post/setForm', {
+                latlng: marker.latlng,
+                locationName: marker.id
+            });
+            this.hideAllPost();
+            if(marker.create){
+                this.$store.commit('enableCreateForm');
             }
             else{
-                console.log("Please login");
+                // this.$store.commit('changeContentList');
             }
         },
         removeTmpLocation: function(){

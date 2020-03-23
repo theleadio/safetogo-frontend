@@ -51,13 +51,31 @@ export default {
     },
     data: function(){
         return {
-            term:""
+            term:"",
         }
     },
     methods:{
         hideAllPost: function(){
-            this.$store.commit('story/hidePost');
-            this.$store.commit('news/hideNews');
+            this.$store.commit('disableCreateForm');
+            this.$store.commit('disableContentList');
+        },
+        getDate: function () {
+            let d = new Date()
+            let month = '' + (d.getUTCMonth() + 1);
+            let day = '' + d.getUTCDate();
+            let year = d.getUTCFullYear();
+            let hour = ''+ d.getUTCHours();
+            let min = '' + d.getUTCMinutes();
+            let seconds = '' + d.getUTCSeconds();
+
+
+            if (month.length < 2){month = '0' + month};
+            if (day.length < 2){day = '0' + day};
+            if (hour.length < 2){hour = '0' + hour};
+            if (min.length < 2){min = '0' + min};
+            if (seconds.length < 2){seconds = '0' + seconds};
+
+            return [year, month, day].join('-') + ' ' + [hour, min, seconds].join(':');
         },
         performSearch: function(keywords){
             this.$api
@@ -66,8 +84,23 @@ export default {
                 .then((value)=> {
                     this.hideAllPost();
                     this.$store.commit('map/updateLocation', value); 
+
+                    let searchData = {
+                        searched_by: this.$store.state.user.profile.name,
+                        user_email: this.$store.state.user.profile.email,
+                        user_id: this.$store.state.user.profile.id,
+                        searched_result: value,
+                        created_date: this.getDate()
+                    }
+                    this.$api
+                        .location
+                        .storeSearchAddress(searchData)
+                        .then(value=>{console.log(value)})
+                        .catch(value=>{console.log(value)})
+
                 })
                 .catch((err) => {console.log(err)});
+            
         },
         search: function() {
             this.performSearch(this.term.split(' ').join('+'));
@@ -75,7 +108,6 @@ export default {
         googleSignIn: function(){
             this.provider = new firebase.auth.GoogleAuthProvider()
             firebase.auth().signInWithPopup(this.provider).then(result => {
-            // store the user ore wathever
             let profile = result["additionalUserInfo"]["profile"];
             this.$store.commit('user/loginUser', {
                 id: profile["id"],

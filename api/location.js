@@ -6,7 +6,12 @@ export default axios => ({
     getNews: () => {
         return axios.get('https://api.safetogo.live/nearby-location')
             .then(res => res.data)
+    },
+    storeSearchAddress:(params) => {
+        return axios.post(
+            "https://api.safetogo.live/search-result",params
+            )
+        .then(res => res.data)
+        .catch(err => console.log(err))
     }
 });
-
-// https://api.safetogo.live/nearby-location
