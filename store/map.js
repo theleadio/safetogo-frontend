@@ -99,7 +99,7 @@ export const mutations = {
             }
         );
         state.focus = {
-            zoom: 10,
+            zoom: 8,
             location: {lon: resp[0]["lon"],lat:resp[0]["lat"]}
         }
     },
