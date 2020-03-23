@@ -23,7 +23,7 @@
                         <div class="popup-source" v-if="marker.popup.source">
                             <a :href="marker.popup.source" target="_blank">source</a>
                         </div>
-                        <div class="vote-wrapper">
+                        <!-- <div class="vote-wrapper">
                             <button class="btn up-vote">
                                 {{(marker.popup.upvote)?(marker.popup.upvote):0}} 
                                 <i class="far fa-thumbs-up"></i>
@@ -31,7 +31,7 @@
                             <button class="btn down-vote">
                                 {{(marker.popup.downvote)?(marker.popup.downvote):0}} <i class="far fa-thumbs-down"></i>
                             </button>
-                        </div>
+                        </div> -->
                     </l-popup>
                     <l-icon
                         :icon-url="marker.icon.iconUrl"
