@@ -6,18 +6,26 @@
                 <h1>SafeToGo</h1>
             </div>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <div class="input-group search-wrapper box-drop-shadow">
-                    <input
-                        v-on:keyup.enter="search"
-                        v-model="term"
-                        type="text"
-                        class="form-control search-bar"
-                        :placeholder="'Search' + '...'"
-                    />
-                    <div class="input-group-append">
-                        <button v-on:click="search" class="btn btn-outline-primary">
-                        <i class="fas fa-search-location "></i> Search
-                        </button>
+                <div class="search-wrapper box-drop-shadow">
+                    <div class="input-group">
+                        <input
+                            v-on:keyup.enter="search"
+                            v-on:input="suggest"
+                            v-model="term"
+                            type="text"
+                            class="form-control search-bar"
+                            :placeholder="'Search' + '...'"
+                        />
+                        <i class="fas fa-map-marker-alt "></i>
+                    </div>
+                    <div class="search-suggest-wrapper" v-if="suggestKeywords.length > 0">
+                        <ul>
+                            <li 
+                                v-for="keyword in suggestKeywords"
+                                :key="keyword.id"
+                                v-on:click="selectInput(keyword.name)"
+                            >{{keyword.name}}</li>
+                        </ul>
                     </div>
                 </div>
                 <div class="user-prof" v-if="isLogin" title="Sign Out">
@@ -28,7 +36,6 @@
                 </div>
             </div>
         </nav>
-        
     </div>
 </template>
 <script>
@@ -52,6 +59,7 @@ export default {
     data: function(){
         return {
             term:"",
+            suggestKeywords: []
         }
     },
     methods:{
@@ -80,7 +88,7 @@ export default {
         performSearch: function(keywords){
             this.$api
                 .location
-                .searchAddress(keywords)
+                .searchAddress(keywords.split(' ').join('+'))
                 .then((value)=> {
                     this.hideAllPost();
                     this.$store.commit('map/updateLocation', value); 
@@ -95,8 +103,8 @@ export default {
                     this.$api
                         .location
                         .storeSearchAddress(searchData)
-                        .then(value=>{console.log(value)})
-                        .catch(value=>{console.log(value)})
+                        // .then(value=>{console.log(value)})
+                        // .catch(value=>{console.log(value)})
 
                 })
                 .catch((err) => {console.log(err)});
@@ -121,12 +129,43 @@ export default {
         },
         signOut: function(){
             firebase.auth().signOut().then(result => {
-                console.log('Signed Out');
+                // console.log('Signed Out');
                 this.$store.commit('user/signOut')
             }, function(error) {
                 console.error('Sign Out Error', error);
             });
-        }   
+        },
+        searchText: function(){
+            this.suggestKeywords = [];
+            this.$api
+                .location
+                .searchKeywords(this.term.split(' ').join('+'))
+                .then((value)=>{
+                    let results = []
+                    for(let index in value){
+                        results.push(
+                            {
+                                name:value[index]["display_name"] + " ( id: " + value[index]["place_id"] + ")",
+                                id: value[index]["place_id"]
+                            }
+                        )
+                    }
+                    this.suggestKeywords = [...new Set(results)];
+                })
+                .catch(err => {console.log(err)});
+        },
+        suggest: function(event){
+            if(this.term.length > 2 || event["inputType"] === 'deleteContentBackward'){
+                this.searchText();
+            }else{
+                this.suggestKeywords = [];
+            }
+        },
+        selectInput: function(location){
+            this.term = location;
+            this.suggestKeywords = []
+            this.search(this.term);
+        }
     }
 }
 </script>
@@ -179,5 +218,29 @@ export default {
 
     .navbar-right {
         float: right!important;
+    }
+    .search-suggest-wrapper{
+        margin-bottom: 0px;
+        position: absolute;
+        width: inherit;
+        padding-right: 3%;
+    }
+    .search-suggest-wrapper ul{
+        list-style-type: none;
+        background-color: #fff;
+        padding-bottom: 1%;
+        padding-top: 1%;
+        overflow:scroll;
+        height: 250px;
+    }
+    .search-suggest-wrapper li{
+        font-size: 16px;
+        padding: 1px;
+        cursor:pointer;
+    }
+    .fa-map-marker-alt{
+        position: absolute;
+        right:0;
+        padding: 12px;
     }
 </style>

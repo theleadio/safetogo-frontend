@@ -31,15 +31,16 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '~/assets/css/safetogo.css'
+    { src:'~/assets/css/safetogo.css'},
+    { src:'~/assets/css/abbreviation-autocomplete.css'}
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
     { src:'~/plugins/api-factory.js'},
-    { src:'~/plugins/firebase.js'},
-    { src: '~plugins/ga.js', mode: 'client' }
+    { src:'~/plugins/firebase.js', mode: 'client'},
+    { src: '~/plugins/ga.js', mode: 'client' },
   ],
   /*
   ** Nuxt.js dev-modules

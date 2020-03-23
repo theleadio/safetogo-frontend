@@ -1,6 +1,6 @@
 export const state = () => ({
     existMarker: {
-        iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png",
+        iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png",
         shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png"
     },
     searchMarker :{
@@ -33,7 +33,7 @@ export const mutations = {
     updateLocation (state, resp){
         state.location.push(
             {   
-                id: resp[0]["address"]["road"],
+                id: resp[0]["place_id"],
                 latlng: [resp[0]["lat"],resp[0]["lon"]],
                 tooltip: {
                     content: resp[0]["display_name"]
@@ -56,7 +56,7 @@ export const mutations = {
     setUserLocation(state, resp){
         state.location.push(
             {
-                id: resp[0]["address"]["road"],
+                id: resp[0]["place_id"],
                 latlng: [resp[0]["lat"],resp[0]["lon"]],
                 tooltip: {
                     content: resp[0]["display_name"]

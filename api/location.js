@@ -13,5 +13,9 @@ export default axios => ({
             )
         .then(res => res.data)
         .catch(err => console.log(err))
+    },
+    searchKeywords: (name) => {
+        return axios.get('https://nominatim.openstreetmap.org/search?q=' + name + '&format=json')
+            .then(res=> res.data)
     }
 });

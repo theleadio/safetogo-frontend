@@ -79,7 +79,7 @@ export default {
                 img_url: this.$store.state.user.profile.img_url,
                 reportedDate: this.getDate()
             }
-            console.log(params)
+            // console.log(params)
             this.$api
                 .news
                 .createPost(params)
