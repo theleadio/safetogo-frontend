@@ -56,7 +56,6 @@
                 </l-marker>
             </l-map>
         </client-only>
-        {{this.$store.state.map.focus.location}}
     </div>
 </template>
 <script>
