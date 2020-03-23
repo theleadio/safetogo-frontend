@@ -161,15 +161,16 @@ export default {
                         )
                     }
                     this.suggestKeywords = [...new Set(results)];
+                    this.$store.commit("enableSearchSuggestion");
                 })
                 .catch(err => {console.log(err)});
         },
         suggest: function(event){
             if(this.term.length > 2 || event["inputType"] === 'deleteContentBackward'){
-                this.$store.commit("enableSearchSuggestion");
                 this.searchText();
             }else{
                 this.suggestKeywords = [];
+                this.$store.commit("disableSearchSuggestion");
             }
         },
         selectInput: function(location){
