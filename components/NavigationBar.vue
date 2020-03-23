@@ -2,8 +2,8 @@
     <div class="container-fluid overlay">
         <nav class="navbar navbar-expand-lg">
             <div class="navbar-brand">
-                <img src="~/assets/img/helmet.png"/>
-                <h1>SafeToGo</h1>
+                <img src="~/assets/img/helmet.png" style='width:40px; height:40px;margin-right:10px;'>
+                <h1 style='margin-top:15px;font-size:20px;'>SafeToGo</h1>
             </div>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <div class="search-wrapper box-drop-shadow">
@@ -14,7 +14,7 @@
                             v-model="term"
                             type="text"
                             class="form-control search-bar"
-                            :placeholder="'Search' + '...'"
+                            :placeholder="'Search' + '... (login to Google and click on a location to submit a new case)'"
                         />
                         <i class="fas fa-map-marker-alt "></i>
                     </div>

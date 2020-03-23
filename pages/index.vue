@@ -28,7 +28,12 @@ export default {
   data: function () {
     return {
       }
+    },
+  head () {
+    return {
+      title: "SafeToGo - Use it when you can't #stayathome"
     }
+  }
 
 }
 
