@@ -127,5 +127,15 @@ export const mutations = {
                 state.location.push(dataPoint)
             }
         }
+    },
+    upVote(state, marker){
+        marker.popup.upVote += 1;
+        let index = state.location.findIndex(x => x.id === marker.id);
+        state.location[index] = marker
+    },
+    downVote(state, marker){
+        marker.popup.downVote += 1;
+        let index = state.location.findIndex(x => x.id === marker.id);
+        state.location[index] = marker
     }
 }

@@ -32,19 +32,19 @@
                             </div>
                             <div class="col-xl-4">
                                 <div class="popup-img">
-                                    <img :src="marker.popup.img_url" >
+                                    <img :src="(marker.popup.img_url)?marker.popup.img_url:'~/assets/img/helmet.png'" >
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="vote-wrapper">
-                            <button class="btn up-vote">
-                                {{(marker.popup.upvote)?(marker.popup.upvote):0}} 
+                        <div class="vote-wrapper">
+                            <button class="btn up-vote" v-on:click="upVote(marker)">
+                                {{(marker.popup.upVote)?(marker.popup.upVote):0}} 
                                 <i class="far fa-thumbs-up"></i>
                             </button>
-                            <button class="btn down-vote">
-                                {{(marker.popup.downvote)?(marker.popup.downvote):0}} <i class="far fa-thumbs-down"></i>
+                            <button class="btn down-vote" v-on:click="downVote(marker)">
+                                {{(marker.popup.downVote)?(marker.popup.downVote):0}} <i class="far fa-thumbs-down"></i>
                             </button>
-                        </div> -->
+                        </div>
                     </l-popup>
                     <l-icon
                         :icon-url="marker.icon.iconUrl"
@@ -133,6 +133,12 @@ export default {
                     event.target.openPopup()
                 }
             });
+        },
+        upVote: function(marker){
+            this.$store.commit('map/upVote', marker);
+        },
+        downVote: function(marker){
+            this.$store.commit('map/downVote', marker);
         }
     },
     mounted(){
@@ -155,6 +161,7 @@ export default {
             .getNews()
             .then(
                 (value) => {
+                    console.log(value);
                     this.$store.commit('map/loadLocationData', value)
                 }
             ).catch( e => {console.log(e)});
