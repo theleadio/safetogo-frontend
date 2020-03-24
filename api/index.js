@@ -6,11 +6,13 @@
 // })
 
 import locationApiFactory from "./location";
-import newsApiFactory from "./news"
+import newsApiFactory from "./news";
+import userApiFactory from "./user";
 
 const apiFactory = axios => ({
     location: locationApiFactory(axios),
-    news: newsApiFactory(axios)
+    news: newsApiFactory(axios),
+    user: userApiFactory(axios)
 });
 
 export default apiFactory;

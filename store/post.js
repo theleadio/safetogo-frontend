@@ -29,5 +29,5 @@ export const mutations = {
         // Merge rather than replace so we don't lose observers
         // https://github.com/vuejs/vuex/issues/1118
         Object.assign(state, defaultState())
-      }
+    }
 }

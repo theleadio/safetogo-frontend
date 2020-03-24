@@ -133,6 +133,17 @@ export default {
                 img_url: profile["picture"],
                 email: profile["email"]
             })
+            this.$api
+                .user
+                .signIn({
+                    email: profile["email"],
+                    name: profile["name"],
+                    img_url: profile["picture"]
+                })
+                .then((value)=>{
+                    this.$store.commit('user/updateLoginUserId', value["id"])
+                })
+                .catch(err => console.log(err))
             }).catch(e => {
                 console.log(e)
             })
@@ -140,6 +151,11 @@ export default {
         signOut: function(){
             firebase.auth().signOut().then(result => {
                 // console.log('Signed Out');
+                this.$api
+                    .user
+                    .signOut({
+                        id: this.$store.state.user.profile.safetogo_id
+                    });
                 this.$store.commit('user/signOut')
             }, function(error) {
                 console.error('Sign Out Error', error);
