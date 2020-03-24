@@ -18,18 +18,18 @@
                     >
                     <l-popup v-if="marker.popup.show" @l-add="$event.target.openPopup()">
                         <div class="row">
-                            <div class="col-xl-8">
+                            <div class="col-xl-12">
                                 <div class="popup-title">
                                     {{marker.popup.title}}
                                 </div>
                                 <div class="pop-details">
                                     <p>{{marker.popup.details}}</p>
                                 </div>
-                                <br/>
                                 <div class="popup-source" v-if="marker.popup.source">
                                     <a :href="marker.popup.source" target="_blank">source</a>
                                 </div>
                             </div>
+                        
                             <div class="col-xl-4">
                                 <div class="popup-img">
                                     <img :src="(marker.popup.img_url)?marker.popup.img_url:'~/assets/img/helmet.png'" >
@@ -185,6 +185,7 @@ export default {
         font-size:16px;
     }
     .popup-title{
+        padding-top:10px;
         font-size: 16px;
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;

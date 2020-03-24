@@ -1,7 +1,7 @@
 <template>
     <div class="footer overlay">
-        <span>
-            This is a community project by LEAD (<a href="https://www.thelead.io" target="_blank">https://www.thelead.io</a>) for further details please email <b>edmund@thelead.io</b> or <b>drlau@thelead.io</b></span>
+        <img src="~/assets/img/lead-logo-nowords.png" style='width:30px;'/><span>
+            This is a community project by LEAD (<a href="https://www.thelead.io" target="_blank">https://www.thelead.io</a>) for further details please email <b>edmund@thelead.io</b> or <b>csr@thelead.io</b></span>
     </div>
 </template>
 <style>
