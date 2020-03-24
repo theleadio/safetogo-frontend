@@ -5,7 +5,8 @@ const defaultState = () => {
             name: "",
             img_url: "",
             email: "",
-            safetogo_id: ""
+            safetogo_id: "",
+            votes: []
         },
         login: false
     }
@@ -32,7 +33,8 @@ export const mutations = {
         state.profile.email = payload["email"];
         state.login = true
     },
-    updateLoginUserId(state, safetogo_id){
-        state.profile.safetogo_id = safetogo_id
+    updateUserProfile(state, resp){
+        state.profile.safetogo_id = resp["user_id"]
+        state.profile.votes = resp["votes"]
     }
 }

@@ -32,16 +32,17 @@
                         
                             <div class="col-xl-4">
                                 <div class="popup-img">
-                                    <img :src="(marker.popup.img_url)?marker.popup.img_url:'~/assets/img/helmet.png'" >
+                                    <img :src="marker.popup.img_url" >
+                                    <p>By: {{marker.popup.createdBy}}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="vote-wrapper">
-                            <button class="btn up-vote" v-on:click="upVote(marker)">
-                                {{(marker.popup.upVote)?(marker.popup.upVote):0}} 
+                            <button v-bind:class="{'btn':true, 'up-vote':true, 'btn-active':(isLogin && marker.popup.disableUpVote)}" v-on:click="upVote(marker)" v-bind:disabled="(!isLogin)? true:((!marker.popup.disableUpVote)? false:true)">
+                                {{(marker.popup.upVote)?(marker.popup.upVote):0}}
                                 <i class="far fa-thumbs-up"></i>
                             </button>
-                            <button class="btn down-vote" v-on:click="downVote(marker)">
+                            <button v-bind:class="{'btn':true, 'down-vote':true, 'btn-active':(isLogin && marker.popup.disableDownVote)}" v-on:click="downVote(marker)"  v-bind:disabled="(!isLogin)? true:((!marker.popup.disableDownVote)? false:true)">
                                 {{(marker.popup.downVote)?(marker.popup.downVote):0}} <i class="far fa-thumbs-down"></i>
                             </button>
                         </div>
@@ -72,6 +73,9 @@ export default {
         },
         focusLocation(){
             return this.$store.state.map.focus.location
+        },
+        isLogin(){
+            return this.$store.state.user.login
         }
     },
     data: () => {
@@ -134,11 +138,26 @@ export default {
                 }
             });
         },
+        vote: function(upvote, downvote, marker){
+            this.$api
+                .location
+                .vote({
+                    user_id: this.$store.state.user.profile.safetogo_id,
+                    lat: marker.latlng[0],
+                    lng: marker.latlng[1],
+                    upvotes: upvote,
+                    downvotes: downvote,
+                    email: this.$store.state.user.profile.email
+                })
+                .catch(err => console.log(err))
+        },
         upVote: function(marker){
             this.$store.commit('map/upVote', marker);
+            this.vote(1, 0, marker);
         },
         downVote: function(marker){
             this.$store.commit('map/downVote', marker);
+            this.vote(0, 1, marker);
         }
     },
     mounted(){
@@ -161,7 +180,6 @@ export default {
             .getNews()
             .then(
                 (value) => {
-                    console.log(value);
                     this.$store.commit('map/loadLocationData', value)
                 }
             ).catch( e => {console.log(e)});
@@ -197,8 +215,12 @@ export default {
     .popup-img{
         padding:7px;
         margin-top:40px;
+        display:inline-block;
     }
     .popup-img img{
         width:80px;
+    }
+    .btn-active{
+        color:#3c74f3 !important;
     }
 </style>

@@ -113,8 +113,6 @@ export default {
                     this.$api
                         .location
                         .storeSearchAddress(searchData)
-                        // .then(value=>{console.log(value)})
-                        // .catch(value=>{console.log(value)})
 
                 })
                 .catch((err) => {console.log(err)});
@@ -141,7 +139,8 @@ export default {
                     img_url: profile["picture"]
                 })
                 .then((value)=>{
-                    this.$store.commit('user/updateLoginUserId', value["id"])
+                    this.$store.commit('user/updateUserProfile', value)
+                    this.$store.commit('map/disableVote', value["votes"])
                 })
                 .catch(err => console.log(err))
             }).catch(e => {
@@ -154,7 +153,7 @@ export default {
                 this.$api
                     .user
                     .signOut({
-                        id: this.$store.state.user.profile.safetogo_id
+                        user_id: this.$store.state.user.profile.safetogo_id
                     });
                 this.$store.commit('user/signOut')
             }, function(error) {

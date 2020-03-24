@@ -114,10 +114,12 @@ export const mutations = {
                         title: resp[i]["title"],
                         source: resp[i]["source"],
                         show:true,
-                        upVote: 0,
-                        downVote: 0,
+                        upVote: parseInt(resp[i]["upvote"]),
+                        disableUpVote: false,
+                        downVote: parseInt(resp[i]["downvote"]),
+                        disableDownVote: false,
                         createdBy: (resp[i]["createdBy"])?resp[i]["createdBy"]:"SafeToGo",
-                        img_url: (resp[i]["img_url"])?resp[i]["img_url"]:"~/assets/img/helmet.png"
+                        img_url: (resp[i]["img_url"])?resp[i]["img_url"]:"/_nuxt/assets/img/helmet.png"
                     },
                     icon: state.existMarker,
                     tmp:false,
@@ -131,11 +133,25 @@ export const mutations = {
     upVote(state, marker){
         marker.popup.upVote += 1;
         let index = state.location.findIndex(x => x.id === marker.id);
+        marker.popup.disableUpVote = true;
         state.location[index] = marker
     },
     downVote(state, marker){
         marker.popup.downVote += 1;
         let index = state.location.findIndex(x => x.id === marker.id);
+        marker.popup.disableDownVote = true;
         state.location[index] = marker
+    },
+    disableVote(state, votes){
+        for(let index in votes){
+            let i = state.location.findIndex(
+                x => (
+                    x.latlng[0] === votes[index]["lat"] &&
+                    x.latlng[1] === votes[index]["lng"]
+                )
+            )
+            state.location[i]["popup"]["disableUpVote"] = (votes[index]["upvote"] === 1)? true : false;
+            state.location[i]["popup"]["disableDownVote"] = (votes[index]["downvote"] === 1)? true : false;
+        }
     }
 }
