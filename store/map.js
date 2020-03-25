@@ -119,7 +119,7 @@ export const mutations = {
                         downVote: parseInt(resp[i]["downvote"]),
                         disableDownVote: false,
                         createdBy: (resp[i]["createdBy"])?resp[i]["createdBy"]:"SafeToGo",
-                        img_url: (resp[i]["img_url"])?resp[i]["img_url"]:"/_nuxt/assets/img/helmet.png"
+                        img_url: (resp[i]["img_url"])?resp[i]["img_url"]:"../helmet.png"
                     },
                     icon: state.existMarker,
                     tmp:false,
