@@ -14,9 +14,8 @@
                     :l-tooltop="marker.tooltop"
                     :l-popup="marker.popup"
                     v-on:click="innerClick(marker)"
-                    @add="openPopUp($event, marker)"
                     >
-                    <l-popup v-if="marker.popup.show" @l-add="$event.target.openPopup()">
+                    <l-popup v-if="marker.popup.show">
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="popup-title">
@@ -38,13 +37,14 @@
                             </div>
                         </div>
                         <div class="vote-wrapper">
-                            <button v-bind:class="{'btn':true, 'up-vote':true, 'btn-active':(!isLogin)?false:(marker.popup.disableUpVote?true:false)}" v-on:click="upVote(marker)" v-bind:disabled="(!isLogin)? true:((!marker.popup.disableUpVote)? false:true)">
+                            <button v-bind:class="{'btn':true, 'up-vote':true, 'btn-active':(!isLogin)?false:(marker.popup.disableUpVote?true:false)}" v-on:click="upVote(marker)" v-bind:disabled="(!isLogin)? true:((marker.popup.disableUpVote)? true:false)">
                                 {{(marker.popup.upVote)?(marker.popup.upVote):0}}
                                 <i class="far fa-thumbs-up"></i>
                             </button>
-                            <button v-bind:class="{'btn':true, 'down-vote':true, 'btn-active':(!isLogin)?false:(marker.popup.disableDownVote?true:false)}" v-on:click="downVote(marker)"  v-bind:disabled="(!isLogin)? true:((!marker.popup.disableDownVote)? false:true)">
+                            <button v-bind:class="{'btn':true, 'down-vote':true, 'btn-active':(!isLogin)?false:(marker.popup.disableDownVote?true:false)}" v-on:click="downVote(marker)"  v-bind:disabled="(!isLogin)? true:((marker.popup.disableDownVote)? true:false)">
                                 {{(marker.popup.downVote)?(marker.popup.downVote):0}} <i class="far fa-thumbs-down"></i>
                             </button>
+                            <label class="vote-label" v-if="!isLogin">Please login to vote</label>
                         </div>
                     </l-popup>
                     <l-icon
@@ -91,12 +91,13 @@ export default {
             this.$store.commit("disableSearchSuggestion");
         },
         innerClick: function(marker){
-            this.$store.commit('post/setForm', {
-                latlng: marker.latlng,
-                locationName: marker.id
-            });
+            this.$store.commit('map/focus',marker.latlng);
             this.hideAllPost();
             if(marker.create){
+                this.$store.commit('post/setForm', {
+                    latlng: marker.latlng,
+                    locationName: marker.id
+                });
                 this.$store.commit('enableCreateForm');
             }
             else{
@@ -129,14 +130,6 @@ export default {
                 }
             })
             this.tmpLocation = true;
-        },
-        openPopUp: function(event, marker){
-            
-            this.$nextTick(()=>{
-                if(marker.id === "TheLead"){
-                    event.target.openPopup()
-                }
-            });
         },
         vote: function(upvote, downvote, marker){
             this.$api
@@ -222,5 +215,9 @@ export default {
     }
     .btn-active{
         color:#3c74f3 !important;
+    }
+    .vote-label{
+        font-size:12px;
+        color: #bdbdbd;
     }
 </style>

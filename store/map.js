@@ -72,7 +72,7 @@ export const mutations = {
             }
         );
         state.focus = {
-            zoom: 8,
+            zoom: 10,
             location: {lon: resp[0]["lon"],lat:resp[0]["lat"]}
         }
     },
@@ -84,7 +84,7 @@ export const mutations = {
         console.log(tmpLocation)
         state.location.push(tmpLocation)
         state.focus = {
-            zoom: 15,
+            zoom: 10,
             location: {lat:resp["latlng"][0],lon: resp["latlng"][1]}
         }
     },
@@ -130,6 +130,12 @@ export const mutations = {
             }
         }
     },
+    focus(state, resp){
+        state.focus = {
+            zoom: 10,
+            location: {lon: resp[1],lat:resp[0]}
+        }
+    },
     upVote(state, marker){
         marker.popup.upVote += 1;
         let index = state.location.findIndex(x => x.id === marker.id);
@@ -147,13 +153,17 @@ export const mutations = {
         for(let index in votes){
             i = state.location.findIndex(
                 x => (
-                    x.latlng[0] === votes[index]["lat"] &&
-                    x.latlng[1] === votes[index]["lng"]
+                    x.latlng[0] == votes[index]["lat"] &&
+                    x.latlng[1] == votes[index]["lng"]
                 )
             )
             if(i != -1){
-                state.location[i]["popup"]["disableUpVote"] = (votes[index]["upvote"] === 1)? true : false;
-                state.location[i]["popup"]["disableDownVote"] = (votes[index]["downvote"] === 1)? true : false;
+                if (votes[index]["upvote"] === 1){
+                    state.location[i]["popup"]["disableUpVote"] = true; 
+                }
+                if (votes[index]["downvote"] === 1){
+                    state.location[i]["popup"]["disableDownVote"] = true;
+                }
             }
         }
     }
