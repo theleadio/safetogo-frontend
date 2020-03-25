@@ -1,12 +1,12 @@
 <template>
     <div class="social-login-wrapper">
-        <img src="~/assets/img/user.png">
-        <!-- <div class="user-prof" v-if="isLogin" title="Sign Out">
+        <div class="user-prof" v-if="isLogin" title="Sign Out">
             <a href="#" v-on:click="signOut"><img :src="userProfileImg"/></a>
         </div>
         <div class="user-prof" v-else title="Sign In">
             <a href="#" v-on:click="googleSignIn"><img src="~/assets/img/google-icon.jpeg"/></a>
-        </div> -->
+            <!-- <a href="#" v-on:click="googleSignIn"><img src="~/assets/img/facebook-icon.png"/></a> -->
+        </div>
     </div>
 </template>
 <script>
@@ -15,6 +15,14 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 
 export default {
+    computed:{
+        isLogin(){
+            return this.$store.state.user.login
+        },
+        userProfileImg(){
+            return this.$store.state.user.profile.img_url
+        },
+    },
     data: () =>{
         return {
             
@@ -49,7 +57,6 @@ export default {
         },
         signOut: function(){
             firebase.auth().signOut().then(result => {
-                // console.log('Signed Out');
                 this.$api
                     .user
                     .signOut({

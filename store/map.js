@@ -143,15 +143,18 @@ export const mutations = {
         state.location[index] = marker
     },
     disableVote(state, votes){
+        let i = null;
         for(let index in votes){
-            let i = state.location.findIndex(
+            i = state.location.findIndex(
                 x => (
                     x.latlng[0] === votes[index]["lat"] &&
                     x.latlng[1] === votes[index]["lng"]
                 )
             )
-            state.location[i]["popup"]["disableUpVote"] = (votes[index]["upvote"] === 1)? true : false;
-            state.location[i]["popup"]["disableDownVote"] = (votes[index]["downvote"] === 1)? true : false;
+            if(i != -1){
+                state.location[i]["popup"]["disableUpVote"] = (votes[index]["upvote"] === 1)? true : false;
+                state.location[i]["popup"]["disableDownVote"] = (votes[index]["downvote"] === 1)? true : false;
+            }
         }
     }
 }

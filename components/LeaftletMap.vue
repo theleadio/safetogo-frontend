@@ -38,11 +38,11 @@
                             </div>
                         </div>
                         <div class="vote-wrapper">
-                            <button v-bind:class="{'btn':true, 'up-vote':true, 'btn-active':(isLogin && marker.popup.disableUpVote)}" v-on:click="upVote(marker)" v-bind:disabled="(!isLogin)? true:((!marker.popup.disableUpVote)? false:true)">
+                            <button v-bind:class="{'btn':true, 'up-vote':true, 'btn-active':(!isLogin)?false:(marker.popup.disableUpVote?true:false)}" v-on:click="upVote(marker)" v-bind:disabled="(!isLogin)? true:((!marker.popup.disableUpVote)? false:true)">
                                 {{(marker.popup.upVote)?(marker.popup.upVote):0}}
                                 <i class="far fa-thumbs-up"></i>
                             </button>
-                            <button v-bind:class="{'btn':true, 'down-vote':true, 'btn-active':(isLogin && marker.popup.disableDownVote)}" v-on:click="downVote(marker)"  v-bind:disabled="(!isLogin)? true:((!marker.popup.disableDownVote)? false:true)">
+                            <button v-bind:class="{'btn':true, 'down-vote':true, 'btn-active':(!isLogin)?false:(marker.popup.disableDownVote?true:false)}" v-on:click="downVote(marker)"  v-bind:disabled="(!isLogin)? true:((!marker.popup.disableDownVote)? false:true)">
                                 {{(marker.popup.downVote)?(marker.popup.downVote):0}} <i class="far fa-thumbs-down"></i>
                             </button>
                         </div>

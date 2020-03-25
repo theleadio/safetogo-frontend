@@ -36,12 +36,6 @@
                     </div>
                 </div>
                 <SocialLogin />
-                <!-- <div class="user-prof" v-if="isLogin" title="Sign Out">
-                    <a href="#" v-on:click="signOut"><img :src="userProfileImg"/></a>
-                </div>
-                <div class="user-prof" v-else title="Sign In">
-                    <a href="#" v-on:click="googleSignIn"><img src="~/assets/img/google-icon.jpeg"/></a>
-                </div> -->
             </div>
         </nav>
     </div>
@@ -58,12 +52,6 @@ export default {
         SocialLogin
     },
     computed:{
-        isLogin(){
-            return this.$store.state.user.login
-        },
-        userProfileImg(){
-            return this.$store.state.user.profile.img_url
-        },
         userProfile(){
             return this.$store.state.user.profile
         },
@@ -126,45 +114,45 @@ export default {
         search: function() {
             this.performSearch(this.term.split(' ').join('+'));
         },
-        googleSignIn: function(){
-            this.provider = new firebase.auth.GoogleAuthProvider()
-            firebase.auth().signInWithPopup(this.provider).then(result => {
-            let profile = result["additionalUserInfo"]["profile"];
-            this.$store.commit('user/loginUser', {
-                id: profile["id"],
-                name: profile["name"],
-                img_url: profile["picture"],
-                email: profile["email"]
-            })
-            this.$api
-                .user
-                .signIn({
-                    email: profile["email"],
-                    name: profile["name"],
-                    img_url: profile["picture"]
-                })
-                .then((value)=>{
-                    this.$store.commit('user/updateUserProfile', value)
-                    this.$store.commit('map/disableVote', value["votes"])
-                })
-                .catch(err => console.log(err))
-            }).catch(e => {
-                console.log(e)
-            })
-        },
-        signOut: function(){
-            firebase.auth().signOut().then(result => {
-                // console.log('Signed Out');
-                this.$api
-                    .user
-                    .signOut({
-                        user_id: this.$store.state.user.profile.safetogo_id
-                    });
-                this.$store.commit('user/signOut')
-            }, function(error) {
-                console.error('Sign Out Error', error);
-            });
-        },
+        // googleSignIn: function(){
+        //     this.provider = new firebase.auth.GoogleAuthProvider()
+        //     firebase.auth().signInWithPopup(this.provider).then(result => {
+        //     let profile = result["additionalUserInfo"]["profile"];
+        //     this.$store.commit('user/loginUser', {
+        //         id: profile["id"],
+        //         name: profile["name"],
+        //         img_url: profile["picture"],
+        //         email: profile["email"]
+        //     })
+        //     this.$api
+        //         .user
+        //         .signIn({
+        //             email: profile["email"],
+        //             name: profile["name"],
+        //             img_url: profile["picture"]
+        //         })
+        //         .then((value)=>{
+        //             this.$store.commit('user/updateUserProfile', value)
+        //             this.$store.commit('map/disableVote', value["votes"])
+        //         })
+        //         .catch(err => console.log(err))
+        //     }).catch(e => {
+        //         console.log(e)
+        //     })
+        // },
+        // signOut: function(){
+        //     firebase.auth().signOut().then(result => {
+        //         // console.log('Signed Out');
+        //         this.$api
+        //             .user
+        //             .signOut({
+        //                 user_id: this.$store.state.user.profile.safetogo_id
+        //             });
+        //         this.$store.commit('user/signOut')
+        //     }, function(error) {
+        //         console.error('Sign Out Error', error);
+        //     });
+        // },
         searchText: function(){
             this.suggestKeywords = [];
             this.$api
