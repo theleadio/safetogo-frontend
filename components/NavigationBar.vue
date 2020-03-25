@@ -35,12 +35,13 @@
                         </ul>
                     </div>
                 </div>
-                <div class="user-prof" v-if="isLogin" title="Sign Out">
+                <SocialLogin />
+                <!-- <div class="user-prof" v-if="isLogin" title="Sign Out">
                     <a href="#" v-on:click="signOut"><img :src="userProfileImg"/></a>
                 </div>
                 <div class="user-prof" v-else title="Sign In">
                     <a href="#" v-on:click="googleSignIn"><img src="~/assets/img/google-icon.jpeg"/></a>
-                </div>
+                </div> -->
             </div>
         </nav>
     </div>
@@ -50,8 +51,12 @@
 import { mapMutations, mapGetters } from 'vuex'
 import firebase from 'firebase/app'
 import 'firebase/auth'
+import SocialLogin from '~/components/SocialLogin.vue'
 
 export default {
+    components:{
+        SocialLogin
+    },
     computed:{
         isLogin(){
             return this.$store.state.user.login
@@ -216,7 +221,6 @@ export default {
         margin-top:15%;
         border-radius: 50%;
         box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, .19);
-         
     }
     .navbar-brand h1{
         font-family: sans-serif;

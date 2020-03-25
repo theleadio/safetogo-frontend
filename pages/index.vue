@@ -3,6 +3,7 @@
     <LeaflfetMap />
     <NavigationBar  />
     <SubmitForm />
+    <LoginDialog />
     <!-- <PostList /> -->
     <Footer/>
   </div>
@@ -14,6 +15,7 @@ import NavigationBar from '~/components/NavigationBar.vue'
 import SubmitForm from '~/components/SubmitForm.vue'
 import PostList from '~/components/PostList.vue'
 import Footer from '~/components/Footer.vue'
+import LoginDialog from '~/components/LoginDialog.vue'
 
 export default {
   computed:{
@@ -23,6 +25,7 @@ export default {
     NavigationBar,
     SubmitForm,
     PostList,
+    LoginDialog,
     Footer
   },
   data: function () {
