@@ -4,9 +4,15 @@
             <button class="btn btn-light">
                 Login with Google
             </button>
-            <button class="btn btn-light">
-                Login with Facebook
-            </button>    
+            <div 
+                class="fb-login-button" 
+                data-width="" 
+                data-size="large" 
+                data-button-type="continue_with" 
+                data-layout="default" 
+                data-auto-logout-link="false" 
+                data-use-continue-as="false"
+                ></div>
         </div>
     </div>
 </template>
