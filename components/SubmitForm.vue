@@ -69,8 +69,8 @@ export default {
         submit: function(){
             let params = {
                 title: this.title,
-                lng: this.latlng[0],
-                lat: this.latlng[1],
+                lng: this.latlng[1],
+                lat: this.latlng[0],
                 source: this.source,
                 content: this.content,
                 createdBy: this.$store.state.user.profile.name,

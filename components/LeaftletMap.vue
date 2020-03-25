@@ -17,22 +17,23 @@
                     >
                     <l-popup v-if="marker.popup.show">
                         <div class="row">
-                            <div class="col-xl-12">
-                                <div class="popup-title">
-                                    {{marker.popup.title}}
-                                </div>
-                                <div class="pop-details">
-                                    <p>{{marker.popup.details}}</p>
-                                </div>
-                                <div class="popup-source" v-if="marker.popup.source">
-                                    <a :href="marker.popup.source" target="_blank">source</a>
-                                </div>
+                            <div class="popup-title">
+                                {{marker.popup.title}}
                             </div>
-                        
-                            <div class="col-xl-4">
-                                <div class="popup-img">
+                            <!-- <div class="pop-details">
+                                <p>{{marker.popup.details}}</p>
+                            </div> -->
+                            <div class="popup-source" v-if="marker.popup.source">
+                                <a :href="marker.popup.source" target="_blank">source</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="popup-img">
+                                <div style="display:block">
                                     <img :src="marker.popup.img_url" >
-                                    <p>By: {{marker.popup.createdBy}}</p>
+                                    <p>
+                                        By: {{marker.popup.createdBy}} <span v-if="marker.popup.createdAt">@ {{marker.popup.createdAt}}</span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -200,6 +201,7 @@ export default {
         font-size: 16px;
         font-weight: bold;
         font-family: Arial, Helvetica, sans-serif;
+        width: 100%;
     }
     .popup-details{
         font-size: 14px;
@@ -207,11 +209,11 @@ export default {
     }
     .popup-img{
         padding:7px;
-        margin-top:40px;
         display:inline-block;
     }
     .popup-img img{
-        width:80px;
+        width:60px;
+        border-radius: 50%;
     }
     .btn-active{
         color:#3c74f3 !important;

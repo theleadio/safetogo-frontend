@@ -11,6 +11,14 @@ export const state = () => ({
         iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png",
         shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png"
     },
+    greenMarker:{
+        iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png",
+        shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png"
+    },
+    yellowMarker:{
+        iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png",
+        shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png"
+    },
     focus : {
         zoom: 8,
         location:{lon: 0.0,lat:0.0}
@@ -98,7 +106,15 @@ export const mutations = {
     },
     loadLocationData(state, resp){
         if(resp){
+            let icon = {};
             for (let i in resp){
+                icon = (!resp[i]["createdBy"])?(state.existMarker):(
+                    (resp[i]["upvote"] > resp[i]["downvote"] 
+                        && .3 <= (resp[i]["upvote"]/(resp[i]["upvote"]+resp[i]["downvote"]))<.8)?(state.yellowMarker):(
+                            (.3 <(resp[i]["upvote"]/(resp[i]["upvote"]+resp[i]["downvote"])) < .3)? (state.greenMarker):(state.existMarker)
+                        )
+                )
+
                 resp[i]["lat"] = parseFloat(resp[i]["lat"])
                 resp[i]["lng"] = parseFloat(resp[i]["lng"])
                 let dataPoint = {
@@ -119,9 +135,10 @@ export const mutations = {
                         downVote: parseInt(resp[i]["downvote"]),
                         disableDownVote: false,
                         createdBy: (resp[i]["createdBy"])?resp[i]["createdBy"]:"SafeToGo",
-                        img_url: (resp[i]["img_url"])?resp[i]["img_url"]:"../helmet.png"
+                        img_url: (resp[i]["img_url"])?resp[i]["img_url"]:"../helmet.png",
+                        createdAt: (resp[i]["createdAt"])?resp[i]["createdAt"]:null,
                     },
-                    icon: state.existMarker,
+                    icon: icon,
                     tmp:false,
                     create: false,
                     showPopUp: true,
