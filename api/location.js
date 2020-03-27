@@ -5,7 +5,6 @@ export default axios => ({
     },
     getNews: () => {
         return axios.get('/map/nearby-location')
-        // return axios.get('http://localhost:5000/nearby-location')
             .then(res => res.data)
     },
     storeSearchAddress:(params) => {
@@ -22,7 +21,6 @@ export default axios => ({
     vote:(params) => {
         return axios.post(
             "/map/vote",params
-            // "http://localhost:5000/vote",params
             )
         .then(res => res.data)
         .catch(err => console.log(err))
