@@ -1,3 +1,4 @@
+require('dotenv').config();
 
 module.exports = {
   // serverMiddleware: ['~/api/index.js'],
