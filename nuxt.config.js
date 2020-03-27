@@ -67,21 +67,12 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL:'http://localhost:3000/api'
+    baseURL: process.env.BASE_URL || 'http://localhost:3000'
   },
-  // 1555723304582235
-  // auth :{
-  //   strategies: {
-  //     // facebook: {
-  //     //   client_id: '37ffff79cac912f54a09a2cccf6d0461',
-  //     //   userinfo_endpoint: 'https://graph.facebook.com/v2.12/me?fields=about,name,picture{url},email,birthday',
-  //     //   scope: ['public_profile', 'email']
-  //     // },
-  //     google: { //WqaH-4rPN-FRaEhR6FJF9uSB
-  //       client_id: '468040312422-9jeej0dqrcjis4vt0k6rt7g2lg3tsaja.apps.googleusercontent.com'
-  //     }
-  //   }
-  // },
+  server: {
+    port: 5000, // default: 3000
+    host: '127.0.0.1' // default: localhost
+  },
   /*
   ** Build configuration
   */
