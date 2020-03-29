@@ -6,7 +6,14 @@
             :lat-lng="marker.latlng"
             @click="updateCenter(marker.latlng)"
         >
-            <leaflet-popup :marker="marker"/>
+            <leaflet-popup :marker="marker" v-if="('popup' in marker)"/>
+            <l-icon
+                :icon-url="marker.icon"
+                :shadow-url="marker.iconShadow"
+            ></l-icon>
+            <l-tooltip text="aloha">
+                {{marker.tooltip.content}}
+            </l-tooltip>
         </l-marker>
     </div>
 </template>

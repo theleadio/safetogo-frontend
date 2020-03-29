@@ -1,12 +1,15 @@
 const defaultState = () => {
     return {
         center:[0.0, 0.0],
-        focusLevel: 14,
+        focusLevel: 8,
         // mapUrl: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         mapUrl: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
         markers: []
     }
 };
+const redMarker = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png"
+const markerShadow = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png"
+const blueMarker ="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png"
 
 export const state = () => defaultState();
 
@@ -41,8 +44,24 @@ export const mutations = {
                     img_url: resp[index]["img_url"] ? resp[index]["img_url"]: "../helmet.png",
                     createdAt: resp[index]["createdAt"] ? resp[index]["createdAt"] : null,
                 },
+                icon: redMarker,
+                iconShadow: markerShadow
             };
             state.markers.push(marker);
         }
+    },
+    addClickMarker(state, latlng){
+        state.markers.push({
+            id:"What happened?",
+            latlng:latlng,
+            tooltip:{content:"What happened? Create a post by clicking this pin! (Login required)"},
+            icon:blueMarker,
+            iconShadow: markerShadow
+        })
+        state.center=latlng
+    },
+    removeClickedMarker(state){
+        let index = state.markers.findIndex(x => x.id === "What happened?");
+        (index===-1) ? null : state.markers.splice(index, 1);
     }
 }

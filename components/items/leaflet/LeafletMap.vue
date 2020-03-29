@@ -3,11 +3,13 @@
         <div id="map-wrap">
             <client-only>
                 <l-map 
-                    :zoom="5" 
+                    :zoom="zoom" 
                     :center="center" 
                     :options="{zoomControl:false}"
                     @update:center="updateCenter"
                     @update:zoom="updateZoom"
+                    @contextmenu="addClickMarker($event['latlng'])"
+                    @click="removeClickedMarker()"
                     >
                     <l-tile-layer :url="mapUrl" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'></l-tile-layer>
                     <leaflet-marker />
@@ -31,9 +33,16 @@ export default {
         }
     },
     methods:{
+        mapRightClick: function(event){
+            console.log(event["latlng"])
+            console.log(this.$L.Marker({latlng:event["latlng"]}))
+        }
+        ,
         ...mapMutations({
             updateCenter: "leafletmap/updateCenter",
-            updateZoom: "leafletmap/updateFocusLevel"
+            updateZoom: "leafletmap/updateFocusLevel",
+            addClickMarker: "leafletmap/addClickMarker",
+            removeClickedMarker: "leafletmap/removeClickedMarker"
         })
     },
     computed:{
@@ -49,7 +58,7 @@ export default {
                 (value) => {
                     this.$store.commit("leafletmap/updateCenter", [
                         value["coords"]["latitude"], value["coords"]["longitude"]
-                    ])
+                    ]);
                 }
             );
         await this.$api
