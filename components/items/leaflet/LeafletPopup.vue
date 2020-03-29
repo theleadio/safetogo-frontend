@@ -1,6 +1,6 @@
 <template>
     <div>
-        <l-popup>
+        <l-popup class="w-56">
             <div class="absolute right-0 top-0 mr-4 h-16 w-16 rounded-full overflow-hidden float-up">
                 <img class="h-full w-full object-cover" :src="marker.popup.img_url">
             </div>

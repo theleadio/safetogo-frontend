@@ -45,7 +45,8 @@ export const mutations = {
                     createdAt: resp[index]["createdAt"] ? resp[index]["createdAt"] : null,
                 },
                 icon: redMarker,
-                iconShadow: markerShadow
+                iconShadow: markerShadow,
+                isNew:false
             };
             state.markers.push(marker);
         }
@@ -56,7 +57,8 @@ export const mutations = {
             latlng:latlng,
             tooltip:{content:"What happened? Create a post by clicking this pin! (Login required)"},
             icon:blueMarker,
-            iconShadow: markerShadow
+            iconShadow: markerShadow,
+            isNew:true
         })
         state.center=latlng
     },

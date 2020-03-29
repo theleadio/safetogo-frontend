@@ -2,6 +2,7 @@ const defaultState = () => {
     return {
         openSidebar: false,
         searchSuggestion: false,
+        postForm: false,
     }
 };
 export const state = () => defaultState();
@@ -12,6 +13,9 @@ export const getters = {
     },
     getSearchSuggestion: state => {
         return state.searchSuggestion;
+    },
+    getPostForm: state => {
+        return state.postForm;
     }
 };
 
@@ -27,5 +31,8 @@ export const mutations = {
     },
     closeSearchSuggestion(state){
         state.searchSuggestion = false;
+    },
+    togglePostForm(state){
+        state.postForm = !state.postForm;
     }
 };

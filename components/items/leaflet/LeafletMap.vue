@@ -9,7 +9,7 @@
                     @update:center="updateCenter"
                     @update:zoom="updateZoom"
                     @contextmenu="addClickMarker($event['latlng'])"
-                    @click="removeClickedMarker()"
+                    @click="removeClickedMarker(); resetPost();"
                     >
                     <l-tile-layer :url="mapUrl" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'></l-tile-layer>
                     <leaflet-marker />
@@ -42,7 +42,8 @@ export default {
             updateCenter: "leafletmap/updateCenter",
             updateZoom: "leafletmap/updateFocusLevel",
             addClickMarker: "leafletmap/addClickMarker",
-            removeClickedMarker: "leafletmap/removeClickedMarker"
+            removeClickedMarker: "leafletmap/removeClickedMarker",
+            resetPost: "newmarker/resetContent"
         })
     },
     computed:{
@@ -53,7 +54,6 @@ export default {
         })
     },
     async mounted(){
-        console.log("mounted");
         await navigator.geolocation.getCurrentPosition(
                 (value) => {
                     this.$store.commit("leafletmap/updateCenter", [

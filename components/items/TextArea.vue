@@ -20,7 +20,7 @@
             'active:border-blue': true,
             'filled':(this.value.length > 0)? true : false
             }" 
-            rows="12"
+            rows="7"
             :id="labelId" 
             :type="(inputType)?inputType:'text'" 
             v-bind:autofocus="focus"

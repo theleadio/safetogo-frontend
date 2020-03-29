@@ -4,7 +4,7 @@
             v-for="marker in markers"
             :key="marker.id"
             :lat-lng="marker.latlng"
-            @click="updateCenter(marker.latlng)"
+            @click="(marker.isNew)? (togglePostForm(),setCoordinate(marker.latlng)) : updateCenter(marker.latlng)"
         >
             <leaflet-popup :marker="marker" v-if="('popup' in marker)"/>
             <l-icon
@@ -29,6 +29,8 @@ export default {
     methods:{
         ...mapMutations({
             updateCenter: "leafletmap/updateCenter",
+            togglePostForm: "setting/togglePostForm",
+            setCoordinate : "newmarker/setCoordinate"
         })
     },
     computed:{
