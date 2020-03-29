@@ -8,7 +8,7 @@
 </template>
 <script>
 import Navi from '~/components/Navi.vue'
-import Map from '~/components/items/LeafletMap.vue'
+import Map from '~/components/items/leaflet/LeafletMap.vue'
 
 export default {
     components:{

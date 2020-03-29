@@ -14,7 +14,7 @@ export const getters = {
 
 export const mutations = {
     setKeywordSuggestions(state, keywords){
-        state.getKeywordSuggestions = keywords
+        state.keywordSuggestions = keywords
     },
     resetState (state) {
         Object.assign(state, defaultState())

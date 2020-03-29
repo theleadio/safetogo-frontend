@@ -7,8 +7,8 @@
                 'bg-black':true, 
                 'border-b-black':true,
                 'shadow-nav':true,
-                'p-6':(this.$route.fullPath.length > 2)? false: true,
-                'p-3':(this.$route.fullPath.length > 2)? true: false,
+                'py-3':true,
+                'pt-1':true,
                 'transition': true,
                 'duration-200': true
         }">

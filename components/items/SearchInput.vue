@@ -27,16 +27,16 @@
                     :placeholder="placeHolder"
                     v-model="searchTerm"
                     v-on:input="suggest"
-                    v-on:keyup.enter="search"
+                    v-on:keyup.enter="performSearch"
                 >
             </div>
         </div>
-        <SearchSuggestion :keywords="keywordSuggestions" :callback="selectKeyword" v-if="searchSuggestion"/>
+        <SearchSuggestion  :callback="selectKeyword" v-if="searchSuggestion"/>
     </div> 
 </template>
 <script>
 import SearchSuggestion from '~/components/items/SearchSuggestion.vue'
-import { mapState } from 'vuex';
+import { mapState, } from 'vuex';
 
 export default {
     components:{
@@ -51,20 +51,76 @@ export default {
         placeHolder: String
     },
     methods:{
-        search: function (){
-            console.log(this.searchTerm);
+        // search: function (){
+        //     console.log(this.searchTerm);
+        // },
+        showSuggestions: function(keywordList){
+            this.$store.commit("search/resetState")
+            this.$store.commit("search/setKeywordSuggestions", keywordList);
+            this.$store.commit("setting/openSearchSuggestion");
         },
-        suggest: function(event) {
-            console.log(this.searchTerm)
+        disableSuggestions: function(){
+            this.$store.commit("search/resetState")
+            this.$store.commit("setting/closeSearchSuggestion");
+        },
+        searchText: function(){
+            this.suggestKeywords = [];
+            this.$api
+                .location
+                .searchKeywords(this.searchTerm.split(' ').join('+'))
+                .then((value)=>{
+                    let results = []
+                    for(let index in value){
+                        results.push(
+                            {
+                                name:value[index]["display_name"],
+                                id: value[index]["place_id"]
+                            }
+                        );
+                    }
+                    this.showSuggestions([...new Set(results)]);
+                })
+                .catch(err => {console.log(err)});
+        },
+        suggest: function(event){
+            if(this.searchTerm.length > 2 || event["inputType"] === 'deleteContentBackward'){
+                this.searchText();
+            }else{
+                this.disableSuggestions();
+            }
+        },
+        performSearch: function(keywords){
+            this.$api
+                .location
+                .searchAddress(keywords.split(' ').join('+'))
+                .then((value)=> {
+                    this.disableSuggestions();
+                    // this.$store.commit('map/updateLocation', value); 
+
+                    // let searchData = {
+                    //     searched_by: this.$store.state.user.profile.name,
+                    //     user_email: this.$store.state.user.profile.email,
+                    //     user_id: this.$store.state.user.profile.id,
+                    //     searched_result: value,
+                    //     created_date: this.getDate()
+                    // }
+                    // this.$api
+                    //     .location
+                    //     .storeSearchAddress(searchData)
+
+                })
+                .catch((err) => {console.log(err)});
+            
         },
         selectKeyword: function(keyword){
-            console.log(keyword)
+            this.searchTerm = keyword;
+            this.performSearch(keyword);
+            this.disableSuggestions();
         }
     },
     computed:{
         ...mapState({
-            keywordSuggestions : state => state.search.keywordSuggestions,
-            searchSuggestion : state => state.setting.searchSuggestion
+            searchSuggestion : state => state.setting.searchSuggestion,
         })
     }
 }
