@@ -1,27 +1,27 @@
 <template>
     <div>
         <Navi />
-        <div class="">
+        <div class="w-full h-full">
             <Map />
+            <CreatePost />
         </div>
     </div>
 </template>
 <script>
 import Navi from '~/components/Navi.vue'
 import Map from '~/components/items/leaflet/LeafletMap.vue'
+import CreatePost from '~/components/FloatingForm.vue'
 
 export default {
     components:{
         Navi,
-        Map
+        Map,
+        CreatePost
     }
 }
 </script>
 <style>
 .top-layer{
     z-index: 500;
-}
-.black_highlight{
-    background-color: rgb(0, 0, 0);
 }
 </style>
