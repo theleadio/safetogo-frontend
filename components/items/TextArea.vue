@@ -20,12 +20,12 @@
             'active:border-blue': true,
             'filled':(this.value.length > 0)? true : false
             }" 
-            rows="7"
+            rows="5"
             :id="labelId" 
             :type="(inputType)?inputType:'text'" 
             v-bind:autofocus="focus"
             v-model="inputModel"
-            :required="required"
+            :disabled="disabled"
             >
         </textarea>
         <label 
@@ -56,7 +56,7 @@ export default {
         inputType: String,
         focus: Boolean,
         value: String,
-        required:Boolean
+        disabled:Boolean
     },
     computed:{
         inputModel:{

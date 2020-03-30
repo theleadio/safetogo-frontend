@@ -38,5 +38,8 @@ export const mutations = {
     },
     toggleProfileDropDown(state){
         state.profileDropDown = !state.profileDropDown;
+    },
+    resetState(state){
+        Object.assign(state, defaultState())
     }
 };

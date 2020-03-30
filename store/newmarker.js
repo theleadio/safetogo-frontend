@@ -47,11 +47,11 @@ export const mutations = {
     setContent(state, content){
         state.content = content
     },
-    setUserDetails(state, user_id, email, img_url, name){
-        state.name = name;
-        state.user_id = user_id;
-        state.email = email
-        state.img_url = img_url
+    setUserDetails(state, resp){
+        state.createdBy = resp["name"];
+        state.user_id = resp["user_id"];
+        state.email = resp["email"];
+        state.img_url = resp["img_url"];
     },
     resetContent(state){
         state.title = ""
@@ -62,7 +62,7 @@ export const mutations = {
         state.lng = 0.0
     },
     resetUser(state){
-        state.name = ""
+        state.createdBy = ""
         state.user_id = ""
         state.email = ""
         state.img_url = ""

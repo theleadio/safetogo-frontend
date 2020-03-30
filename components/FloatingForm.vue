@@ -17,40 +17,43 @@
                     <label>Create a Post</label>
                     <i class="fas fa-times cursor-pointer" v-on:click="disablePostForm"></i>
                 </div>
-                <label class="text-red-600 text-xs"> Login is required to create a new post </label>
+                <label class="text-red-600 text-xs" v-if="!userLogin"> Login is required to create a new post </label>
                 <div class="mb-3">
-                    <inputElement :labelName="'Title'" :labelId="'title'" :focus="false" :value="title" @input="setTitle($event); isTitleFilled()" :required="true"/>
+                    <inputElement :labelName="'Title'" :labelId="'title'" :focus="false" :value="title" @input="setTitle($event); isTitleFilled()" 
+                     :disabled="!userLogin"/>
                     <label class="text-red-600 text-xs" v-if="titleFilled"> Please provide a title for your post. </label>
                 </div>
                 <div class="mb-3">
-                    <inputElement :labelName="'Location Name'" :labelId="'locationName'" :focus="false" :value="locationName" @input="setLocationName($event); isLocationFilled()" :required="true"
+                    <inputElement :labelName="'Location Name'" :labelId="'locationName'" :focus="false" :value="locationName" @input="setLocationName($event); isLocationFilled()" :disabled="!userLogin"
                     />
                     <label class="text-red-600 text-xs" v-if="locationFilled"> Please provide the location name. </label>
                 </div>
                 <div class="mb-3">
-                    <inputElement :labelName="'Source'" :labelId="'source'" :focus="false" :value="source" @input="setSource($event); isSourceFilled()" :required="true"/>
+                    <inputElement :labelName="'Source'" :labelId="'source'" :focus="false" :value="source" @input="setSource($event); isSourceFilled()" :disabled="!userLogin"/>
                     <label class="text-red-600 text-xs" v-if="sourceFilled"> Please provide a source for your post. </label>
                 </div>
                 <div class="mb-3">
-                    <textElement :labelName="'Content'" :labelId="'content'" :focus="false" :value="content" @input="setContent($event); isContentFilled()" :required="true"/>
+                    <textElement :labelName="'Content'" :labelId="'content'" :focus="false" :value="content" @input="setContent($event); isContentFilled()" :disabled="!userLogin"/>
                     <label class="text-red-600 text-xs" v-if="contentFilled"> Tell us more about what happened here. </label>
                 </div>
                 <div class="flex items-center justify-between">
-                    <button class="
-                        bg-blue-500  
-                        w-full
-                        text-white 
-                        font-bold 
-                        py-3 
-                        px-4 
-                        rounded
-                        transition
-                        duration-200
-                        hover:bg-blue-400
-                        focus:outline-none 
-                        focus:shadow-outline" 
+                    <button v-bind:class="{
+                        'bg-blue-500':true, 
+                        'w-full':true,
+                        'text-white':true,
+                        'font-bold':true,
+                        'py-3':true,
+                        'px-4':true,
+                        'rounded':true,
+                        'transition':true,
+                        'duration-200':true,
+                        'hover:bg-blue-400':userLogin,
+                        'focus:outline-none':true,
+                        'focus:shadow-outline':true,
+                        }" 
                         type="button"
                         @click="submitNewPost"
+                        :disabled="!userLogin"
                         >
                         Create Post
                     </button>
@@ -97,8 +100,9 @@ export default {
                     .createPost(params)
                     .then((value)=> {
                         this.disablePostForm();
-                        this.$store.commit("leafletmap/removeClickedMarker")
-                        this.$store.commit("newmarker/resetContent");
+                        this.removeClickedMarker();
+                        this.addNewMarker(params);
+                        this.resetContent();
                     })
                     .catch((err) => {console.log(err)});
             }
@@ -123,7 +127,10 @@ export default {
             setTitle: "newmarker/setTitle",
             setLocationName: "newmarker/setLocationName",
             setSource: "newmarker/setSource",
-            setContent: "newmarker/setContent"
+            setContent: "newmarker/setContent",
+            addNewMarker: "leafletmap/addNewMarker",
+            removeClickedMarker: "leafletmap/removeClickedMarker",
+            resetContent: "newmarker/resetContent"
         })
     },
     computed:{
@@ -132,7 +139,8 @@ export default {
             title : state => state.newmarker.title,
             locationName : state => state.newmarker.locationName,
             source : state => state.newmarker.source,
-            content : state => state.newmarker.content
+            content : state => state.newmarker.content,
+            userLogin: state => state.profile.loginStatus
         })
     }
 }

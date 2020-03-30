@@ -76,6 +76,12 @@ export default {
                         })
                         .then((value)=>{
                             this.updateUserProfile(value)
+                            this.setUserPostDetails({
+                                user_id: value["user_id"],
+                                email: profile["email"],
+                                name: profile["name"],
+                                img_url: profile["picture"]
+                            })
                             // this.$store.commit('map/disableVote', value["votes"])
                         })
                         .catch(err => console.log(err))
@@ -90,6 +96,8 @@ export default {
                         user_id: this.$store.state.user.profile.safetogo_id
                     });
                 this.signOut();
+                this.resetUserPostDetails();
+                this.resetSettingState();
             }, function(error) {
                 console.error('Sign Out Error', error);
             });
@@ -98,7 +106,10 @@ export default {
             loginUser: "profile/loginUser",
             updateUserProfile: "profile/updateUserProfile",
             signOut: "profile/signOut",
-            toggleProfileDropDown : "setting/toggleProfileDropDown"
+            toggleProfileDropDown : "setting/toggleProfileDropDown",
+            resetSettingState: "setting/resetState",
+            setUserPostDetails: "newmarker/setUserDetails",
+            resetUserPostDetails: "newmarker/resetUser"
         })
     }
 }

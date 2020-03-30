@@ -10,7 +10,7 @@
                     <div>{{marker.popup.title}}</div>
                     <div><a :href="marker.popup.source" target="_blank">source</a></div>
                 </div>
-                <div class="absolute bottom-0 w-24 right-0 py-2 text-lg text-yellow-600 font-semibold overflow-hidden">
+                <div class="absolute bottom-0 w-24 right-0 py-2 text-sm text-yellow-600 font-semibold overflow-hidden">
                     {{marker.popup.createdBy}}
                 </div>
                 <div class="absolute bottom-0 left-0 py-2 pl-4">

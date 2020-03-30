@@ -24,7 +24,7 @@
             :type="(inputType)?inputType:'text'" 
             v-bind:autofocus="focus"
             v-model="inputModel"
-            :required="required"
+            :disabled="disabled"
             >
         <label 
             :for="labelId" 
@@ -54,7 +54,7 @@ export default {
         inputType: String,
         focus: Boolean,
         value: String,
-        required:Boolean
+        disabled:Boolean
     },
     computed:{
         inputModel:{

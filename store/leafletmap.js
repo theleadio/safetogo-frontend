@@ -62,6 +62,33 @@ export const mutations = {
         })
         state.center=latlng
     },
+    addNewMarker(state, post){
+        let marker = {
+            id: post["locationName"],
+            latlng: [ 
+                post["lat"], 
+                post["lng"]
+            ],
+            tooltip:{
+                content: post["locationName"]
+            },
+            popup:{
+                title: post["title"],
+                source: post["source"],
+
+                upVote: 0,
+                downVote: 0,
+
+                createdBy: post["createdBy"],
+                img_url: post["img_url"],
+                createdAt: post["reportedDate"],
+            },
+            icon: redMarker,
+            iconShadow: markerShadow,
+            isNew:false
+        };
+        state.markers.push(marker);
+    },
     removeClickedMarker(state){
         let index = state.markers.findIndex(x => x.id === "What happened?");
         (index===-1) ? null : state.markers.splice(index, 1);
