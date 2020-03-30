@@ -33,6 +33,12 @@ export const mutations = {
     closeSearchSuggestion(state){
         state.searchSuggestion = false;
     },
+    closePostForm(state){
+        state.postForm = false;
+    },
+    closeProfileDropDown(state){
+        state.profileDropDown = false;
+    },
     togglePostForm(state){
         state.postForm = !state.postForm;
     },
@@ -40,6 +46,6 @@ export const mutations = {
         state.profileDropDown = !state.profileDropDown;
     },
     resetState(state){
-        Object.assign(state, defaultState())
+        Object.assign(state, defaultState());
     }
 };

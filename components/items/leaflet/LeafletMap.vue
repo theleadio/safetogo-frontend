@@ -9,7 +9,7 @@
                     @update:center="updateCenter"
                     @update:zoom="updateZoom"
                     @contextmenu="addClickMarker($event['latlng'])"
-                    @click="removeClickedMarker(); resetPost();"
+                    @click="removeClickedMarker(); resetPost(); closePostForm(); closeProfileDropDown();"
                     >
                     <l-tile-layer :url="mapUrl" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'></l-tile-layer>
                     <leaflet-marker />
@@ -33,17 +33,14 @@ export default {
         }
     },
     methods:{
-        mapRightClick: function(event){
-            console.log(event["latlng"])
-            console.log(this.$L.Marker({latlng:event["latlng"]}))
-        }
-        ,
         ...mapMutations({
             updateCenter: "leafletmap/updateCenter",
             updateZoom: "leafletmap/updateFocusLevel",
             addClickMarker: "leafletmap/addClickMarker",
             removeClickedMarker: "leafletmap/removeClickedMarker",
-            resetPost: "newmarker/resetContent"
+            resetPost: "newmarker/resetContent",
+            closePostForm : "setting/closePostForm",
+            closeProfileDropDown : "setting/closeProfileDropDown",
         })
     },
     computed:{
