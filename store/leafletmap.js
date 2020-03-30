@@ -43,6 +43,9 @@ export const mutations = {
                     createdBy: resp[index]["createdBy"] ? resp[index]["createdBy"] : "SafeToGo",
                     img_url: resp[index]["img_url"] ? resp[index]["img_url"]: "../helmet.png",
                     createdAt: resp[index]["createdAt"] ? resp[index]["createdAt"] : null,
+
+                    disableUpVote: false,
+                    disableDownVote: false
                 },
                 icon: redMarker,
                 iconShadow: markerShadow,
@@ -82,6 +85,9 @@ export const mutations = {
                 createdBy: post["createdBy"],
                 img_url: post["img_url"],
                 createdAt: post["reportedDate"],
+
+                disableUpVote: false,
+                disableDownVote: false
             },
             icon: redMarker,
             iconShadow: markerShadow,
@@ -92,5 +98,36 @@ export const mutations = {
     removeClickedMarker(state){
         let index = state.markers.findIndex(x => x.id === "What happened?");
         (index===-1) ? null : state.markers.splice(index, 1);
+    },
+    upVote(state, marker){
+        marker.popup.upVote += 1;
+        let index = state.markers.findIndex(x => x.id === marker.id);
+        marker.popup.disableUpVote = true;
+        state.markers[index] = marker
+    },
+    downVote(state, marker){
+        marker.popup.downVote += 1;
+        let index = state.markers.findIndex(x => x.id === marker.id);
+        marker.popup.disableDownVote = true;
+        state.markers[index] = marker
+    },
+    disableVote(state, votes){
+        let i = null;
+        for(let index in votes){
+            i = state.markers.findIndex(
+                x => (
+                    x.latlng[0] == votes[index]["lat"] &&
+                    x.latlng[1] == votes[index]["lng"]
+                )
+            )
+            if(i != -1){
+                if (votes[index]["upvote"] === 1){
+                    state.markers[i]["popup"]["disableUpVote"] = true; 
+                }
+                if (votes[index]["downvote"] === 1){
+                    state.markers[i]["popup"]["disableDownVote"] = true;
+                }
+            }
+        }
     }
 }

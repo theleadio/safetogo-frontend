@@ -81,8 +81,8 @@ export default {
                                 email: profile["email"],
                                 name: profile["name"],
                                 img_url: profile["picture"]
-                            })
-                            // this.$store.commit('map/disableVote', value["votes"])
+                            });
+                            this.disableVotes(value["votes"]);
                         })
                         .catch(err => console.log(err))
                 }
@@ -106,10 +106,14 @@ export default {
             loginUser: "profile/loginUser",
             updateUserProfile: "profile/updateUserProfile",
             signOut: "profile/signOut",
+
             toggleProfileDropDown : "setting/toggleProfileDropDown",
             resetSettingState: "setting/resetState",
+
             setUserPostDetails: "newmarker/setUserDetails",
-            resetUserPostDetails: "newmarker/resetUser"
+            resetUserPostDetails: "newmarker/resetUser",
+
+            disableVotes : "leafletmap/disableVote"
         })
     }
 }

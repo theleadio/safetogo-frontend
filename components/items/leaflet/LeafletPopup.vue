@@ -14,15 +14,29 @@
                     {{marker.popup.createdBy}}
                 </div>
                 <div class="absolute bottom-0 left-0 py-2 pl-4">
-                    <div class="flex flex-row justify-between text-base text-gray-600 ">
+                    <div class="flex flex-row justify-between text-base">
                         <div class="justify-start mx-1">
-                            <button class="focus:outline-none">
+                            <button v-bind:class="{
+                                'focus:outline-none': true,
+                                'text-gray-500':(marker.popup.disableUpVote?false:true),
+                                'text-blue-500':(!isLogin)?false:(marker.popup.disableUpVote?true:false)
+                                }"
+                                v-bind:disabled="(!isLogin)? true:((marker.popup.disableUpVote)? true:false)"
+                                v-on:click="upVote(marker)"
+                                >
                                 {{(marker.popup.upVote)?(marker.popup.upVote):0}} <i class="far fa-thumbs-up"></i>
                             </button>
                         </div> 
-                        <span class="mx-2">|</span>
+                        <!-- <span class="mx-2">|</span> -->
                         <div class="justify-start mx-1">
-                            <button class="focus:outline-none">
+                            <button v-bind:class="{
+                                'focus:outline-none': true,
+                                'text-gray-500': (marker.popup.disableDownVote?false:true),
+                                'text-blue-500':(!isLogin)?false:(marker.popup.disableDownVote?true:false)
+                                }"
+                                v-bind:disabled="(!isLogin)? true:((marker.popup.disableDownVote)? true:false)"
+                                v-on:click="downVote(marker)"
+                                >
                                 {{(marker.popup.downVote)?(marker.popup.downVote):0}} <i class="far fa-thumbs-down"></i>
                             </button>
                         </div>
@@ -33,10 +47,44 @@
     </div>
 </template>
 <script>
+import { mapState, mapMutations } from 'vuex'
+
 export default {
     name:"leaflet-popup",
     props:{
         marker: Object
+    },
+    computed:{
+        ...mapState({
+            isLogin: state => state.profile.loginStatus
+        })
+    },
+    methods:{
+        vote: function(upvote, downvote, marker){
+            this.$api
+                .location
+                .vote({
+                    user_id: this.$store.state.user.profile.safetogo_id,
+                    lat: marker.latlng[0],
+                    lng: marker.latlng[1],
+                    upvotes: upvote,
+                    downvotes: downvote,
+                    email: this.$store.state.user.profile.email
+                })
+                .catch(err => console.log(err))
+        },
+        upVote: function(marker){
+            this.upMarkerVote(marker);
+            this.vote(1, 0, marker);
+        },
+        downVote: function(marker){
+            this.downMarkerVote(marker);
+            this.vote(0, 1, marker);
+        },
+        ...mapMutations({
+            upMarkerVote: "leafletmap/upVote",
+            downMarkerVote: "leafletmap/downVote"
+        })
     }
 }
 </script>
