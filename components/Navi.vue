@@ -17,7 +17,8 @@
                 <SearchInput 
                     :placeHolder="'Search here'"
                     class="sm:w-3/5 md:w-3/5 lg:w-3/5" />
-                <button class="
+                <UserProfile />
+                <!-- <button class="
                 bg-transparent 
                 font-semibold 
                 text-white-300 
@@ -30,7 +31,7 @@
                 hover:border-white-400
                 hover:text-white-400">
                     Sign Out
-                </button>
+                </button> -->
             </div>
         </nav>
     </div>
@@ -38,12 +39,14 @@
 <script>
 import Logo from "~/components/items/Logo.vue";
 import SearchInput from '~/components/items/SearchInput.vue'
+import UserProfile from '~/components/items/UserProfile.vue'
 import { mapMutations } from 'vuex'
 
 export default {
     components:{
         Logo,
-        SearchInput
+        SearchInput,
+        UserProfile
     },
     data: function() {
       return {

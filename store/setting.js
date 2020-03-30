@@ -3,6 +3,7 @@ const defaultState = () => {
         openSidebar: false,
         searchSuggestion: false,
         postForm: false,
+        profileDropDown: false,
     }
 };
 export const state = () => defaultState();
@@ -34,5 +35,8 @@ export const mutations = {
     },
     togglePostForm(state){
         state.postForm = !state.postForm;
+    },
+    toggleProfileDropDown(state){
+        state.profileDropDown = !state.profileDropDown;
     }
 };
