@@ -4,6 +4,7 @@ const defaultState = () => {
         searchSuggestion: false,
         postForm: false,
         profileDropDown: false,
+        howToMessage: true
     }
 };
 export const state = () => defaultState();
@@ -47,5 +48,8 @@ export const mutations = {
     },
     resetState(state){
         Object.assign(state, defaultState());
+    },
+    toggleHowToMessage(state){
+        state.howToMessage = !state.howToMessage
     }
 };

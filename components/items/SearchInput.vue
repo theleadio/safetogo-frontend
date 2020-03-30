@@ -28,8 +28,9 @@
                     type="text"
                     :placeholder="placeHolder"
                     v-model="searchTerm"
-                    v-on:input="suggest"
-                    v-on:keyup.enter="performSearch"
+                    @input="suggest"
+                    @keyup.enter="performSearch"
+                    @keyup.esc="disableSuggestions"
                 >
             </div>
         </div>

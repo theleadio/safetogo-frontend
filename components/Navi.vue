@@ -18,20 +18,6 @@
                     :placeHolder="'Search here'"
                     class="sm:w-3/5 md:w-3/5 lg:w-3/5" />
                 <UserProfile />
-                <!-- <button class="
-                bg-transparent 
-                font-semibold 
-                text-white-300 
-                border 
-                border-white-300 
-                py-1 
-                px-3
-                rounded-sm
-                text-xs
-                hover:border-white-400
-                hover:text-white-400">
-                    Sign Out
-                </button> -->
             </div>
         </nav>
     </div>
@@ -40,7 +26,6 @@
 import Logo from "~/components/items/Logo.vue";
 import SearchInput from '~/components/items/SearchInput.vue'
 import UserProfile from '~/components/items/UserProfile.vue'
-import { mapMutations } from 'vuex'
 
 export default {
     components:{
@@ -55,11 +40,6 @@ export default {
     },
     props:{
         // path: Array
-    },
-    methods:{
-        ...mapMutations({
-            toggle: "setting/toggleSidebar"
-        })
     }
 }
 </script>

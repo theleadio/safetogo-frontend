@@ -1,6 +1,6 @@
 const defaultState = () => {
     return {
-        center:[0.0, 0.0],
+        center:[3.1390, 101.6869],
         focusLevel: 8,
         // mapUrl: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         mapUrl: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",

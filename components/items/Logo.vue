@@ -6,8 +6,10 @@
             'md:h-12': true,
             'md:w-12': true,
             'mr-2':true,
-            'object-cover':true
-            }" :src="logoUrl">
+            'object-cover':true,
+            'cursor-pointer':true
+            }" :src="logoUrl"
+            @click="toggle">
 
         <span v-bind:class="{
                 'font-semibold': true,
@@ -20,6 +22,7 @@
 </template>
 <script>
 import logoUrl from '~/assets/img/helmet.png';
+import { mapMutations } from 'vuex'
 
 export default {
     name: "Logo",
@@ -30,6 +33,11 @@ export default {
     },
     props:{
         small: Boolean
+    },
+    methods:{
+        ...mapMutations({
+            toggle: "setting/toggleHowToMessage"
+        })
     }
 }
 </script>
