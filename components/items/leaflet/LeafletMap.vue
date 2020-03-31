@@ -12,7 +12,7 @@
                     @click="removeClickedMarker(); resetPost(); closePostForm(); closeProfileDropDown();"
                     >
                     <l-tile-layer :url="mapUrl" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'></l-tile-layer>
-                    <leaflet-marker />
+                    <leaftlet-layer :markers="locationMarkers" :showLayer="true"/>
                     <l-control-zoom position="bottomright"  ></l-control-zoom>
                 </l-map>
             </client-only>
@@ -22,11 +22,13 @@
 <script>
 import { mapState, mapMutations } from 'vuex';
 import LeafletMarker from '~/components/items/leaflet/LeafletMarker.vue';
+import LeafletGroupLayer from '~/components/items/leaflet/LeafletLayerGroup.vue';
 
 export default {
     name:"leaflet-map",
     components:{
-        'leaflet-marker':LeafletMarker
+        'leaflet-marker':LeafletMarker,
+        'leaftlet-layer': LeafletGroupLayer
     },
     data: () =>{
         return {
@@ -47,7 +49,8 @@ export default {
         ...mapState({
             center : state => state.leafletmap.center,
             zoom : state => state.leafletmap.focusLevel,
-            mapUrl : state => state.leafletmap.mapUrl
+            mapUrl : state => state.leafletmap.mapUrl,
+            locationMarkers : state => state.leafletmap.markers.location
         })
     },
     async mounted(){

@@ -26,16 +26,14 @@ export default {
     components:{
         'leaflet-popup': LeafletPopup
     },
+    props:{
+        markers: Array
+    },
     methods:{
         ...mapMutations({
             updateCenter: "leafletmap/updateCenter",
             togglePostForm: "setting/togglePostForm",
             setCoordinate : "newmarker/setCoordinate"
-        })
-    },
-    computed:{
-        ...mapState({
-            markers: state => state.leafletmap.markers
         })
     }
 }
