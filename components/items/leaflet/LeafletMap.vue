@@ -13,7 +13,8 @@
                     >
                     <l-tile-layer :url="mapUrl" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'></l-tile-layer>
                     <leaftlet-layer :markers="locationMarkers" :showLayer="true"/>
-                    <l-control-zoom position="bottomright"  ></l-control-zoom>
+                    <leaftlet-layer :markers="summaryMarkers" :showLayer="true"/>
+                    <l-control-zoom position="bottomright"></l-control-zoom>
                 </l-map>
             </client-only>
         </div>
@@ -50,7 +51,8 @@ export default {
             center : state => state.leafletmap.center,
             zoom : state => state.leafletmap.focusLevel,
             mapUrl : state => state.leafletmap.mapUrl,
-            locationMarkers : state => state.leafletmap.markers.location
+            locationMarkers : state => state.leafletmap.markers.location,
+            summaryMarkers : state => state.leafletmap.markers.summary
         })
     },
     async mounted(){
@@ -66,6 +68,9 @@ export default {
                 .then(
                     (value) =>{this.$store.commit('leafletmap/loadMarkers', value)}
                 ).catch(e=>{console.error(e)});
+        await this.$api
+                .location.getSummary()
+                .then(value=>this.$store.commit('leafletmap/loadSummaryMarkers', value));
     }
 }
 </script>

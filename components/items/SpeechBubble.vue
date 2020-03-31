@@ -18,6 +18,7 @@
                     <p class="san-serif text-sm"> <span class="font-medium">2.</span> Login with your Google Account to create a post on the pin. </p>
                     <p class="san-serif text-sm"> <span class="font-medium">3.</span> Simply up-vote / down-vote to verify the post created. </p>
                     <p class="san-serif flex items-center text-sm"> <span class="font-medium">4.</span> Click on the <span class="h-4 w-6"><img class="h-full w-full object-cover px-1" src="~/assets/img/helmet.png"></span> (helmet)  to show this message box again =] </p>
+                    <p class="san-serif text-xs">Disclaimer: Our numbers include state government data. May not tally with MOH.</p>
                 </div>
                 <div class="flex justify-start items-center py-3 text-sm">
                     <img class="h-8 w-8 mr-3" src="~/assets/img/lead-logo-nowords.png"> 

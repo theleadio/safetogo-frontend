@@ -1,7 +1,7 @@
 const defaultState = () => {
     return {
-        center:[3.1390, 101.6869],
-        focusLevel: 8,
+        center:[2.844308, 107.734671],
+        focusLevel: 6,
         // mapUrl: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         mapUrl: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
         markers: {
@@ -11,8 +11,9 @@ const defaultState = () => {
     }
 };
 const redMarker = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png"
-const markerShadow = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png"
 const blueMarker ="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png"
+const yellowMarker = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png"
+const markerShadow = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png"
 
 export const state = () => defaultState();
 
@@ -37,7 +38,7 @@ export const mutations = {
                         content: resp[index]["locationName"]
                     },
                     popup:{
-                        title: resp[index]["title"],
+                        content: resp[index]["title"],
                         source: resp[index]["source"],
 
                         upVote: parseInt(resp[index]["upvote"]),
@@ -52,9 +53,46 @@ export const mutations = {
                     },
                     icon: redMarker,
                     iconShadow: markerShadow,
-                    isNew:false
+                    isNew:false,
+                    reference:"location"
                 };
                 state.markers.location.push(marker);
+            }
+        }
+    },
+    loadSummaryMarkers(state, resp){
+        if(state.markers.summary.length === 0){
+            let marker = {}
+            for (let index in resp){
+                marker = {
+                    id: resp[index]["locationName"],
+                    latlng: [ 
+                        parseFloat(resp[index]["lat"]), 
+                        parseFloat(resp[index]["lng"])
+                    ],
+                    tooltip:{
+                        content: resp[index]["locationName"]
+                    },
+                    popup:{
+                        content: resp[index]["title"],
+                        source: resp[index]["source"],
+
+                        upVote: parseInt(resp[index]["upvote"]),
+                        downVote: parseInt(resp[index]["downvote"]),
+
+                        createdBy: resp[index]["createdBy"] ? resp[index]["createdBy"] : "T H",
+                        img_url: resp[index]["img_url"] ? resp[index]["img_url"]: "../helmet.png",
+                        createdAt: resp[index]["createdAt"] ? resp[index]["createdAt"] : null,
+
+                        disableUpVote: false,
+                        disableDownVote: false
+                    },
+                    icon: yellowMarker,
+                    iconShadow: markerShadow,
+                    isNew:false,
+                    reference:"summary"
+                };
+                state.markers.summary.push(marker);
             }
         }
     },
@@ -80,7 +118,7 @@ export const mutations = {
                 content: post["locationName"]
             },
             popup:{
-                title: post["title"],
+                content: post["title"],
                 source: post["source"],
 
                 upVote: 0,
@@ -104,16 +142,39 @@ export const mutations = {
         (index===-1) ? null : state.markers.location.splice(index, 1);
     },
     upVote(state, marker){
+        console.log(marker);
         marker.popup.upVote += 1;
-        let index = state.markers.location.findIndex(x => x.id === marker.id);
-        marker.popup.disableUpVote = true;
-        state.markers.location[index] = marker
+        let index = -1;
+        if(marker.reference === "location"){
+            index = state.markers.location.findIndex(x => x.id === marker.id);
+            if(index !== -1){  
+                marker.popup.disableUpVote = true;
+                state.markers.location[index] = marker;
+            }
+        }else{
+            index = state.markers.summary.findIndex(x => x.id === marker.id);
+            if(index !== -1){  
+                marker.popup.disableUpVote = true;
+                state.markers.summary[index] = marker;
+            }
+        }
     },
     downVote(state, marker){
         marker.popup.downVote += 1;
-        let index = state.markers.location.findIndex(x => x.id === marker.id);
-        marker.popup.disableDownVote = true;
-        state.markers.location[index] = marker
+        let index = -1;
+        if(marker.reference === "location"){
+            index = state.markers.location.findIndex(x => x.id === marker.id);
+            if(index !== -1){  
+                marker.popup.disableDownVote = true;
+                state.markers.location[index] = marker;
+            }
+        }else{
+            index = state.markers.summary.findIndex(x => x.id === marker.id);
+            if(index !== -1){  
+                marker.popup.disableDownVote = true;
+                state.markers.summary[index] = marker;
+            }
+        }
     },
     disableVote(state, votes){
         let i = null;

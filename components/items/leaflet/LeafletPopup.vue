@@ -7,11 +7,14 @@
             <div class="flex w-auto">
                 <div class="py-4 px-1 mb-1">
                     <div class="font-semibold text-base">{{marker.id}}</div>
-                    <div>{{marker.popup.title}}</div>
+                    <div>
+                        <div v-for="line in marker.popup.content.split('|')" :key="marker.id+line">{{line}}</div>
+                    </div>
                     <div><a :href="marker.popup.source" target="_blank">source</a></div>
                 </div>
-                <div class="absolute bottom-0 w-24 right-0 py-2 text-sm text-yellow-600 font-semibold overflow-hidden">
-                    {{marker.popup.createdBy}}
+                <div class="absolute bottom-0 w-24 right-0 py-2">
+                    <div class="text-xs">Info pinned by:</div>
+                    <div class="text-sm text-yellow-600 font-semibold overflow-x-scoll">{{marker.popup.createdBy}}</div>
                 </div>
                 <div class="absolute bottom-0 left-0 py-2 pl-4">
                     <div class="flex flex-row justify-between text-base">
@@ -27,7 +30,6 @@
                                 {{(marker.popup.upVote)?(marker.popup.upVote):0}} <i class="far fa-thumbs-up"></i>
                             </button>
                         </div> 
-                        <!-- <span class="mx-2">|</span> -->
                         <div class="justify-start mx-1">
                             <button v-bind:class="{
                                 'focus:outline-none': true,
@@ -64,12 +66,13 @@ export default {
             this.$api
                 .location
                 .vote({
-                    user_id: this.$store.state.user.profile.safetogo_id,
+                    user_id: this.$store.state.profile.profile.safetogo_id,
                     lat: marker.latlng[0],
                     lng: marker.latlng[1],
                     upvotes: upvote,
                     downvotes: downvote,
-                    email: this.$store.state.user.profile.email
+                    email: this.$store.state.profile.profile.email,
+                    reference: marker.reference
                 })
                 .catch(err => console.log(err))
         },

@@ -25,4 +25,11 @@ export default axios => ({
         .then(res => res.data)
         .catch(err => console.log(err))
     },
+    getSummary:(params) => {
+        return axios.get(
+            "/map/summary"
+            )
+        .then(res => res.data)
+        .catch(err => console.log(err))
+    },
 });
