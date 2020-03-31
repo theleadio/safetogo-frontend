@@ -6,7 +6,7 @@
                     <li class="py-1 pl-2 text-sm font-sans cursor-pointer hover:bg-gray-200" 
                         v-for="keyword in keywordSuggestions"
                         :key="keyword.id"
-                        v-on:click="callback(keyword.name)"
+                        v-on:click="callback(keyword)"
                      >
                         <span class="font-semibold ">
                             {{keyword.name}}

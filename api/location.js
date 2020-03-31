@@ -1,6 +1,8 @@
 export default axios => ({
     searchAddress: (name) => {
-        return axios.get('https://nominatim.openstreetmap.org/search?q=' + name + '&format=json&polygon=1&addressdetails=1')
+        return axios.get(
+            "/map/search?place_name="+name
+            )
         .then(res => res.data)
     },
     getNews: () => {
@@ -15,7 +17,9 @@ export default axios => ({
         .catch(err => console.log(err))
     },
     searchKeywords: (name) => {
-        return axios.get('https://nominatim.openstreetmap.org/search?q=' + name + '&format=json')
+        return axios.get(
+            "/map/suggest?place_name="+name
+            )
             .then(res=> res.data)
     },
     vote:(params) => {

@@ -39,7 +39,7 @@
 </template>
 <script>
 import SearchSuggestion from '~/components/items/SearchSuggestion.vue'
-import { mapState, } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 
 export default {
     components:{
@@ -73,8 +73,10 @@ export default {
                     for(let index in value){
                         results.push(
                             {
-                                name:value[index]["display_name"],
-                                id: value[index]["place_id"]
+                                name:value[index]["name"],
+                                id: value[index]["id"],
+                                lat: value[index]["lat"],
+                                lng: value[index]["lng"]
                             }
                         );
                     }
@@ -96,10 +98,8 @@ export default {
                 .searchAddress(this.searchTerm.split(' ').join('+'))
                 .then((value)=> {
                     this.disableSuggestions();
-                    this.$store.commit("leafletmap/updateCenter",
-                        [value[0]["lat"],value[0]["lon"]]
-                    );
-                    this.$store.commit("leafletmap/updateFocusLevel", 12)
+                    this.updateCenter([value["lat"], value["lng"]]);
+                    this.updateFocusLevel(12);
                     // this.$store.commit('map/updateLocation', value); 
 
                     // let searchData = {
@@ -118,10 +118,16 @@ export default {
             
         },
         selectKeyword: function(keyword){
-            this.searchTerm = keyword;
-            this.performSearch(keyword);
+            this.searchTerm = keyword.name;
+            // this.performSearch(keyword);
             this.disableSuggestions();
-        }
+            this.updateCenter([keyword["lat"], keyword["lng"]]);
+            this.updateFocusLevel(12);
+        },
+        ...mapMutations({
+            updateCenter : "leafletmap/updateCenter",
+            updateFocusLevel : "leafletmap/updateFocusLevel"
+        })
     },
     computed:{
         ...mapState({
