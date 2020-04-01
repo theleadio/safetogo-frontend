@@ -14,12 +14,16 @@
             bg-white-400 
             text-gray-800
             text-xs
-            py-2
-            px-3
+            py-1
+            px-1
             font-semibold
             rounded-sm 
             inline-flex
             items-center  
+            w-10
+            h-10
+            lg:w-32
+            lg:h-10
             mr-3
             md:py-4
             md:text-sm
@@ -31,13 +35,14 @@
             @click="googleLogin">
             <img class="
                 object-cover 
-                w-3 
-                h-3 
-                mr-2
-                md:w-4
-                md:h-4
+                w-full 
+                h-full 
+                sm:mr-2
+                lg:w-6
+                lg:h-6
+                lg:ml-4
                 " src="https://cdn2.iconfinder.com/data/icons/social-icons-33/128/Google-512.png">
-            <span>Sign In</span>
+            <span class="hidden lg:block">Sign In</span>
         </button>
     </div>
 </div>
@@ -93,7 +98,7 @@ export default {
                 this.$api
                     .user
                     .signOut({
-                        user_id: this.$store.state.user.profile.safetogo_id
+                        user_id: this.$store.state.profile.profile.safetogo_id
                     });
                 this.signOut();
                 this.resetUserPostDetails();
