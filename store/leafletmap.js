@@ -80,7 +80,7 @@ export const mutations = {
                         upVote: parseInt(resp[index]["upvote"]),
                         downVote: parseInt(resp[index]["downvote"]),
 
-                        createdBy: resp[index]["createdBy"] ? resp[index]["createdBy"] : "T H",
+                        createdBy: resp[index]["createdBy"] ? resp[index]["createdBy"] : "SafeToGo",
                         img_url: resp[index]["img_url"] ? resp[index]["img_url"]: "../helmet.png",
                         createdAt: resp[index]["createdAt"] ? resp[index]["createdAt"] : null,
 
