@@ -13,7 +13,7 @@
                     >
                     <l-tile-layer :url="mapUrl" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'></l-tile-layer>
                     <leaftlet-layer :markers="locationMarkers" :showLayer="true" v-if="zoom > 6"/>
-                    <leaftlet-layer :markers="summaryMarkers" :showLayer="true" v-if="zoom <= 6"/>
+                    <leaftlet-layer :markers="summaryMarkers" :showLayer="true"/>
                     <l-control-zoom position="bottomright"></l-control-zoom>
                 </l-map>
             </client-only>
