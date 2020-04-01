@@ -2,14 +2,14 @@
     <div>
         <l-marker
             v-for="marker in markers"
-            :key="marker.id"
+            :key="marker.latlng.toString()+marker.id"
             :lat-lng="marker.latlng"
             @click="(marker.isNew)? (togglePostForm(),setCoordinate(marker.latlng)) : updateCenter(marker.latlng)"
         >
             <leaflet-popup :marker="marker" v-if="('popup' in marker)"/>
             <l-icon
                 :icon-url="marker.icon"
-                :shadow-url="marker.iconShadow"
+                :icon-size="[32, 37]"
             ></l-icon>
             <l-tooltip text="aloha">
                 {{marker.tooltip.content}}

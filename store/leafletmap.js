@@ -10,10 +10,10 @@ const defaultState = () => {
         }
     }
 };
-const redMarker = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png"
+const redMarker = "../map/pinned.svg"
 const blueMarker ="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png"
-const yellowMarker = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png"
-const markerShadow = "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png"
+const yellowMarker = "../map/virus.svg"
+const markerShadow = ""
 
 export const state = () => defaultState();
 
