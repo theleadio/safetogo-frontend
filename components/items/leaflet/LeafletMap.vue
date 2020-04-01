@@ -12,8 +12,8 @@
                     @click="removeClickedMarker(); resetPost(); closePostForm(); closeProfileDropDown();"
                     >
                     <l-tile-layer :url="mapUrl" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'></l-tile-layer>
-                    <leaftlet-layer :markers="locationMarkers" :showLayer="true"/>
-                    <leaftlet-layer :markers="summaryMarkers" :showLayer="true"/>
+                    <leaftlet-layer :markers="locationMarkers" :showLayer="true" v-if="zoom > 6"/>
+                    <leaftlet-layer :markers="summaryMarkers" :showLayer="true" v-if="zoom <= 6"/>
                     <l-control-zoom position="bottomright"></l-control-zoom>
                 </l-map>
             </client-only>
@@ -41,7 +41,9 @@ export default {
             updateZoom: "leafletmap/updateFocusLevel",
             addClickMarker: "leafletmap/addClickMarker",
             removeClickedMarker: "leafletmap/removeClickedMarker",
+
             resetPost: "newmarker/resetContent",
+            
             closePostForm : "setting/closePostForm",
             closeProfileDropDown : "setting/closeProfileDropDown",
         })
