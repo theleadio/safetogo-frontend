@@ -1,6 +1,6 @@
 const defaultState = () => {
     return {
-        profile:{
+        profile: {
             id: "",
             name: "",
             img_url: "",
@@ -8,30 +8,28 @@ const defaultState = () => {
             safetogo_id: "",
             votes: []
         },
-        login: false
+        loginStatus: false
     }
 }
+
 export const state = () => defaultState();
 
-export const getter = {
-    getUserProfile(state){
-        return state.profile
-    },
-    isLogin(state){
-        return state.login
+export const getters = {
+    getUser(state){
+        return state.user
     }
 }
 
 export const mutations = {
     signOut(state){
-        Object.assign(state, defaultState())
+        Object.assign(state, defaultState());
     },
     loginUser(state, payload){
         state.profile.id = payload["id"];
         state.profile.name = payload["name"];
         state.profile.img_url = payload["img_url"];
         state.profile.email = payload["email"];
-        state.login = true
+        state.loginStatus = true;
     },
     updateUserProfile(state, resp){
         state.profile.safetogo_id = resp["user_id"]
