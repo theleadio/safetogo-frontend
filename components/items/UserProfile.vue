@@ -3,7 +3,7 @@
     <div class="relative" v-if="isLogin">
         <button class="rounded-full overflow-hidden h-12 w-12 border-2 border-yellow-500 focus:outline-none hover:border-yellow-400  mr-3 md:mr-1 lg:mr-1 xl:mr-1"
         @click="toggleProfileDropDown()">
-            <img class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/a-/AOh14Gj03lsgLneIxLB4rq_HHaeHooKHegPlad_U85YR" >
+            <img class="h-full w-full object-cover" :src="img_url" >
         </button>
         <div class="absolute bg-white rounded-lg mt-2 w-48 py-2 shadow-xl right-0 z-500 mr-3 md:mr-1 lg:mr-1 xl:mr-1" v-if="profileDropDown">
             <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-400 hover:text-white-400 hover:no-underline" @click="googleSignOut">Sign out</a>
@@ -56,6 +56,7 @@ export default {
     computed:{
         ...mapState({
             isLogin: state => state.profile.loginStatus,
+            img_url: state => state.profile.img_url,
             profileDropDown: state => state.setting.profileDropDown
         })
     },
@@ -119,6 +120,7 @@ export default {
             resetUserPostDetails: "newmarker/resetUser",
 
             disableVotes : "leafletmap/disableVote"
+            
         })
     }
 }
