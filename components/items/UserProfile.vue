@@ -56,7 +56,7 @@ export default {
     computed:{
         ...mapState({
             isLogin: state => state.profile.loginStatus,
-            img_url: state => state.profile.img_url,
+            img_url: state => state.profile.profile.img_url,
             profileDropDown: state => state.setting.profileDropDown
         })
     },
