@@ -18,6 +18,7 @@
                     <p class="san-serif text-sm"> ( Mobile ) Long press on the map to drop a pin</p>
                     <p class="san-serif text-sm"> <span class="font-medium">3.</span> Simply up-vote / down-vote to verify the post created. </p>
                     <p class="san-serif flex items-center text-sm"> <span class="font-medium">4.</span> Click on the <span class="block h-4 w-6 md:px-1"><img class="h-full w-full object-cover" src="~/assets/img/helmet.png"></span> (helmet)  to show this message box again =] </p>
+                    <p class="flex items-center text-sm"><span class="block h-4 w-6 md:px-1"><img class="h-full w-full object-cover" src="~/static/map/virus.svg"></span> Summary Report  <span class="block h-4 w-6 md:px-1"><img class="h-full w-full object-cover" src="~/static/map/pinned.svg"></span> Post Pinned by Community</p>
                     <p class="san-serif text-xs">Disclaimer: Our numbers include state government data. May not tally with MOH.</p>
                 </div>
                 <div class="flex justify-start items-center py-3 text-sm mt-1">

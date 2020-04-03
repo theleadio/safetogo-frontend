@@ -11,9 +11,6 @@
                         <span class="font-semibold ">
                             {{keyword.name}}
                         </span>
-                        <span class="text-xs font-medium text-gray-600 ">
-                            (id: {{keyword.id}})
-                        </span>
                     </li>
                 </ul>
             </div>
