@@ -11,11 +11,11 @@
                 <div class="text-base">
                     <div class="text-sm mb-4">( Community-Powered Platform )</div>
                     <p class="san-serif text-sm">
+                    <p class="san-serif text-sm"> <span class="font-medium">1.</span> Login with your Google Account to create a post on the pin. </p>
                         Drop a pin in <label class="text-lg text-yellow-600 font-medium">SafeToGo</label> and tell the community what happened there
                     </p>
-                    <p class="san-serif text-sm"> <span class="font-medium">1.</span> Right Click on the map to drop a pin, left click to remove the temporary pin </p>
+                    <p class="san-serif text-sm"> <span class="font-medium">2.</span> Right Click on the map to drop a pin, left click to remove the temporary pin </p>
                     <p class="san-serif text-sm"> ( Mobile ) Long press on the map to drop a pin</p>
-                    <p class="san-serif text-sm"> <span class="font-medium">2.</span> Login with your Google Account to create a post on the pin. </p>
                     <p class="san-serif text-sm"> <span class="font-medium">3.</span> Simply up-vote / down-vote to verify the post created. </p>
                     <p class="san-serif flex items-center text-sm"> <span class="font-medium">4.</span> Click on the <span class="block h-4 w-6 md:px-1"><img class="h-full w-full object-cover" src="~/assets/img/helmet.png"></span> (helmet)  to show this message box again =] </p>
                     <p class="san-serif text-xs">Disclaimer: Our numbers include state government data. May not tally with MOH.</p>
