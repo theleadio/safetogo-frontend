@@ -14,7 +14,7 @@ export default axios => ({
             "/map/search-result",params
             )
         .then(res => res.data)
-        .catch(err => console.log(err))
+        .catch(err => console.error(err))
     },
     searchKeywords: (name) => {
         return axios.get(
@@ -27,7 +27,7 @@ export default axios => ({
             "/map/vote",params
             )
         .then(res => res.data)
-        .catch(err => console.log(err))
+        .catch(err => console.error(err))
     },
     getSummary:(params) => {
         return axios.get(
@@ -36,4 +36,10 @@ export default axios => ({
         .then(res => res.data)
         .catch(err => console.log(err))
     },
+    getUserLocationCity(){
+        return axios.get(
+            "https://geolocation-db.com/json/0f761a30-fe14-11e9-b59f-e53803842572"
+        ).then(res=>res.data)
+        .catch(err=>console.error(err));
+    }
 });

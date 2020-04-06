@@ -2,19 +2,24 @@
     <div>
         <div id="map-wrap">
             <client-only>
+                <!-- @contextmenu="addClickMarker($event['latlng'])" -->
                 <l-map 
                     :zoom="zoom" 
                     :center="center" 
-                    :options="{zoomControl:false}"
+                    :options="{
+                        zoomControl:false, 
+                        zoomAnimation:true,
+                        fadeAnimation:true
+                    }"
                     @update:center="updateCenter"
                     @update:zoom="updateZoom"
-                    @contextmenu="addClickMarker($event['latlng'])"
+                    
                     @click="removeClickedMarker(); resetPost(); closePostForm(); closeProfileDropDown();"
                     >
                     <l-tile-layer :url="mapUrl" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'></l-tile-layer>
                     <leaftlet-layer :markers="locationMarkers" :showLayer="true" v-if="zoom > 6"/>
                     <leaftlet-layer :markers="summaryMarkers" :showLayer="true"/>
-                    <l-control-zoom position="bottomright"></l-control-zoom>
+                    <!-- <l-control-zoom position="bottomright"></l-control-zoom> -->
                 </l-map>
             </client-only>
         </div>
@@ -58,27 +63,28 @@ export default {
         })
     },
     async mounted(){
-        await navigator.geolocation.getCurrentPosition(
-                (value) => {
-                    this.$store.commit("leafletmap/updateCenter", [
-                        value["coords"]["latitude"], value["coords"]["longitude"]
-                    ]);
-                }
-            );
-        await this.$api
-                .location.getNews()
-                .then(
-                    (value) =>{this.$store.commit('leafletmap/loadMarkers', value)}
-                ).catch(e=>{console.error(e)});
-        await this.$api
-                .location.getSummary()
-                .then(value=>this.$store.commit('leafletmap/loadSummaryMarkers', value));
+        // await navigator.geolocation.getCurrentPosition(
+        //         (value) => {
+        //             console.log("navigator");
+        //             console.log(this.center);
+        //             this.updateCenter([
+        //                 value["coords"]["latitude"], value["coords"]["longitude"]
+        //             ]);
+        //             this.updateZoom(8);
+        //             console.log(this.center);
+        //         }
+        //     );
+        await this.$api.location.getUserLocationCity()
+                .then(value=>{
+                    this.updateCenter([value["latitude"], value["longitude"]])
+                });
+        
     }
 }
 </script>
 <style>
 #map-wrap{
-    height: 93vh;
+    height: 100vh;
     width: 100%;
 }
 .overlay-bg-black{

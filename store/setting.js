@@ -4,7 +4,9 @@ const defaultState = () => {
         searchSuggestion: false,
         postForm: false,
         profileDropDown: false,
-        howToMessage: true
+        howToMessage: false,
+        countryFilterCard: false,
+        searchWrapperBg: false
     }
 };
 export const state = () => defaultState();
@@ -51,5 +53,17 @@ export const mutations = {
     },
     toggleHowToMessage(state){
         state.howToMessage = !state.howToMessage
+    },
+    showSearchWrapperBg(state){
+        state.searchWrapperBg = true
+    },
+    hideSearchWrapperBg(state){
+        state.searchWrapperBg = false
+    },
+    showFilterCard(state){
+        state.countryFilterCard = true
+    },
+    hideFilterCard(state){
+        state.countryFilterCard = false
     }
 };
