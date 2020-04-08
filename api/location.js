@@ -36,6 +36,13 @@ export default axios => ({
         .then(res => res.data)
         .catch(err => console.log(err))
     },
+    getSummaryV2:() => {
+        return axios.get(
+            "/map/v2/summary"
+            )
+        .then(res => res.data)
+        .catch(err => console.log(err))
+    },
     getUserLocationCity(){
         return axios.get(
             "https://geolocation-db.com/json/0f761a30-fe14-11e9-b59f-e53803842572"

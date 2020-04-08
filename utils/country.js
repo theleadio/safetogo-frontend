@@ -9,7 +9,7 @@ export const DISTRICTS = {
         'Putrajaya',
         'Selangor',
         'Perak',
-        'Pulau Penang',
+        'Penang',
         'Perlis',
         'Kedah',
         'Kelantan',
@@ -42,7 +42,7 @@ export const DISTRICT_COORD = {
             lat:4.595605,
             lng:101.089806
         },
-        Pulau_Penang: {
+        Penang: {
             lat:5.367168,
             lng:100.248665
         },

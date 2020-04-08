@@ -32,7 +32,7 @@
                         <li v-for="country in countryList" :key="country" >
                             <a class="py-2 px-4 cursor-pointer text-sm block hover:bg-gray-200 hover:no-underline" 
                             href="#"
-                            @click="countrySelected=country; showCountryList = !showCountryList"
+                            @click="updateCountry(country); showCountryList = !showCountryList"
                             >{{country}}</a>
                         </li>
                     </ul>
@@ -75,13 +75,11 @@
 </template>
 <script>
 import { COUNTRIES, DISTRICTS, DISTRICT_COORD } from '../../../utils/country.js'
-import { mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
     data: function(){
         return{
-            countrySelected : "Country",
-            districtSelected : "District",
             showCountryList: false,
             showDistrictList: false
         }
@@ -89,23 +87,36 @@ export default {
     computed:{
         countryList: function(){ return COUNTRIES },
         districtsList: function(){return DISTRICTS},
+        ...mapState({
+            countrySelected: state => state.countryfilter.countrySelected,
+            districtSelected: state => state.countryfilter.districtSelected,
+            focusLevel : state => state.leafletmap.focusLevel
+        })
     },
     methods:{
         updateMap: function(district){
             this.showDistrictList = !this.showDistrictList;
-            this.districtSelected=district; 
+            this.updateDistrict(district); 
             let country = this.countrySelected;
             let selection = DISTRICT_COORD[country.replace(/ /g, "_")][district.replace(/ /g, "_")];
             this.updateCenter([
                 selection["lat"], selection["lng"]
             ]);
             this.hideSearchWrapperBg();
+            if(this.focusLevel !== 10){
+                this.updateFocusLevel(10);
+            }
         },
         ...mapMutations({
             updateCenter: "leafletmap/updateCenter",
+            updateFocusLevel: "leafletmap/updateFocusLevel",
+
             hideSearchWrapperBg : "setting/hideSearchWrapperBg",
             hideFilterCard: "setting/hideFilterCard",
-            hideSearchWrapperBg : "setting/hideSearchWrapperBg"
+            hideSearchWrapperBg : "setting/hideSearchWrapperBg",
+
+            updateCountry: "countryfilter/updateCountry",
+            updateDistrict: "countryfilter/updateDistrict"
         })
     }
 }

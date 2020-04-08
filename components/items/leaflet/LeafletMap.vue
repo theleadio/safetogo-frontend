@@ -11,14 +11,15 @@
                         zoomAnimation:true,
                         fadeAnimation:true
                     }"
-                    @update:center="updateCenter"
+                    
                     @update:zoom="updateZoom"
                     
                     @click="removeClickedMarker(); resetPost(); closePostForm(); closeProfileDropDown();"
                     >
                     <l-tile-layer :url="mapUrl" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'></l-tile-layer>
-                    <leaftlet-layer :markers="locationMarkers" :showLayer="true" v-if="zoom > 6"/>
-                    <leaftlet-layer :markers="summaryMarkers" :showLayer="true"/>
+                    <leaflet-summary />
+                    <!-- <leaftlet-layer :markers="locationMarkers" :showLayer="true" v-if="zoom > 6"/>
+                    <leaftlet-layer :markers="summaryMarkers" :showLayer="true"/> -->
                     <!-- <l-control-zoom position="bottomright"></l-control-zoom> -->
                 </l-map>
             </client-only>
@@ -29,12 +30,14 @@
 import { mapState, mapMutations } from 'vuex';
 import LeafletMarker from '~/components/items/leaflet/LeafletMarker.vue';
 import LeafletGroupLayer from '~/components/items/leaflet/LeafletLayerGroup.vue';
+import LeafletSummary from '~/components/items/leaflet/LeafletSummary.vue';
 
 export default {
     name:"leaflet-map",
     components:{
         'leaflet-marker':LeafletMarker,
-        'leaftlet-layer': LeafletGroupLayer
+        'leaftlet-layer': LeafletGroupLayer,
+        'leaflet-summary': LeafletSummary
     },
     data: () =>{
         return {
@@ -78,7 +81,6 @@ export default {
                 .then(value=>{
                     this.updateCenter([value["latitude"], value["longitude"]])
                 });
-        
     }
 }
 </script>
