@@ -4,7 +4,7 @@
             v-for="marker in caseMarkers"
             :key="marker.lat+marker.lng+marker.locationName"
         >
-            <div v-if="marker.district === districtSelected">
+            <div v-if="marker.district === districtSelected && focusLevel > 8">
             <!-- <div> -->
                 <l-marker
                     :lat-lng="[marker.lat, marker.lng]"
@@ -42,7 +42,8 @@ export default {
     computed:{
         ...mapState({
             districtSelected : state => state.countryfilter.districtSelected,
-            caseMarkers : state => state.leafletmap.caseMarkers
+            caseMarkers : state => state.leafletmap.caseMarkers,
+            focusLevel: state => state.leafletmap.focusLevel
         })
     },
     methods:{

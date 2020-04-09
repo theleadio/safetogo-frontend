@@ -8,13 +8,20 @@
             bg-white 
             h-10 
             pl-5
-            pr-3 
+            pr-5 
             rounded-lg
             text-sm 
             shadow-card
             focus:outline-none"
-          type="search" name="search" placeholder="Search">
-        <div class="absolute right-0 top-0 mt-3 mr-4">
+          type="search" 
+          name="search" 
+          placeholder="Search"
+          v-model="searchTerm"
+          @input="suggest"
+          @keyup.enter="performSearch"
+          @keyup.esc="resetKeywordState()"
+          >
+        <div class="absolute right-0 top-0 mt-3 mr-4 cursor-pointer" @click="performSearch">
           <svg class="text-gray-600 h-4 w-4 fill-current mt-1" xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
             viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve"
@@ -25,3 +32,73 @@
         </div>
     </div>
 </template>
+<script>
+import { mapState, mapMutations } from 'vuex';
+
+export default {
+  name:"search-input",
+  computed:{
+    searchTerm:{
+      set: function(val){
+        this.setKeyword(val)
+      },
+      get: function(val){
+        return this.$store.state.search.keyword
+      }
+    }
+  },
+  methods:{
+    searchText: function(){
+            this.suggestKeywords = [];
+            this.$api
+                .location
+                .searchKeywords(this.searchTerm.split(' ').join('+'))
+                .then((value)=>{
+                    let results = []
+                    for(let index in value){
+                        results.push(
+                            {
+                                name:value[index]["name"],
+                                id: value[index]["id"],
+                                lat: value[index]["lat"],
+                                lng: value[index]["lng"],
+                                address: value[index]["formatted_address"]
+                            }
+                        );
+                    }
+                    this.setKeywordSuggestions([...new Set(results)]);
+                })
+                .catch(err => {console.log(err)});
+        },
+    suggest: function(event){
+
+      if(this.searchTerm.length > 2 || 
+          ( this.searchTerm.length > 2 && event["inputType"] === 'deleteContentBackward' )){
+          this.searchText();
+      }
+      else if (this.searchTerm.length === 0){
+        this.resetSuggestions();
+      }
+    },
+    performSearch: function(){
+        this.$api
+            .location
+            .searchAddress(this.searchTerm.split(' ').join('+'))
+            .then((value)=> {
+                this.resetSuggestions();
+                this.updateCenter([value["lat"], value["lng"]]);
+                this.updateFocusLevel(14);
+            })
+            .catch((err) => {console.log(err)});
+        
+    },
+    ...mapMutations({
+      setKeywordSuggestions : "search/setKeywordSuggestions",
+      resetSuggestions: "search/resetSuggestions",
+      setKeyword: "search/setKeyword",
+      updateCenter : "leafletmap/updateCenter",
+      updateFocusLevel : "leafletmap/updateFocusLevel"
+    })
+  }
+}
+</script>

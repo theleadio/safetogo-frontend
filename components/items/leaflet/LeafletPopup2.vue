@@ -26,19 +26,94 @@
         
         <div class="w-16 absolute bottom-0 right-0 social-panel">
             <div class="grid grid-rows-2 font-sans shadow-card rounded-lg">
-                <div class="flex py-2 text-gray-600 pl-3 items-center text-sm cursor-pointer hover:text-gray-800"><i class="far fa-thumbs-up mr-2"></i> {{marker.upvote}} </div>
-                <div class="flex py-2 text-gray-600 pl-3 items-center text-sm cursor-pointer hover:text-gray-800"><i class="far fa-thumbs-down mr-2"></i> {{marker.downvote}} </div>
+                <button v-bind:class="{
+                    'flex': true,
+                    'py-2': true,
+                    'text-gray-600': (marker.disableUpVote?false:true),
+                    'text-blue-500':(!isLogin)?false:(marker.disableUpVote?true:false),
+                    'pl-3': true,
+                    'items-center': true,
+                    'text-sm': true,
+                    'cursor-pointer': true,
+                    'hover:text-gray-800': (marker.disableUpVote?false:true),
+                    'hover:text-blue-800': (!isLogin)?false:(marker.disableUpVote?true:false),
+                    'focus:outline-none': true
+                    }"
+                    v-bind:disabled="(!isLogin)? true:((marker.disableUpVote)? true:false)"
+                    v-on:click="upVote(marker)"
+                    >
+                        <i class="far fa-thumbs-up mr-2"></i> 
+                        {{marker.upvote}} 
+                </button>
+                <button v-bind:class="{
+                    'flex': true,
+                    'py-2': true,
+                    'text-gray-600': (marker.disableDownVote?false:true),
+                    'text-blue-500':(!isLogin)?false:(marker.disableDownVote?true:false),
+                    'pl-3': true,
+                    'items-center': true,
+                    'text-sm': true,
+                    'cursor-pointer': true,
+                    'hover:text-gray-800': (marker.disableDownVote?false:true),
+                    'hover:text-blue-800': (!isLogin)?false:(marker.disableDownVote?true:false),
+                    'focus:outline-none': true
+                    }"
+                    v-bind:disabled="(!isLogin)? true:((marker.disableDownVote)? true:false)"
+                    v-on:click="downVote(marker)"
+                    >
+                        <i class="far fa-thumbs-down mr-2"></i>
+                        {{marker.downvote}}
+                </button>
             </div>
         </div>
     </l-popup>
 </template>
 <script>
+import { mapState, mapMutations } from 'vuex'
+
 export default {
     name:"leaflet-popup",
     props:{
         coordinate : Array,
         options: Object,
         marker: Object
+    },
+    computed:{
+        ...mapState({
+            isLogin: state => state.profile.loginStatus,
+            user_id: state => state.profile.profile.safetogo_id
+        })
+    },
+    methods:{
+        vote: function(upvote, downvote, marker){
+            this.$api
+                .location
+                .vote({
+                    user_id: this.user_id,
+                    district: marker.district,
+                    country: marker.country,
+                    case_id: marker.case_id,
+                    // lat: marker.latlng[0],
+                    // lng: marker.latlng[1],
+                    upvote: upvote,
+                    downvote: downvote,
+                    // email: this.$store.state.profile.profile.email,
+                    reference: marker.reference
+                })
+                .catch(err => console.log(err))
+        },
+        upVote: function(marker){
+            this.upMarkerVote(marker);
+            this.vote(1, 0, marker);
+        },
+        downVote: function(marker){
+            this.downMarkerVote(marker);
+            this.vote(0, 1, marker);
+        },
+        ...mapMutations({
+            upMarkerVote: "leafletmap/upVote",
+            downMarkerVote: "leafletmap/downVote"
+        })
     }
 }
 </script>

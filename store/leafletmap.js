@@ -8,7 +8,8 @@ const defaultState = () => {
             location:[]
         },
         summaryMarkers: [],
-        caseMarkers: []
+        caseMarkers: [],
+        countryMarkers: []
     }
 };
 const redMarker = "../map/pinned.svg"
@@ -75,7 +76,11 @@ export const mutations = {
                     img_url: cases[i]["img_url"]?cases[i]["img_url"]:"../helmet.png",
                     locationName: cases[i]["locationName"],
                     content: cases[i]["content"],
-                    icon: redMarker
+                    icon: redMarker,
+                    disableUpVote: false,
+                    disableDownVote: false,
+                    reference:"location",
+                    case_id: cases[i]["id"]?cases[i]["id"]:-1
                 })
             }
         }
@@ -93,7 +98,11 @@ export const mutations = {
                     img_url: "../helmet.png",
                     upvote: 0,
                     downvote: 0,
-                    icon:yellowMarker
+                    icon:yellowMarker,
+                    disableUpVote: false,
+                    disableDownVote: false,
+                    reference: "summary",
+                    case_id: summary[i]["id"]?summary[i]["id"]:-1
                 });
             }
         }
@@ -148,57 +157,56 @@ export const mutations = {
         (index===-1) ? null : state.markers.location.splice(index, 1);
     },
     upVote(state, marker){
-        console.log(marker);
-        marker.popup.upVote += 1;
+        marker.upvote += 1;
         let index = -1;
         if(marker.reference === "location"){
-            index = state.markers.location.findIndex(x => x.id === marker.id);
+            index = state.caseMarkers.findIndex(x => x.id === marker.id);
             if(index !== -1){  
-                marker.popup.disableUpVote = true;
-                state.markers.location[index] = marker;
+                marker.disableUpVote = true;
+                state.caseMarkers[index] = marker;
             }
         }else{
-            index = state.markers.summary.findIndex(x => x.id === marker.id);
+            index = state.summaryMarkers.findIndex(x => x.district === marker.district);
             if(index !== -1){  
-                marker.popup.disableUpVote = true;
-                state.markers.summary[index] = marker;
+                marker.disableUpVote = true;
+                state.summaryMarkers[index] = marker;
             }
         }
     },
     downVote(state, marker){
-        marker.popup.downVote += 1;
+        marker.downvote += 1;
         let index = -1;
         if(marker.reference === "location"){
-            index = state.markers.location.findIndex(x => x.id === marker.id);
+            index = state.caseMarkers.findIndex(x => x.id === marker.id);
             if(index !== -1){  
-                marker.popup.disableDownVote = true;
-                state.markers.location[index] = marker;
+                marker.disableDownVote = true;
+                state.caseMarkers[index] = marker;
             }
         }else{
-            index = state.markers.summary.findIndex(x => x.id === marker.id);
+            index = state.summaryMarkers.findIndex(x => x.district === marker.district);
             if(index !== -1){  
-                marker.popup.disableDownVote = true;
-                state.markers.summary[index] = marker;
+                marker.disableDownVote = true;
+                state.summaryMarkers[index] = marker;
             }
         }
     },
     disableVote(state, votes){
-        let i = null;
-        for(let index in votes){
-            i = state.markers.location.findIndex(
-                x => (
-                    x.latlng[0] == votes[index]["lat"] &&
-                    x.latlng[1] == votes[index]["lng"]
-                )
-            )
-            if(i != -1){
-                if (votes[index]["upvote"] === 1){
-                    state.markers.location[i]["popup"]["disableUpVote"] = true; 
-                }
-                if (votes[index]["downvote"] === 1){
-                    state.markers.location[i]["popup"]["disableDownVote"] = true;
-                }
-            }
-        }
+        // let i = null;
+        // for(let index in votes){
+        //     i = state.markers.location.findIndex(
+        //         x => (
+        //             x.latlng[0] == votes[index]["lat"] &&
+        //             x.latlng[1] == votes[index]["lng"]
+        //         )
+        //     )
+        //     if(i != -1){
+        //         if (votes[index]["upvote"] === 1){
+        //             state.markers.location[i]["popup"]["disableUpVote"] = true; 
+        //         }
+        //         if (votes[index]["downvote"] === 1){
+        //             state.markers.location[i]["popup"]["disableDownVote"] = true;
+        //         }
+        //     }
+        // }
     }
 }

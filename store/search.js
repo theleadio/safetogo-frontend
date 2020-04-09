@@ -1,5 +1,6 @@
 const defaultState = () => {
     return {
+        keyword:"",
         keywordSuggestions: [],
     }
 };
@@ -15,6 +16,12 @@ export const getters = {
 export const mutations = {
     setKeywordSuggestions(state, keywords){
         state.keywordSuggestions = keywords
+    },
+    setKeyword(state, keyword){
+        state.keyword = keyword
+    },
+    resetSuggestions(state){
+        state.keywordSuggestions= []
     },
     resetState (state) {
         Object.assign(state, defaultState())
