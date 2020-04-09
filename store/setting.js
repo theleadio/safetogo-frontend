@@ -1,7 +1,7 @@
 const defaultState = () => {
     return {
         openSidebar: false,
-        searchSuggestion: false,
+        searchSuggestion: true,
         postForm: false,
         profileDropDown: false,
         howToMessage: false,

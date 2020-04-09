@@ -18,6 +18,7 @@
                     >
                     <l-tile-layer :url="mapUrl" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'></l-tile-layer>
                     <leaflet-summary />
+                    <leaflet-case />
                     <!-- <leaftlet-layer :markers="locationMarkers" :showLayer="true" v-if="zoom > 6"/>
                     <leaftlet-layer :markers="summaryMarkers" :showLayer="true"/> -->
                     <!-- <l-control-zoom position="bottomright"></l-control-zoom> -->
@@ -31,13 +32,15 @@ import { mapState, mapMutations } from 'vuex';
 import LeafletMarker from '~/components/items/leaflet/LeafletMarker.vue';
 import LeafletGroupLayer from '~/components/items/leaflet/LeafletLayerGroup.vue';
 import LeafletSummary from '~/components/items/leaflet/LeafletSummary.vue';
+import LeafletCase from '~/components/items/leaflet/LeafletCases.vue';
 
 export default {
     name:"leaflet-map",
     components:{
         'leaflet-marker':LeafletMarker,
         'leaftlet-layer': LeafletGroupLayer,
-        'leaflet-summary': LeafletSummary
+        'leaflet-summary': LeafletSummary,
+        'leaflet-case': LeafletCase
     },
     data: () =>{
         return {
@@ -49,11 +52,15 @@ export default {
             updateZoom: "leafletmap/updateFocusLevel",
             addClickMarker: "leafletmap/addClickMarker",
             removeClickedMarker: "leafletmap/removeClickedMarker",
+            loadCaseMarkers: "leafletmap/loadCaseMarkers",
 
             resetPost: "newmarker/resetContent",
             
             closePostForm : "setting/closePostForm",
             closeProfileDropDown : "setting/closeProfileDropDown",
+
+            updateCountry : "countryfilter/updateCountry",
+            updateDistrict : "countryfilter/updateDistrict",
         })
     },
     computed:{
@@ -79,6 +86,8 @@ export default {
         //     );
         await this.$api.location.getUserLocationCity()
                 .then(value=>{
+                    this.updateCountry(value["country_name"]);
+                    this.updateDistrict(value["state"]);
                     this.updateCenter([value["latitude"], value["longitude"]])
                 });
     }

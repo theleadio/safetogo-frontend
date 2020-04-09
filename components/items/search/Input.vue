@@ -1,5 +1,5 @@
 <template>
-    <div class="pt-2 w-full relative text-gray-600 pl-2 pr-3">
+    <div class="pt-2 w-full relative text-gray-600 pl-2 pr-3 mb-2">
         <div class="absolute left-0 top-0 mt-3 ml-4">
             <img class="w-4 h-4 object-cover mt-1" src="~/assets/svg/hamburger.svg"/>
         </div>

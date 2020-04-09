@@ -4,18 +4,20 @@
             v-for="marker in summaryMarkers"
             :key="marker.district"
         >
-            <div v-if="marker.district === districtSelected">
+            <div v-if="marker.district === districtSelected || focusLevel < 8">
                 <l-marker
                     :lat-lng="getCoord(marker)"
                     @add="openPopup"
                 >
                     <leaflet-popup
                         :coordinate="getCoord(marker)"
-                        :options="{ autoClose: false, closeOnClick: false }"
+                        :options="{ 
+                            autoClose: focusLevel < 8 ? true:false
+                        }"
                         :marker="marker"
                     >
                         <template v-slot:popup-content>
-                            <div class="text-base font-medium text-gray-800">Summary</div>
+                            <div class="text-base font-medium text-gray-800">{{districtSelected}}'s COVID-19 Summary</div>
                             <div class="block grid grid-rows-1 pb-6">
                                 <div class="p-1 text-xs text-gray-700">Total Confirmed : <span class="text-sm font-medium">{{marker.confirmed}}</span></div>
                                 <div class="p-1 text-xs text-gray-700">Total Recovered : <span class="text-sm font-medium">{{marker.total?marker.total:0}}</span></div>
@@ -23,6 +25,10 @@
                             </div>
                         </template>
                     </leaflet-popup>
+                    <l-icon
+                        :icon-url="marker.icon"
+                        :icon-size="[32, 37]"
+                    ></l-icon>
                 </l-marker>
             </div>
         </l-layer-group>
@@ -40,8 +46,9 @@ export default {
     },
     computed:{
         ...mapState({
-            summaryMarkers : state => state.map.summaryMarkers,
-            districtSelected : state => state.countryfilter.districtSelected
+            summaryMarkers : state => state.leafletmap.summaryMarkers,
+            districtSelected : state => state.countryfilter.districtSelected,
+            focusLevel: state => state.leafletmap.focusLevel
         })
     },
     methods:{
@@ -60,7 +67,7 @@ export default {
             }
         },
         ...mapMutations({
-            loadSummary: "map/loadSummary",
+            loadSummary: "leafletmap/loadSummaryMarkers",
         })
     },
     async mounted(){
@@ -74,10 +81,5 @@ export default {
 <style>
 .profile-img{
     margin-top:-40px;
-}
-.social-panel{
-    margin-right: -56px;
-    z-index:-1;
-    backdrop-filter: blur(2px);
 }
 </style>

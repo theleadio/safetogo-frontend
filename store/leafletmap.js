@@ -5,9 +5,10 @@ const defaultState = () => {
         // mapUrl: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         mapUrl: "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
         markers: {
-            location:[],
-            summary:[]
-        }
+            location:[]
+        },
+        summaryMarkers: [],
+        caseMarkers: []
     }
 };
 const redMarker = "../map/pinned.svg"
@@ -60,41 +61,46 @@ export const mutations = {
             }
         }
     },
-    loadSummaryMarkers(state, resp){
-        if(state.markers.summary.length === 0){
-            let marker = {}
-            for (let index in resp){
-                marker = {
-                    id: resp[index]["locationName"],
-                    latlng: [ 
-                        parseFloat(resp[index]["lat"]), 
-                        parseFloat(resp[index]["lng"])
-                    ],
-                    tooltip:{
-                        content: resp[index]["locationName"]
-                    },
-                    popup:{
-                        content: resp[index]["title"],
-                        source: resp[index]["source"],
-
-                        upVote: parseInt(resp[index]["upvote"]),
-                        downVote: parseInt(resp[index]["downvote"]),
-
-                        createdBy: resp[index]["createdBy"] ? resp[index]["createdBy"] : "SafeToGo",
-                        img_url: resp[index]["img_url"] ? resp[index]["img_url"]: "../helmet.png",
-                        createdAt: resp[index]["createdAt"] ? resp[index]["createdAt"] : null,
-
-                        disableUpVote: false,
-                        disableDownVote: false
-                    },
-                    icon: yellowMarker,
-                    iconShadow: markerShadow,
-                    isNew:false,
-                    reference:"summary"
-                };
-                state.markers.summary.push(marker);
+    loadCaseMarkers(state, cases){
+        if(state.caseMarkers.length === 0){
+            for (let i in cases){
+                state.caseMarkers.push({
+                    lat: cases[i]["lat"],
+                    lng: cases[i]["lng"],
+                    country: cases[i]["country"],
+                    district: cases[i]["district"],
+                    upvote: cases[i]["upvote"],
+                    downvote: cases[i]["downvote"],
+                    createdBy: cases[i]["createdBy"],
+                    img_url: cases[i]["img_url"]?cases[i]["img_url"]:"../helmet.png",
+                    locationName: cases[i]["locationName"],
+                    content: cases[i]["content"],
+                    icon: redMarker
+                })
             }
         }
+    },
+    loadSummaryMarkers(state, summary){
+        if(state.summaryMarkers.length === 0){
+            for (let i in summary){
+                state.summaryMarkers.push({
+                    confirmed: summary[i]["confirmed"],
+                    country: summary[i]["country"],
+                    created_at: summary[i]["created_at"],
+                    death: summary[i]["death"],
+                    district: summary[i]["district"],
+                    createdBy: "SafeToGo",
+                    img_url: "../helmet.png",
+                    upvote: 0,
+                    downvote: 0,
+                    icon:yellowMarker
+                });
+            }
+        }
+    },
+    resetMarkers(state){
+        state.summaryMarkers = [];
+        state.caseMarkers = [];
     },
     addClickMarker(state, latlng){
         state.markers.location.push({
