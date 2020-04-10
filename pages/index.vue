@@ -6,7 +6,7 @@
         <div class="absolute z-500 top-0 right-0">
             <GoogleLogin class="mt-2"/>
         </div>
-        <div class="absolute z-600 w-full bottom-0">
+        <div class="absolute z-600 w-full bottom-0 left-0">
             <LogoWrapper />
         </div>
         <div class="absolute z-500">

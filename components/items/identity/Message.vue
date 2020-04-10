@@ -8,7 +8,7 @@
             'backdrop':howToMessage,
             'my-auto':howToMessage,
             }">
-            <div class="absolute bg-white-400 w-screen mt-64 p-2 shadow-card" v-if="howToMessage">
+            <div class="absolute bg-white-400 w-screen mt-8 sm:mt-8 md:mt-64 p-2 shadow-card" v-if="howToMessage">
                 <div class="container">
                     <div class="flex justify-between">
                         <div class="font-semibold text-2xl"> SafeToGo </div>
@@ -17,7 +17,7 @@
                         <div class="text-sm mb-4">( Community-Powered Platform )</div>
                         <p class="san-serif text-sm">
                         <p class="san-serif text-sm"> <span class="font-medium">1.</span> Login with your Google Account to create a post on the pin. </p>
-                            Drop a pin in <label class="text-lg text-yellow-600 font-medium">SafeToGo</label> and tell the community what happened there
+                            <p class="san-serif text-sm ml-2">Drop a pin in <label class="text-lg text-yellow-600 font-medium">SafeToGo</label> and tell the community what happened there
                         </p>
                         <p class="san-serif text-sm"> <span class="font-medium">2.</span> Right Click on the map to drop a pin, left click to remove the temporary pin </p>
                         <p class="san-serif text-sm"> ( Mobile ) Long press on the map to drop a pin</p>

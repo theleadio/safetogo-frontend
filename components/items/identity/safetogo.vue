@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center">
+    <div class="flex justify-start">
         <div class="flex-col px-2 logo-bg" @click="toggleHowToMessage">
             <logo class="mx-auto h-8 w-8 "/>
             <div class="text-center text-xs font-medium font-sans">SafeToGo</div>
