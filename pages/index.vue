@@ -9,8 +9,8 @@
         <div class="absolute z-600 w-full bottom-0 left-0">
             <LogoWrapper />
         </div>
-        <div class="absolute z-500">
-            <message />
+        <div class="relative z-500">
+            <message class="absolute"/>
         </div>
         <Map />
     </div>
