@@ -8,7 +8,7 @@
             'backdrop':howToMessage,
             'my-auto':howToMessage,
             }">
-            <div class="absolute bg-white center-0 w-screen mt-64 p-2 shadow-card" v-if="howToMessage">
+            <div class="absolute bg-white-400 w-screen mt-64 p-2 shadow-card" v-if="howToMessage">
                 <div class="container">
                     <div class="flex justify-between">
                         <div class="font-semibold text-2xl"> SafeToGo </div>
