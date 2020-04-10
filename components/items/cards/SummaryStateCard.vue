@@ -1,20 +1,70 @@
 <template>
     <div>
         <div v-bind:class="{
-            'pl-2':true,
-            'pr-3':true,
-            'transition':true,
-            'duration-500':true,
+            'pl-2':show,
+            'pr-3':show,
             'summary-card': !countryFilterCard,
-            'filter-card-showned': countryFilterCard
+            'filter-card-showned': countryFilterCard,
+            'w-0':!show
             }">
-            <div class="bg-white shadow-card rounded-lg px-2 py-2">
-                <div class="flex-col justify-between px-2 py-2 items-center">
+            <div v-bind:class="{
+                'absolute':true,
+                'rounded-full':true,
+                'h-8':true,
+                'w-8':true,
+                'right-0':show,
+                'left-0':!show,
+                'bg-white':true,
+                'p-2':true,
+                'shadow-card':true,
+                'my-4':true,
+                'cursor-pointer':true,
+                'items-center':true
+                }" @click="show = !show">
+                    <div class="absolute ml-4 top-0 mt-1">
+                        <div v-bind:class="{
+                            'bg-white': true,
+                            'ml-1': true,
+                            'p-1': true,
+                            'px-2': true,
+                            'rounded-lg': true,
+                            'shadow-card': true,
+                            'text-xs': true,
+                            'visible': !show,
+                            'invisible': show
+                            }">Summary</div>
+                    </div>
+                <img v-bind:class="{
+                    'h-full':true, 
+                    'w-full':true, 
+                    'transform':true,
+                    'duration-500':true,
+                    'rotate-90':show,
+                    '-rotate-90': !show
+                    }" src="~/assets/svg/down-arrow.svg">
+            </div>
+            <div v-bind:class="{
+                'bg-white': true,
+                'shadow-card': true,
+                'rounded-lg': true,
+                'px-2': true,
+                'py-2': show,
+                'visible':show,
+                'invisible': !show
+                }">
+                <div v-bind:class="{
+                    'flex-col':true,
+                    'justify-between': true,
+                    'px-2': true,
+                    'py-2': show,
+                    'items-center': true
+                    }">
                     <div class="text-sm font-medium mb-1">{{currentDistrict}}'s Stats Overview</div>
                     <div class="grid grid-cols-2 text-sm">
                         <div class="flex-col">
                             <div class="text-center text-base font-semibold text-green-600">{{summary["confirmed"]}}</div>
-                            <div class="text-center font-medium text-green-600">Confirmed</div>
+                            <div class="text-center font-medium text-green-600">
+                                Confirmed</div>
                         </div>
                         <!-- <div class="flex-col">
                             <div class="text-center">{{summaryMarkers.find(obj => obj.district === districtSelected).total}}</div>
@@ -35,6 +85,11 @@ import { mapState } from 'vuex';
 
 export default {
     name: "summary-card",
+    data: function(){
+        return {
+            show: true
+        }
+    },
     computed:{
         summary(){
             let districtSelected = this.$store.state.countryfilter.districtSelected;
@@ -60,6 +115,12 @@ export default {
 }
 .filter-card-showned{
     margin-top: 1rem;
+}
+.open-card{
+
+}
+.close-card{
+    margin-right:10%;
 }
 
 </style>
