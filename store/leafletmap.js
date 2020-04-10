@@ -190,25 +190,6 @@ export const mutations = {
             }
         }
     },
-    // disableVote(state, votes){
-        // let i = null;
-        // for(let index in votes){
-        //     i = state.markers.location.findIndex(
-        //         x => (
-        //             x.latlng[0] == votes[index]["lat"] &&
-        //             x.latlng[1] == votes[index]["lng"]
-        //         )
-        //     )
-        //     if(i != -1){
-        //         if (votes[index]["upvote"] === 1){
-        //             state.markers.location[i]["popup"]["disableUpVote"] = true; 
-        //         }
-        //         if (votes[index]["downvote"] === 1){
-        //             state.markers.location[i]["popup"]["disableDownVote"] = true;
-        //         }
-        //     }
-        // }
-    // },
     disableVotes(state,votes){
         console.log("disableVotes");
         let i = null;

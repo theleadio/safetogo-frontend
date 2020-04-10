@@ -36,9 +36,9 @@ export default axios => ({
         .then(res => res.data)
         .catch(err => console.log(err))
     },
-    getSummaryV2:() => {
+    getSummaryV2:(country) => {
         return axios.get(
-            "/map/v2/summary"
+            "/map/v2/summary?country="+country
             )
         .then(res => res.data)
         .catch(err => console.log(err))

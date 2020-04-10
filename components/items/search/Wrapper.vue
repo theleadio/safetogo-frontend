@@ -10,19 +10,22 @@
         <SearchMenu class="z-600"/>
         <Suggestions class="block z-500"/>
         <FilterCard class="block z-600" v-if="countryFilterCard"/>
+        <SummaryCard class="block z-600"/>
     </div>
 </template>
 <script>
-import SearchMenu from '~/components/items/search/Input.vue'
-import Suggestions from '~/components/items/search/Suggestions.vue'
-import FilterCard from '~/components/items/cards/FilterCard.vue'
+import SearchMenu from '~/components/items/search/Input.vue';
+import Suggestions from '~/components/items/search/Suggestions.vue';
+import FilterCard from '~/components/items/cards/FilterCard.vue';
+import SummaryCard from '~/components/items/cards/SummaryStateCard.vue';
 import { mapState } from 'vuex'
 
 export default {
     components:{
         SearchMenu,
         Suggestions,
-        FilterCard
+        FilterCard,
+        SummaryCard
     },
     computed:{
         ...mapState({

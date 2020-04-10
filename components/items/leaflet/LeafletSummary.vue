@@ -7,7 +7,6 @@
             <div v-if="marker.district === districtSelected || focusLevel < 8">
                 <l-marker
                     :lat-lng="getCoord(marker)"
-                    @add="openPopup"
                 >
                     <leaflet-popup
                         :coordinate="getCoord(marker)"
@@ -20,7 +19,7 @@
                             <div class="text-base font-medium text-gray-800">{{districtSelected}}'s COVID-19 Summary</div>
                             <div class="block grid grid-rows-1 pb-6">
                                 <div class="p-1 text-xs text-gray-700">Total Confirmed : <span class="text-sm font-medium">{{marker.confirmed}}</span></div>
-                                <div class="p-1 text-xs text-gray-700">Total Recovered : <span class="text-sm font-medium">{{marker.total?marker.total:0}}</span></div>
+                                <!-- <div class="p-1 text-xs text-gray-700">Total Recovered : <span class="text-sm font-medium">{{marker.total?marker.total:0}}</span></div> -->
                                 <div class="p-1 text-xs text-gray-700">Total Death : <span class="text-sm font-medium">{{marker.death?marker.death:0}}</span></div>
                             </div>
                         </template>
@@ -71,10 +70,13 @@ export default {
         })
     },
     async mounted(){
-        await this.$api.location.getSummaryV2()
+        await this.$api.location.getUserLocationCity()
                 .then(value=>{
-                    this.loadSummary(value);
-                });
+                    this.$api.location.getSummaryV2(value["country_name"])
+                        .then(value=>{
+                            this.loadSummary(value);
+                        });
+                })
     }
 }
 </script>
