@@ -29,8 +29,6 @@
 </template>
 <script>
 import { mapState, mapMutations } from 'vuex';
-import LeafletMarker from '~/components/items/leaflet/LeafletMarker.vue';
-import LeafletGroupLayer from '~/components/items/leaflet/LeafletLayerGroup.vue';
 import LeafletSummary from '~/components/items/leaflet/LeafletSummary.vue';
 import LeafletCase from '~/components/items/leaflet/LeafletCases.vue';
 import LeafletSearch from '~/components/items/leaflet/LeafletSearchMark.vue';
@@ -38,8 +36,6 @@ import LeafletSearch from '~/components/items/leaflet/LeafletSearchMark.vue';
 export default {
     name:"leaflet-map",
     components:{
-        'leaflet-marker':LeafletMarker,
-        'leaftlet-layer': LeafletGroupLayer,
         'leaflet-summary': LeafletSummary,
         'leaflet-case': LeafletCase,
         'leaflet-search': LeafletSearch
