@@ -1,30 +1,26 @@
 <template>
     <div>
-        <Navi />
-        <div class="w-full h-full">
-            <Map />
-            <CreatePost />
-            <HowTo />
+        <div class="absolute z-500 top-0 left-0 w-4/5 md:w-1/3 xl:w-3/12">
+            <SearchWrapper />
         </div>
+        <div class="absolute z-500 top-0 right-0">
+            <GoogleLogin class="mt-2"/>
+        </div>
+        <Map />
     </div>
 </template>
 <script>
-import Navi from '~/components/Navi.vue'
 import Map from '~/components/items/leaflet/LeafletMap.vue'
-import CreatePost from '~/components/FloatingForm.vue'
-import HowTo from '~/components/items/SpeechBubble.vue'
+import SearchInput from '~/components/items/SearchInput.vue'
+import GoogleLogin from '~/components/items/UserProfile.vue'
+import SearchWrapper from '~/components/items/search/Wrapper.vue'
 
 export default {
     components:{
-        Navi,
         Map,
-        CreatePost,
-        HowTo
+        GoogleLogin,
+        SearchInput,
+        SearchWrapper
     }
 }
 </script>
-<style>
-.top-layer{
-    z-index: 500;
-}
-</style>
