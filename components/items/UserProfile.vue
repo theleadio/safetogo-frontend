@@ -5,7 +5,7 @@
         @click="toggleProfileDropDown()">
             <img class="h-full w-full object-cover" :src="img_url" >
         </button>
-        <div class="absolute bg-white rounded-lg= mt-2 w-48 py-2 shadow-xl right-0 z-500 mr-3 md:mr-1 lg:mr-1 xl:mr-1" v-if="profileDropDown">
+        <div class="absolute bg-white rounded-lg mt-2 w-48 py-2 shadow-card right-0 z-500 mr-3 md:mr-1 lg:mr-1 xl:mr-1" v-if="profileDropDown">
             <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-400 hover:text-white-400 hover:no-underline" @click="googleSignOut">Sign out</a>
         </div>
     </div>

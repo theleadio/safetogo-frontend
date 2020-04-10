@@ -85,9 +85,10 @@ export default {
             .location
             .searchAddress(this.searchTerm.split(' ').join('+'))
             .then((value)=> {
-                this.resetSuggestions();
-                this.updateCenter([value["lat"], value["lng"]]);
-                this.updateFocusLevel(14);
+              this.resetSuggestions();
+              this.updateCenter([value["lat"], value["lng"]]);
+              this.updateFocusLevel(14);
+              this.setCoordinate([value["lat"], value["lng"]]);
             })
             .catch((err) => {console.log(err)});
         
@@ -97,7 +98,8 @@ export default {
       resetSuggestions: "search/resetSuggestions",
       setKeyword: "search/setKeyword",
       updateCenter : "leafletmap/updateCenter",
-      updateFocusLevel : "leafletmap/updateFocusLevel"
+      updateFocusLevel : "leafletmap/updateFocusLevel",
+      setCoordinate: "newmarker/setCoordinate"
     })
   }
 }

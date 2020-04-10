@@ -27,12 +27,10 @@ export const mutations = {
             state.lat = coordinate[0]
             state.lng = coordinate[1]
         }
-
-        if (coordinate instanceof Object){
+        else{
             state.lat = coordinate["lat"]
             state.lng = coordinate["lng"]
         }
-
     },
 
     setTitle(state, title){

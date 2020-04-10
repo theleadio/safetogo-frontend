@@ -2,7 +2,7 @@
     <div>
         <div id="map-wrap">
             <client-only>
-                <!-- @contextmenu="addClickMarker($event['latlng'])" -->
+                
                 <l-map 
                     :zoom="zoom" 
                     :center="center" 
@@ -11,14 +11,14 @@
                         zoomAnimation:true,
                         fadeAnimation:true
                     }"
-                    
                     @update:zoom="updateZoom"
-                    
+                    @contextmenu="setCoordinate($event['latlng'])"
                     @click="removeClickedMarker(); resetPost(); closePostForm(); closeProfileDropDown();"
                     >
                     <l-tile-layer :url="mapUrl" attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'></l-tile-layer>
                     <leaflet-summary />
                     <leaflet-case />
+                    <leaflet-search />
                     <!-- <leaftlet-layer :markers="locationMarkers" :showLayer="true" v-if="zoom > 6"/>
                     <leaftlet-layer :markers="summaryMarkers" :showLayer="true"/> -->
                     <!-- <l-control-zoom position="bottomright"></l-control-zoom> -->
@@ -33,6 +33,7 @@ import LeafletMarker from '~/components/items/leaflet/LeafletMarker.vue';
 import LeafletGroupLayer from '~/components/items/leaflet/LeafletLayerGroup.vue';
 import LeafletSummary from '~/components/items/leaflet/LeafletSummary.vue';
 import LeafletCase from '~/components/items/leaflet/LeafletCases.vue';
+import LeafletSearch from '~/components/items/leaflet/LeafletSearchMark.vue';
 
 export default {
     name:"leaflet-map",
@@ -40,7 +41,8 @@ export default {
         'leaflet-marker':LeafletMarker,
         'leaftlet-layer': LeafletGroupLayer,
         'leaflet-summary': LeafletSummary,
-        'leaflet-case': LeafletCase
+        'leaflet-case': LeafletCase,
+        'leaflet-search': LeafletSearch
     },
     data: () =>{
         return {
@@ -55,6 +57,7 @@ export default {
             loadCaseMarkers: "leafletmap/loadCaseMarkers",
 
             resetPost: "newmarker/resetContent",
+            setCoordinate: "newmarker/setCoordinate",
             
             closePostForm : "setting/closePostForm",
             closeProfileDropDown : "setting/closeProfileDropDown",

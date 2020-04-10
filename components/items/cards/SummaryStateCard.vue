@@ -19,7 +19,8 @@
                 'shadow-card':true,
                 'my-4':true,
                 'cursor-pointer':true,
-                'items-center':true
+                'items-center':true,
+                'close-wrapper':!show
                 }" @click="show = !show">
                     <div class="absolute ml-4 top-0 mt-1">
                         <div v-bind:class="{
@@ -116,11 +117,8 @@ export default {
 .filter-card-showned{
     margin-top: 1rem;
 }
-.open-card{
-
-}
-.close-card{
-    margin-right:10%;
+.close-wrapper{
+    margin-left: -5px;
 }
 
 </style>

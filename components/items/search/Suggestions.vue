@@ -35,10 +35,12 @@ export default {
     },
     methods:{
         selectSuggestion: function(keyword){
+            console.log(keyword);
             this.setKeyword(keyword.name);
             this.updateCenter([keyword["lat"], keyword["lng"]]);
             this.updateFocusLevel(14);
             this.resetSuggestions();
+            this.setCoordinate([keyword["lat"], keyword["lng"]]);
         },
         ...mapMutations({
             showFilterCard : "setting/showFilterCard",
@@ -46,7 +48,8 @@ export default {
             setKeyword : "search/setKeyword",
             resetSuggestions: "search/resetSuggestions",
             updateCenter : "leafletmap/updateCenter",
-            updateFocusLevel : "leafletmap/updateFocusLevel"
+            updateFocusLevel : "leafletmap/updateFocusLevel",
+            setCoordinate: "newmarker/setCoordinate"
         })
     }
 }
