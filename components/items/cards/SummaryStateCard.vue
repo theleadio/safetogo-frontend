@@ -22,7 +22,7 @@
                 'items-center':true,
                 'close-wrapper':!show
                 }" @click="show = !show">
-                    <div class="absolute ml-4 top-0 mt-1">
+                    <div class="absolute ml-4 top-0 mt-1 z-500">
                         <div v-bind:class="{
                             'bg-white': true,
                             'ml-1': true,

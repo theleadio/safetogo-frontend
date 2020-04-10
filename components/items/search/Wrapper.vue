@@ -7,10 +7,10 @@
         'flex-col':true
     }"
     >
-        <SearchMenu class="z-600"/>
-        <Suggestions class="block z-500"/>
-        <FilterCard class="block z-600" v-if="countryFilterCard"/>
-        <SummaryCard class="block z-600"/>
+        <SearchMenu class="z-700"/>
+        <Suggestions class="block z-600"/>
+        <FilterCard class="block z-500" v-if="countryFilterCard"/>
+        <SummaryCard class="block z-500" v-if="keywordSuggestions.length === 0"/>
     </div>
 </template>
 <script>
@@ -30,7 +30,8 @@ export default {
     computed:{
         ...mapState({
             searchWrapperBg : state => state.setting.searchWrapperBg,
-            countryFilterCard : state => state.setting.countryFilterCard
+            countryFilterCard : state => state.setting.countryFilterCard,
+            keywordSuggestions : state => state.search.keywordSuggestions,
         })
     }
 }
