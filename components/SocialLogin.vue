@@ -41,14 +41,19 @@ export default {
             })
             this.$api
                 .user
-                .signIn({
+                // .signIn({
+                .signInV2({
                     email: profile["email"],
                     name: profile["name"],
                     img_url: profile["picture"]
                 })
                 .then((value)=>{
-                    this.$store.commit('user/updateUserProfile', value)
-                    this.$store.commit('map/disableVote', value["votes"])
+                    // this.$store.commit('user/updateUserProfile', value);
+                    // this.$store.commit('map/disableVote', value["votes"])
+                    console.log(value);
+                    this.updateUserProfile(value);
+                    this.disableVotes(value["votes"]);
+                    
                 })
                 .catch(err => console.log(err))
             }).catch(e => {
@@ -67,6 +72,10 @@ export default {
                 console.error('Sign Out Error', error);
             });
         },
+        ...mapMutations({
+            disableVotes : "leafletmap/disableVotes",
+            updateUserProfile : "user/updateUserProfile"
+        })
     }
 }
 </script>

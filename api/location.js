@@ -54,5 +54,12 @@ export default axios => ({
             "map/v2/cases?country="+country
         ).then(res => res.data)
         .catch(err => console.log(err))
-    }
+    },
+    voteV2:(params) => {
+        return axios.post(
+            "/map/v2/vote",params
+            )
+        .then(res => res.data)
+        .catch(err => console.error(err))
+    },
 });

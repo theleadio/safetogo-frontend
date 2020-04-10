@@ -78,7 +78,7 @@ export default {
                             email: profile["email"]
                         }
                     );
-                    this.$api.user.signIn(
+                    this.$api.user.signInV2(
                         {
                             email: profile["email"],
                             name: profile["name"],
@@ -123,7 +123,7 @@ export default {
             setUserPostDetails: "newmarker/setUserDetails",
             resetUserPostDetails: "newmarker/resetUser",
 
-            disableVotes : "leafletmap/disableVote"
+            disableVotes : "leafletmap/disableVotes"
             
         })
     }

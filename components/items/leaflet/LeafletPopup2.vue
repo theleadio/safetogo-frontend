@@ -35,15 +35,14 @@
                     'items-center': true,
                     'text-sm': true,
                     'cursor-pointer': true,
-                    'hover:text-gray-800': (marker.disableUpVote?false:true),
-                    'hover:text-blue-800': (!isLogin)?false:(marker.disableUpVote?true:false),
+                    'hover:text-gray-800': (!isLogin)?false:(marker.disableUpVote?false:true),
                     'focus:outline-none': true
                     }"
                     v-bind:disabled="(!isLogin)? true:((marker.disableUpVote)? true:false)"
                     v-on:click="upVote(marker)"
                     >
                         <i class="far fa-thumbs-up mr-2"></i> 
-                        {{marker.upvote}} 
+                        {{marker.upvote}}
                 </button>
                 <button v-bind:class="{
                     'flex': true,
@@ -54,8 +53,7 @@
                     'items-center': true,
                     'text-sm': true,
                     'cursor-pointer': true,
-                    'hover:text-gray-800': (marker.disableDownVote?false:true),
-                    'hover:text-blue-800': (!isLogin)?false:(marker.disableDownVote?true:false),
+                    'hover:text-gray-800': (!isLogin)?false:(marker.disableDownVote?false:true),
                     'focus:outline-none': true
                     }"
                     v-bind:disabled="(!isLogin)? true:((marker.disableDownVote)? true:false)"
@@ -88,7 +86,7 @@ export default {
         vote: function(upvote, downvote, marker){
             this.$api
                 .location
-                .vote({
+                .voteV2({
                     user_id: this.user_id,
                     district: marker.district,
                     country: marker.country,

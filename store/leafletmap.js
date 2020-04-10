@@ -96,8 +96,8 @@ export const mutations = {
                     district: summary[i]["district"],
                     createdBy: "SafeToGo",
                     img_url: "../helmet.png",
-                    upvote: 0,
-                    downvote: 0,
+                    upvote: summary[i]["upvote"],
+                    downvote: summary[i]["downvote"],
                     icon:yellowMarker,
                     disableUpVote: false,
                     disableDownVote: false,
@@ -190,7 +190,7 @@ export const mutations = {
             }
         }
     },
-    disableVote(state, votes){
+    // disableVote(state, votes){
         // let i = null;
         // for(let index in votes){
         //     i = state.markers.location.findIndex(
@@ -208,5 +208,23 @@ export const mutations = {
         //         }
         //     }
         // }
+    // },
+    disableVotes(state,votes){
+        console.log("disableVotes");
+        let i = null;
+        for (let idx in votes){
+            tmpMarkers = votes[idx]["reference"] === "summary"? state.summaryMarkers:state.caseMarkers;
+            i = tmpMarkers.findIndex(
+                x => (
+                    (votes[idx]["reference"] === "summary")?
+                        (x.district === votes[idx]["district"] && x.country === votes[idx]["country"]):
+                            (x.case_id === votes[idx]["case_id"])
+                )
+            )
+            (i != -1)? (
+                (votes[idx]["upvote"] === 1)? (tmpMarkers[i]["disableUpVote"] = true) : (tmpMarkers[i]["disableDownVote"] = true)
+            ): null;
+            votes[idx]["reference"] === "summary"? state.summaryMarkers = tmpMarkers:state.caseMarkers = tmpMarkers;
+        }
     }
 }

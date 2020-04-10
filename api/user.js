@@ -13,4 +13,11 @@ export default axios => ({
         .then(res => res.data)
         .catch(err => console.log(err))
     },
+    signInV2: (params) => {
+        return axios.post(
+            "/user/v2/signin",params
+            )
+        .then(res => res.data)
+        .catch(err => console.log(err))
+    }
 });
