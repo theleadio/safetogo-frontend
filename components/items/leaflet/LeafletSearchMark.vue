@@ -109,7 +109,7 @@ export default {
                 params["reportedDate"] = utils.getUTCDate();
                 this.$api
                     .news
-                    .createPost(params)
+                    .createPostV2(params)
                     .then((value)=> {
                         this.disablePostForm();
                         this.removeClickedMarker();

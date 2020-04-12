@@ -193,6 +193,7 @@ export const mutations = {
     disableVotes(state,votes){
         console.log("disableVotes");
         let i = null;
+        let tmpMarkers = null;
         for (let idx in votes){
             tmpMarkers = votes[idx]["reference"] === "summary"? state.summaryMarkers:state.caseMarkers;
             i = tmpMarkers.findIndex(
