@@ -4,7 +4,7 @@
             v-for="marker in summaryMarkers"
             :key="marker.district"
         >
-            <div v-if="marker.district === districtSelected || focusLevel < 8">
+            <div v-if="marker.district === districtSelected || focusLevel <= 8">
                 <l-marker
                     :lat-lng="getCoord(marker)"
                 >
