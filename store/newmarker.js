@@ -9,7 +9,9 @@ const defaultState = () => {
         createdBy: "",
         email: "",
         img_url: "",
-        user_id: ""
+        user_id: "",
+        country:"",
+        country_state:""
     }
 };
 
@@ -32,7 +34,10 @@ export const mutations = {
             state.lng = coordinate["lng"]
         }
     },
-
+    setCountryState(state, country, country_state){
+        state.country = country;
+        state.country_state = country_state
+    },
     setTitle(state, title){
         state.title = title
     },

@@ -52,7 +52,7 @@ export default {
             this.suggestKeywords = [];
             this.$api
                 .location
-                .searchKeywords(this.searchTerm.split(' ').join('+'))
+                .searchKeywordsV2(this.searchTerm.split(' ').join('+'))
                 .then((value)=>{
                     let results = []
                     for(let index in value){
@@ -62,7 +62,9 @@ export default {
                                 id: value[index]["id"],
                                 lat: value[index]["lat"],
                                 lng: value[index]["lng"],
-                                address: value[index]["formatted_address"]
+                                address: value[index]["formatted_address"],
+                                state: value[index]["state"],
+                                country: value[index]["country"]
                             }
                         );
                     }
@@ -83,12 +85,15 @@ export default {
     performSearch: function(){
         this.$api
             .location
-            .searchAddress(this.searchTerm.split(' ').join('+'))
+            .searchAddressV2(this.searchTerm.split(' ').join('+'))
             .then((value)=> {
-              this.resetSuggestions();
-              this.updateCenter([value["lat"], value["lng"]]);
-              this.updateFocusLevel(14);
-              this.setCoordinate([value["lat"], value["lng"]]);
+              if("lat" in value && "lng" in value){
+                this.resetSuggestions();
+                this.updateCenter([value["lat"], value["lng"]]);
+                this.updateFocusLevel(14);
+                this.setCoordinate([value["lat"], value["lng"]]);
+                this.setCountryState(value["country"], value["state"]);
+              }
             })
             .catch((err) => {console.log(err)});
         
@@ -99,7 +104,8 @@ export default {
       setKeyword: "search/setKeyword",
       updateCenter : "leafletmap/updateCenter",
       updateFocusLevel : "leafletmap/updateFocusLevel",
-      setCoordinate: "newmarker/setCoordinate"
+      setCoordinate: "newmarker/setCoordinate",
+      setCountryState : "newmarker/setCountryState"
     })
   }
 }

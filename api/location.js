@@ -36,6 +36,18 @@ export default axios => ({
         .then(res => res.data)
         .catch(err => console.log(err))
     },
+    searchKeywordsV2: (name) => {
+        return axios.get(
+            "/map/v2/suggest?place_name="+name
+            )
+            .then(res=> res.data)
+    },
+    searchAddressV2: (name) => {
+        return axios.get(
+            "/map/v2/search?place_name="+name
+            )
+        .then(res => res.data)
+    },
     getSummaryV2:(country) => {
         return axios.get(
             "/map/v2/summary?country="+country

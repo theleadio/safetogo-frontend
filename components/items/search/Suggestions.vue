@@ -41,6 +41,7 @@ export default {
             this.updateFocusLevel(14);
             this.resetSuggestions();
             this.setCoordinate([keyword["lat"], keyword["lng"]]);
+            this.setCountryState(value["country"], value["state"]);
         },
         ...mapMutations({
             showFilterCard : "setting/showFilterCard",
@@ -49,7 +50,8 @@ export default {
             resetSuggestions: "search/resetSuggestions",
             updateCenter : "leafletmap/updateCenter",
             updateFocusLevel : "leafletmap/updateFocusLevel",
-            setCoordinate: "newmarker/setCoordinate"
+            setCoordinate: "newmarker/setCoordinate",
+            setCountryState : "newmarker/setCountryState"
         })
     }
 }
