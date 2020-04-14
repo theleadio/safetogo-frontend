@@ -16,7 +16,7 @@
                         :marker="marker"
                     >
                         <template v-slot:popup-content>
-                            <div class="text-base font-medium text-gray-800">{{districtSelected}}'s COVID-19 Summary</div>
+                            <div class="text-base font-medium text-gray-800">{{marker.district}}'s COVID-19 Summary</div>
                             <div class="block grid grid-rows-1 pb-6">
                                 <div class="p-1 text-xs text-gray-700">Total Confirmed : <span class="text-sm font-medium">{{marker.confirmed}}</span></div>
                                 <!-- <div class="p-1 text-xs text-gray-700">Total Recovered : <span class="text-sm font-medium">{{marker.total?marker.total:0}}</span></div> -->
