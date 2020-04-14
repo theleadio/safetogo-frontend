@@ -74,4 +74,10 @@ export default axios => ({
         .then(res => res.data)
         .catch(err => console.error(err))
     },
+    getBorneo:() => {
+        return axios.get(
+            "/map/v2/borneo"
+        ).then(res => res.data)
+        .catch(err => console.error(err));
+    }
 });

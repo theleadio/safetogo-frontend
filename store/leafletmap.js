@@ -9,7 +9,8 @@ const defaultState = () => {
         },
         summaryMarkers: [],
         caseMarkers: [],
-        countryMarkers: []
+        countryMarkers: [],
+        borneoMarkers: []
     }
 };
 const redMarker = "../map/pinned.svg"
@@ -79,7 +80,7 @@ export const mutations = {
                     icon: redMarker,
                     disableUpVote: false,
                     disableDownVote: false,
-                    reference:"location",
+                    reference: cases[i]["reference"],
                     case_id: cases[i]["id"]?cases[i]["id"]:-1
                 })
             }
@@ -103,6 +104,35 @@ export const mutations = {
                     disableDownVote: false,
                     reference: "summary",
                     case_id: summary[i]["id"]?summary[i]["id"]:-1
+                });
+            }
+        }
+    },
+    loadBorneoMarkers(state, borneo){
+        if(state.borneoMarkers.length === 0){
+            for (let i in borneo){
+                state.borneoMarkers.push({
+                    active: borneo[i]["active_case"],
+                    confirmed: borneo[i]["total_confirmed"],
+                    death: borneo[i]["total_deaths"],
+                    recovered: borneo[i]["total_recovered"],
+                    newly: borneo[i]["newly_positive"],
+                    country: borneo[i]["country"],
+                    district: borneo[i]["state"],
+                    city: borneo[i]["city"],
+                    lat: borneo[i]["lat"],
+                    lng: borneo[i]["lng"],
+                    level: borneo[i]["level"],
+                    source: borneo[i]["source"],
+                    createdBy: borneo[i]["createdBy"],
+                    img_url: borneo[i]["img_url"],
+                    upvote: borneo[i]["upvote"],
+                    downvote: borneo[i]["downvote"],
+                    icon:yellowMarker,
+                    disableUpVote: false,
+                    disableDownVote: false,
+                    reference: borneo[i]["reference"],
+                    case_id: borneo[i]["id"]?borneo[i]["id"]:-1
                 });
             }
         }
@@ -191,22 +221,32 @@ export const mutations = {
         }
     },
     disableVotes(state,votes){
-        console.log("disableVotes");
-        let i = null;
+        let i;
         let tmpMarkers = null;
         for (let idx in votes){
-            tmpMarkers = votes[idx]["reference"] === "summary"? state.summaryMarkers:state.caseMarkers;
-            i = tmpMarkers.findIndex(
-                x => (
-                    (votes[idx]["reference"] === "summary")?
-                        (x.district === votes[idx]["district"] && x.country === votes[idx]["country"]):
-                            (x.case_id === votes[idx]["case_id"])
+            i = null;
+            tmpMarkers = votes[idx]["reference"] === "summary" ?
+                state.summaryMarkers:(
+                    (votes[idx]["reference"] === "borneo") ? 
+                        state.borneoMarkers:state.caseMarkers
+                    );
+            
+            tmpMarkers.filter((item, index)=>{
+                (votes[idx]["reference"] === "summary")? (
+                    (item.district === votes[idx]["district"] && item.country === votes[idx]["country"])?  i=index :  null
+                ) : (
+                    (item.case_id === votes[idx]["case_id"])? i=index :  null
                 )
-            )
-            (i != -1)? (
+            });
+            (i)? (
                 (votes[idx]["upvote"] === 1)? (tmpMarkers[i]["disableUpVote"] = true) : (tmpMarkers[i]["disableDownVote"] = true)
             ): null;
-            votes[idx]["reference"] === "summary"? state.summaryMarkers = tmpMarkers:state.caseMarkers = tmpMarkers;
+
+            votes[idx]["reference"] === "summary" ? 
+                state.summaryMarkers = tmpMarkers:(
+                    (votes[idx]["reference"] === "borneo") ? 
+                        state.borneoMarkers = tmpMarkers:state.caseMarkers = tmpMarkers
+                        );
         }
     }
 }

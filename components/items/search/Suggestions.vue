@@ -38,7 +38,7 @@ export default {
             console.log(keyword);
             this.setKeyword(keyword.name);
             this.updateCenter([keyword["lat"], keyword["lng"]]);
-            this.updateFocusLevel(14);
+            this.updateFocusLevel(10);
             this.resetSuggestions();
             this.setCoordinate([keyword["lat"], keyword["lng"]]);
             this.setCountryState(value["country"], value["state"]);

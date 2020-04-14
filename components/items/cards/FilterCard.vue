@@ -114,9 +114,7 @@ export default {
                 selection["lat"], selection["lng"]
             ]);
             this.hideSearchWrapperBg();
-            if(this.focusLevel !== 12){
-                this.updateFocusLevel(12);
-            }
+            this.updateFocusLevel(selection["zoom"]);
             this.closeSearchSuggestion();
         },
         ...mapMutations({

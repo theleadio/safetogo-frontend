@@ -90,7 +90,7 @@ export default {
               if("lat" in value && "lng" in value){
                 this.resetSuggestions();
                 this.updateCenter([value["lat"], value["lng"]]);
-                this.updateFocusLevel(14);
+                this.updateFocusLevel(10);
                 this.setCoordinate([value["lat"], value["lng"]]);
                 this.setCountryState(value["country"], value["state"]);
               }

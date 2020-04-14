@@ -1,15 +1,12 @@
 <template>
     <div>
         <div id="map-wrap">
-            <client-only>
-                
+            <client-only>      
                 <l-map 
                     :zoom="zoom" 
                     :center="center" 
                     :options="{
-                        zoomControl:false, 
-                        zoomAnimation:true,
-                        fadeAnimation:true
+                        zoomControl:false
                     }"
                     @update:zoom="updateZoom"
                     @contextmenu="setCoordinate($event['latlng'])"
@@ -19,9 +16,7 @@
                     <leaflet-summary />
                     <leaflet-case />
                     <leaflet-search />
-                    <!-- <leaftlet-layer :markers="locationMarkers" :showLayer="true" v-if="zoom > 6"/>
-                    <leaftlet-layer :markers="summaryMarkers" :showLayer="true"/> -->
-                    <!-- <l-control-zoom position="bottomright"></l-control-zoom> -->
+                    <leaflet-borneo />
                 </l-map>
             </client-only>
         </div>
@@ -32,13 +27,15 @@ import { mapState, mapMutations } from 'vuex';
 import LeafletSummary from '~/components/items/leaflet/LeafletSummary.vue';
 import LeafletCase from '~/components/items/leaflet/LeafletCases.vue';
 import LeafletSearch from '~/components/items/leaflet/LeafletSearchMark.vue';
+import LeafletBorneo from '~/components/items/leaflet/LeafletBorneo';
 
 export default {
     name:"leaflet-map",
     components:{
         'leaflet-summary': LeafletSummary,
         'leaflet-case': LeafletCase,
-        'leaflet-search': LeafletSearch
+        'leaflet-search': LeafletSearch,
+        'leaflet-borneo': LeafletBorneo
     },
     data: () =>{
         return {
