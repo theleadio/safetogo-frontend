@@ -45,12 +45,12 @@
                             <div class="flex-col justify-center">
                                 <div class="w-12 h-12 rounded-full overflow-hidden mx-auto">
                                     <a class="outline-none" target="blank" href="https://www.kamfu.org/">
-                                        <img class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/a-/AOh14Gg61l26tmwJpJ28UdDtvrqRxqlqAKakKfTNN66q3Dc"/>
+                                        <img class="h-full w-full object-cover" src="https://scontent.fkul14-1.fna.fbcdn.net/v/t1.0-1/cp0/p80x80/67345235_1147574472095737_4139901689371033600_o.jpg?_nc_cat=111&_nc_sid=dbb9e7&_nc_ohc=jmKJer2fMn8AX8TpjUQ&_nc_ht=scontent.fkul14-1.fna&oh=5a1f69fcb4b44f25b134db8062d131d8&oe=5EB91F84"/>
                                     </a>
                                 </div>
                                 <div class="text-xs font-medium text-center">
                                     <a class="outline-none hover:no-underline" target="blank" href="https://www.kamfu.org/">
-                                        Kamfu Org
+                                        Tang Hoong
                                     </a>
                                 </div>
                             </div>
