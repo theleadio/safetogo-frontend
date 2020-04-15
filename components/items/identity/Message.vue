@@ -64,6 +64,16 @@
                                     <a class="outline-none hover:no-underline" target="blank" href="https://www.linkedin.com/in/nazmi-asri/">Nazmi Asri</a>
                                 </div>
                             </div>
+                            <div class="flex-col justify-center">
+                                <div class="w-12 h-12 rounded-full overflow-hidden mx-auto">
+                                    <a class="outline-none" target="blank" href="https://www.linkedin.com/in/aimanidris/">
+                                        <img class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/a-/AOh14Gj053-QJDZlU_uoVWXQm8Fe26K1CRopZhKyuJozQg"/>
+                                    </a>
+                                </div>
+                                <div class="text-xs font-medium text-center">
+                                    <a class="outline-none hover:no-underline" target="blank" href="https://www.linkedin.com/in/aimanidris/">Aiman Idris</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="flex justify-start items-center py-3 text-sm mt-1">
