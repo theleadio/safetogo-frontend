@@ -10,7 +10,7 @@
         <SearchMenu class="z-700"/>
         <Suggestions class="block z-600"/>
         <FilterCard class="block z-500" v-if="countryFilterCard"/>
-        <SummaryCard class="block z-500" v-if="keywordSuggestions.length === 0"/>
+        <SummaryCard class="block z-500" v-if="keywordSuggestions.length === 0 && summaryMarkers.length > 0"/>
     </div>
 </template>
 <script>
@@ -32,6 +32,7 @@ export default {
             searchWrapperBg : state => state.setting.searchWrapperBg,
             countryFilterCard : state => state.setting.countryFilterCard,
             keywordSuggestions : state => state.search.keywordSuggestions,
+            summaryMarkers : state => state.leafletmap.summaryMarkers
         })
     }
 }

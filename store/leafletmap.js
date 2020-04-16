@@ -248,5 +248,9 @@ export const mutations = {
                         state.borneoMarkers = tmpMarkers:state.caseMarkers = tmpMarkers
                         );
         }
+    },
+    resetMarkers(state){
+        state.caseMarkers = []
+        state.summaryMarkers = []
     }
 }

@@ -1,5 +1,6 @@
 export const COUNTRIES = [
     'Malaysia',
+    'Singapore'
 
 ]
 
@@ -21,11 +22,17 @@ export const DISTRICTS = {
         'Sabah',
         'Sarawak',
         'Labuan'
-    ]
+    ],
+    Singapore: []
 }
 
 export const DISTRICT_COORD = {
     Malaysia:{
+        Malaysia: {
+            lat:3.138686,
+            lng:101.684371,
+            zoom: 12
+        },
         Kuala_Lumpur: {
             lat:3.138686,
             lng:101.684371,
@@ -106,5 +113,12 @@ export const DISTRICT_COORD = {
             lng:115.221766,
             zoom: 12
         },
+    },
+    Singapore:{
+        Singapore:{
+            lat: 1.354957, 
+            lng: 103.830213,
+            zoom: 14
+        }
     }
 }

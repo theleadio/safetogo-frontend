@@ -42,7 +42,10 @@
                         <li v-for="country in countryList" :key="country" >
                             <a class="py-2 px-4 cursor-pointer text-xs block hover:bg-gray-200 hover:no-underline" 
                             href="#"
-                            @click="updateCountry(country); showCountryList = !showCountryList"
+                            @click="
+                                updateMapWithoutDistrict(country);
+                                updateCountry(country); 
+                                showCountryList = !showCountryList"
                             >{{country}}</a>
                         </li>
                     </ul>
@@ -66,6 +69,7 @@
                     'text-xs':true
                     }"
                     @click="showDistrictList = !showDistrictList"
+                    v-if="districtsList[this.countrySelected].length > 0"
                     >
                     <span>{{districtSelected}}</span>
                 </button>
@@ -114,12 +118,46 @@ export default {
                 selection["lat"], selection["lng"]
             ]);
             this.hideSearchWrapperBg();
-            this.updateFocusLevel(selection["zoom"]);
+            setTimeout(()=>{this.updateFocusLevel(selection["zoom"])},200)
             this.closeSearchSuggestion();
+        },
+        getCasesByCountry: async function(country){
+            await this.$api
+                    .location
+                    .getCases(country)
+                    .then(value =>{
+                        this.loadCaseMarkers(value);
+                    })
+                    .catch(err => console.error(err));
+        },
+        getSummaryByCountry: async function(country){
+            await this.$api.location.getSummaryV2(country)
+                        .then(value=>{
+                            this.loadSummaryMarkers(value);
+                        });
+        },
+        updateMapWithoutDistrict: function(country){
+            if (country !== this.countrySelected){
+                this.resetMarkers();
+                let selection = DISTRICT_COORD[country.replace(/ /g, "_")][country.replace(/ /g, "_")];
+
+                this.updateCenter([
+                    selection["lat"], selection["lng"]
+                ]);
+                this.hideSearchWrapperBg();
+                setTimeout(()=>{this.updateFocusLevel(selection["zoom"])},200)
+                this.closeSearchSuggestion();
+                this.getCasesByCountry(country);
+                this.getSummaryByCountry(country);
+                this.districtsList[country].length === 0? this.updateDistrict(country):this.updateDistrict(this.districtsList[country][0]);
+            }
         },
         ...mapMutations({
             updateCenter: "leafletmap/updateCenter",
             updateFocusLevel: "leafletmap/updateFocusLevel",
+            loadCaseMarkers: "leafletmap/loadCaseMarkers",
+            loadSummaryMarkers: "leafletmap/loadSummaryMarkers",
+            resetMarkers: "leafletmap/resetMarkers",
 
             hideSearchWrapperBg : "setting/hideSearchWrapperBg",
             hideFilterCard: "setting/hideFilterCard",
@@ -128,7 +166,7 @@ export default {
             openSearchSuggestion: "setting/openSearchSuggestion",
 
             updateCountry: "countryfilter/updateCountry",
-            updateDistrict: "countryfilter/updateDistrict",
+            updateDistrict: "countryfilter/updateDistrict"
             
         })
     }

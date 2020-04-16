@@ -96,7 +96,8 @@ export default {
             let districtSelected = this.$store.state.countryfilter.districtSelected;
             let summaryMarkers = this.$store.state.leafletmap.summaryMarkers;
             if( summaryMarkers.length > 0 ){
-                return summaryMarkers.find(obj => obj.district === districtSelected)
+                let obj = summaryMarkers.find(obj => obj.district === districtSelected)
+                return obj?obj : {confirmed:0, death:0}
             }else{
                 return {confirmed:0, death:0}
             }
