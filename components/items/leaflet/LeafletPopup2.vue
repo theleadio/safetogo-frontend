@@ -18,7 +18,7 @@
                 <div class="text-xs text-gray-700 text-right">
                     Info Pinned by:
                 </div>
-                <div class="text-sm text-indigo-700 overflow-x-scroll w-64 text-right px-1">
+                <div class="text-sm text-indigo-700 overflow-x-auto w-64 text-right px-1">
                     {{marker.createdBy ? marker.createdBy: "SafeToGo"}}
                 </div>
             </div>
